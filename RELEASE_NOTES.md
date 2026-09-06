@@ -12,6 +12,16 @@
 
 ## 简体中文
 
+## WinIslands 1.2.5（正式版 / Stable）
+
+一款现代化、多功能的 Windows 灵动岛组件。A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 播放媒体时隐藏剪贴板组件**：未展开时，歌词右侧不再显示复制图标与剪贴板历史数字，界面更干净清爽
+
+- **⚡ 60fps 动画全面优化**：音频波纹逐帧渲染频率提升至 60fps；展开/收起动画期间固定卡片内容宽度，避免每帧重复布局重排，所有动画更丝滑、更连贯
+
 ## WinIslands 1.2.4（正式版 / Stable）
 
 一款现代化、多功能的 Windows 灵动岛组件。A modern, multi-functional Dynamic Island widget for Windows.
@@ -436,6 +446,16 @@
 ---
 
 ## 繁體中文
+
+## WinIslands 1.2.5（正式版 / Stable）
+
+一款現代化、多功能的 Windows 動態島元件。A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 播放媒體時隱藏剪貼簿元件**：未展開時，歌詞右側不再顯示複製圖示與剪貼簿歷史數字，介面更乾淨清爽
+
+- **⚡ 60fps 動畫全面優化**：音訊波紋逐幀渲染頻率提升至 60fps；展開/收起動畫期間固定卡片內容寬度，避免每幀重複佈局重排，所有動畫更流暢、更連貫
 
 ## WinIslands 1.2.4（正式版 / Stable）
 
@@ -862,6 +882,16 @@
 
 ## English
 
+## WinIslands 1.2.5（正式版 / Stable）
+
+A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 Hide clipboard widget while media is playing**: When collapsed, the copy icon and clipboard history number no longer appear next to the lyrics — a cleaner, tidier island.
+
+- **⚡ Full 60fps animation optimization**: Audio waveform rendering was raised to 60fps; card content width is fixed during expand/collapse animations to avoid per-frame re-layout — all animations are smoother and more fluid.
+
 ## WinIslands 1.2.4（正式版 / Stable）
 
 A modern, multi-functional Dynamic Island widget for Windows.
@@ -1286,6 +1316,16 @@ A modern, multi-functional Dynamic Island widget for Windows.
 ---
 
 ## Español
+
+## WinIslands 1.2.5（正式版 / Stable）
+
+Una moderna y multifuncional Dynamic Island para Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 Ocultar el widget del portapapeles al reproducir medios**: Al contraerse, el icono de copiar y el número del historial del portapapeles ya no aparecen junto a la letra: una isla más limpia y ordenada.
+
+- **⚡ Optimización completa de animaciones a 60 fps**: El renderizado de la onda de audio sube a 60 fps; el ancho del contenido de la tarjeta se fija durante las animaciones de expandir/contraer para evitar reorganizaciones por fotograma: movimientos más suaves y fluidos.
 
 ## WinIslands 1.2.4（正式版 / Stable）
 
@@ -1712,6 +1752,16 @@ Un widget Dynamic Island moderno y multifuncional para Windows.
 
 ## Français
 
+## WinIslands 1.2.5（正式版 / Stable）
+
+Une Dynamic Island moderne et polyvalente pour Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 Masquer le widget presse-papiers pendant la lecture**: En mode réduit, l’icône de copie et le numéro de l’historique du presse-papiers n’apparaissent plus à côté des paroles — une île plus épurée.
+
+- **⚡ Optimisation complète des animations à 60 fps**: Le rendu de la forme d’onde audio passe à 60 fps ; la largeur du contenu de la carte est fixée pendant les animations d’expansion/réduction pour éviter les recalculs de mise en page à chaque image — des animations plus fluides et continues.
+
 ## WinIslands 1.2.4（正式版 / Stable）
 
 Une Dynamic Island moderne et polyvalente pour Windows. A modern, multi-functional Dynamic Island widget for Windows.
@@ -2136,6 +2186,16 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 ---
 
 ## العربية
+
+## WinIslands 1.2.5（正式版 / Stable）
+
+جزيرة ديناميكية حديثة ومتعددة الوظائف لنظام ويندوز. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 إخفاء أداة الحافظة أثناء تشغيل الوسائط**: عند التصغير، لم يعد رمز النسخ ورقم سجل الحافظة يظهران بجانب الكلمات — جزيرة أنظف وأكثر ترتيبًا.
+
+- **⚡ تحسين شامل للحركات إلى 60 إطارًا في الثانية**: تم رفع عرض موجة الصوت إلى 60 إطارًا في الثانية؛ ويتم تثبيت عرض محتوى البطاقة أثناء حركات التوسيع والطي لتجنب إعادة التخطيط في كل إطار — حركات أكثر سلاسة واتصالًا.
 
 ## WinIslands 1.2.4（正式版 / Stable）
 
@@ -2562,6 +2622,16 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 
 ## Русский
 
+## WinIslands 1.2.5（正式版 / Stable）
+
+Современный многофункциональный Dynamic Island для Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 Скрыть виджет буфера обмена при воспроизведении**: В свёрнутом виде значок копирования и номер из истории буфера обмена больше не отображаются рядом с текстом песни — остров стал чище и аккуратнее.
+
+- **⚡ Полная оптимизация анимаций до 60 FPS**: Отрисовка аудиоволны повышена до 60 FPS; ширина контента карточки фиксируется во время анимаций разворачивания/сворачивания, чтобы избежать повторной компоновки на каждом кадре — все анимации стали плавнее и непрерывнее.
+
 ## WinIslands 1.2.4（正式版 / Stable）
 
 Современный многофункциональный Dynamic Island для Windows. A modern, multi-functional Dynamic Island widget for Windows.
@@ -2986,6 +3056,16 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 ---
 
 ## Português
+
+## WinIslands 1.2.5（正式版 / Stable）
+
+Um Dynamic Island moderno e multifuncional para Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🧹 Ocultar o widget da área de transferência durante a reprodução**: Quando recolhido, o ícone de copiar e o número do histórico da área de transferência não aparecem mais ao lado da letra — uma ilha mais limpa e organizada.
+
+- **⚡ Otimização completa das animações a 60 FPS**: A renderização da onda de áudio sobe para 60 FPS; a largura do conteúdo do cartão é fixada durante as animações de expandir/recolher para evitar re-layout a cada quadro — animações mais suaves e fluidas.
 
 ## WinIslands 1.2.4（正式版 / Stable）
 

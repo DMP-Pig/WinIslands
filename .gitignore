@@ -20,3 +20,6 @@ releases/
 
 # Website (keep HTML out of the repo)
 website/
+
+# Tencent WeType logs written into the source tree
+src/WinIslands/Tencent/

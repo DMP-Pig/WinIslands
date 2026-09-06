@@ -848,7 +848,7 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
             else if (key == "VolumeTemp" && _settings.Current.VolumeTempIndicatorEnabled && !string.IsNullOrEmpty(VolumeTempText)) items.Add(I("VolumeTemp"));
             else if (key == "FileCopy" && _settings.Current.FileCopyNotifyEnabled && !string.IsNullOrEmpty(FileCopyText)) items.Add(I("FileCopy"));
             else if (key == "Download" && _settings.Current.DownloadProgressEnabled && !string.IsNullOrEmpty(DownloadText)) items.Add(I("Download"));
-            else if (key == "Clipboard" && ShowIdleClipboard && !string.IsNullOrEmpty(ClipboardSummary)) items.Add(I("Clipboard"));
+            else if (key == "Clipboard" && !HasMedia && ShowIdleClipboard && !string.IsNullOrEmpty(ClipboardSummary)) items.Add(I("Clipboard"));
             else if (key == "Todo" && ShowIdleTodo && !string.IsNullOrEmpty(TodoSummary)) items.Add(I("Todo"));
             else if (key == "Timer" && ShowIdleTimer && !string.IsNullOrEmpty(TimerText)) items.Add(I("Timer"));
             else if (key == "Schedule" && ShowIdleSchedule && !string.IsNullOrEmpty(ScheduleSummary)) items.Add(I("Schedule"));

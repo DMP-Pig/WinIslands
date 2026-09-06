@@ -1061,6 +1061,8 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         PillRow.Margin = _settings.Current.CompactWidthAuto
             ? new Thickness(8, 0, 0, 0)
             : new Thickness(0);
+        // 60fps 优化：紧凑行固定为紧凑内容宽度，展开/收起动画期间不随 Card 宽度变化逐帧重排
+        PillRow.Width = Math.Max(80, CompactWidth - 20);
     }
 
     /// <summary>应用外观参数：圆角 / 字体 / 字号缩放。字号缩放作用于整张卡片（LayoutTransform），
@@ -1365,7 +1367,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             if (wantTimer)
             {
                 _waveRendering = true;
-                _waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };
+                _waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };     // 60fps（1.2.5 性能优化）
                 _waveTimer.Tick += (_, _) => OnWaveFrame(null, EventArgs.Empty);
                 _waveTimer.Start();
             }
@@ -1814,7 +1816,9 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         // 先测量展开内容自然高度（ScrollViewer 内容总高），得到卡片目标高度
         ExpandedContent.Opacity = 0;
         ExpandedContent.Visibility = Visibility.Visible;
-        ExpandedContent.Measure(new System.Windows.Size(ExpandedWidth - 24, double.PositiveInfinity));
+        // 60fps 优化：展开内容固定目标宽度，展开动画期间不随卡片宽度逐帧重排（内容只布局一次）
+        ExpandedContent.Width = Math.Max(120, ExpandedWidth - 20);
+        ExpandedContent.Measure(new System.Windows.Size(ExpandedContent.Width, double.PositiveInfinity));
         var contentH = ExpandedContent.DesiredSize.Height;
         var targetHeight = Math.Clamp(contentH + 24, 200, MaxExpandedHeight);
 
@@ -1843,6 +1847,8 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         // 展开内容保持可见以播放「自下而上」的交错淡出动画，动画结束后由 AnimateCard 回调隐藏
         ExpandedContent.Visibility = Visibility.Visible;
         ExpandedContent.Opacity = 1;
+        // 60fps 优化：收起动画期间展开内容固定宽度，不随卡片宽度逐帧重排
+        ExpandedContent.Width = Math.Max(120, CompactWidth - 20);
 
         AnimateCard(CompactWidth, CompactHeight, expand: false,
             onCompleted: () => { Card.Width = CompactWidth; Card.Height = CompactHeight; });
@@ -1944,6 +1950,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
                     PillRow.Visibility = Visibility.Collapsed;
                     PillRow.Opacity = 0;
                     ExpandedContent.Opacity = 1;
+                    ExpandedContent.Width = double.NaN; // 恢复自适应布局
                 }
                 else
                 {
@@ -1951,6 +1958,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
                     PillRow.Opacity = 1;
                     ExpandedContent.Visibility = Visibility.Collapsed;
                     ExpandedContent.Opacity = 0;
+                    ExpandedContent.Width = double.NaN; // 恢复自适应布局
                 }
                 onCompleted?.Invoke();
             }
@@ -2270,4 +2278,3 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         }
     }
 }
-
