@@ -469,6 +469,7 @@ public partial class SettingsWindow : Window
         CbiMcNone.Content = Localization.Get("DoubleClick_None");
         ChkReduceMotion.Content = Localization.Get("General_ReduceMotion");
         ChkLowPower.Content = Localization.Get("General_LowPower");
+        ChkMinimalSleep.Content = Localization.Get("General_MinimalSleep");
         ChkShowLunar.Content = Localization.Get("General_ShowLunar");
         ChkGlobalHotkeys.Content = Localization.Get("General_GlobalHotkeys");
         TxtHotkeysHint.Text = Localization.Get("General_HotkeysHint");
@@ -541,6 +542,7 @@ public partial class SettingsWindow : Window
         LblThemeTint.Text = Localization.Get("Appearance_ThemeTint");
         TxtThemeTintNote.Text = Localization.Get("Appearance_ThemeTintNote");
         LblAnimationStyle.Text = Localization.Get("Appearance_AnimStyle");
+        LblPushAnimStyle.Text = Localization.Get("Appearance_PushAnimStyle");
         LblAnimDuration.Text = Localization.Get("Appearance_AnimDuration");
         TxtAnimDurationHint.Text = Localization.Get("Appearance_AnimDurationHint");
         LblFontFamily.Text = Localization.Get("Appearance_FontFamily");
@@ -618,6 +620,7 @@ public partial class SettingsWindow : Window
 
         LblProdClipboard.Text = Localization.Get("Prod_Clipboard");
         ChkClipboardEnabled.Content = Localization.Get("Prod_ClipboardEnabled");
+        ChkClipboardImage.Content = Localization.Get("Prod_ClipboardImage");
         LblClipboardMax.Text = Localization.Get("Prod_ClipboardMax");
         TxtClipboardNote.Text = Localization.Get("Prod_ClipboardNote");
         ChkCopyToast.Content = Localization.Get("Clipboard_Toast");

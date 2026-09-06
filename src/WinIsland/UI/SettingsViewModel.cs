@@ -234,7 +234,15 @@ public sealed class SettingsViewModel : ObservableObject
             new EnumOption<string>("Amll", Localization.Get("Lyrics_SrcAmll")),
             new EnumOption<string>("Cider", Localization.Get("Lyrics_SrcCider")),
             new EnumOption<string>("Online", Localization.Get("Lyrics_SrcOnline")),
-        };        AnimationStyleOptions = new[]
+        };
+        PushAnimationStyleOptions = new[]
+        {
+            new EnumOption<string>("Spring", Localization.Get("Appearance_PushAnimSpring")),
+            new EnumOption<string>("Fade", Localization.Get("Appearance_PushAnimFade")),
+            new EnumOption<string>("Slide", Localization.Get("Appearance_PushAnimSlide")),
+            new EnumOption<string>("Scale", Localization.Get("Appearance_PushAnimScale")),
+        };
+        AnimationStyleOptions = new[]
         {
             new EnumOption<string>("Spring", Localization.Get("Appearance_AnimSpring")),
             new EnumOption<string>("Soft", Localization.Get("Appearance_AnimSoft")),
@@ -310,6 +318,7 @@ public sealed class SettingsViewModel : ObservableObject
     public IReadOnlyList<EnumOption<MonitorSelection>> MonitorOptions { get; }
     public IReadOnlyList<EnumOption<string>> ThemePresetOptions { get; } = Array.Empty<EnumOption<string>>();
     public IReadOnlyList<EnumOption<string>> AnimationStyleOptions { get; } = Array.Empty<EnumOption<string>>();
+    public IReadOnlyList<EnumOption<string>> PushAnimationStyleOptions { get; } = Array.Empty<EnumOption<string>>();
     public IReadOnlyList<EnumOption<string>> LyricsSourceOptions { get; } = Array.Empty<EnumOption<string>>();
     public IReadOnlyList<EnumOption<string>> WaveStyleOptions { get; } = Array.Empty<EnumOption<string>>();
     public IReadOnlyList<string> PresetColors { get; }

@@ -4,6 +4,8 @@ using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Windows;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
 namespace WinIsland.Services;
@@ -25,6 +27,9 @@ public sealed class ClipboardHistoryService : IDisposable
     private readonly DispatcherTimer _timer;
     private readonly List<ClipboardEntry> _entries = new();
     private string _last = string.Empty;
+    private string? _lastImagePath;   // 最近一次检测到的剪贴板图片路径（启动基线后为非空）
+    private DateTime _lastImageSavedUtc; // 上次保存图片时间（用于 2.5 秒内同尺寸图片去重）
+    private int _lastImageW, _lastImageH; // 上次图片尺寸（去重用）
     private bool _enabled;    // 是否记录剪贴板历史
     private bool _polling;     // 独立轮询开关（复制提示不需要历史记录也能检测复制）
 
@@ -52,6 +57,9 @@ public sealed class ClipboardHistoryService : IDisposable
 
     /// <summary>检测到新复制的文本（无论是否记录历史都会触发，供「已复制/验证码/复制进度」提示使用）。</summary>
     public event Action<ClipboardEntry>? EntryAdded;
+
+    /// <summary>检测到新复制的图片：参数为已保存到本机临时目录的 PNG 路径（供「复制图片上岛」使用）。</summary>
+    public event Action<string>? ImageCopied;
 
     /// <summary>保留条数上限（由设置同步，默认 15）。</summary>
     public int MaxEntries { get; set; } = 15;
@@ -87,6 +95,18 @@ public sealed class ClipboardHistoryService : IDisposable
             var text = System.Windows.Clipboard.ContainsText() ? (System.Windows.Clipboard.GetText() ?? string.Empty) : string.Empty;
             var baseline = ComputeBaseline(_last, text);
             if (baseline is not null) _last = baseline;
+            // 图片基线：启动/开启轮询时剪贴板已存在的图片视为已知，避免误触发上岛
+            if (string.IsNullOrEmpty(_lastImagePath) && System.Windows.Clipboard.ContainsImage())
+            {
+                var img = System.Windows.Clipboard.GetImage();
+                if (img is not null)
+                {
+                    _lastImagePath = "baseline";
+                    _lastImageW = img.PixelWidth;
+                    _lastImageH = img.PixelHeight;
+                    _lastImageSavedUtc = DateTime.UtcNow;
+                }
+            }
         }
         catch
         {
@@ -138,6 +158,13 @@ public sealed class ClipboardHistoryService : IDisposable
         if (!_enabled && !_polling) return;
         try
         {
+            // 图片复制：剪贴板非文本时检测图片（复制图片上岛）
+            if (!System.Windows.Clipboard.ContainsText())
+            {
+                var imgPath = PollImage();
+                if (imgPath is not null) ImageCopied?.Invoke(imgPath);
+                return;
+            }
             if (!System.Windows.Clipboard.ContainsText()) return;
             var text = System.Windows.Clipboard.GetText();
             if (string.IsNullOrWhiteSpace(text) || text.Length > 20000) return;
@@ -161,6 +188,42 @@ public sealed class ClipboardHistoryService : IDisposable
         catch (Exception ex)
         {
             AppLogger.Debug($"Clipboard poll: {ex.Message}");
+        }
+    }
+
+    /// <summary>把剪贴板图片保存为本地 PNG（%TEMP%\WinIsland\clipboard\clipboard-image.png），
+    /// 2.5 秒内同尺寸视为同一张（避免轮询重复触发）；返回路径，重复时返回 null。</summary>
+    private string? PollImage()
+    {
+        try
+        {
+            var img = System.Windows.Clipboard.GetImage();
+            if (img is null) return null;
+            var w = img.PixelWidth;
+            var h = img.PixelHeight;
+            var now = DateTime.UtcNow;
+            if (!string.IsNullOrEmpty(_lastImagePath)
+                && (now - _lastImageSavedUtc).TotalSeconds < 2.5
+                && _lastImageW == w && _lastImageH == h) return null;
+            var dir = Path.Combine(Path.GetTempPath(), "WinIsland", "clipboard");
+            Directory.CreateDirectory(dir);
+            var path = Path.Combine(dir, "clipboard-image.png");
+            var encoder = new PngBitmapEncoder();
+            encoder.Frames.Add(BitmapFrame.Create(img));
+            using (var fs = File.Create(path))
+            {
+                encoder.Save(fs);
+            }
+            _lastImagePath = path;
+            _lastImageSavedUtc = now;
+            _lastImageW = w;
+            _lastImageH = h;
+            return path;
+        }
+        catch (Exception ex)
+        {
+            AppLogger.Debug($"Clipboard image poll: {ex.Message}");
+            return null;
         }
     }
 

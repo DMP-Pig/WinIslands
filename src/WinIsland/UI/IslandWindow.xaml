@@ -207,7 +207,10 @@
                             MaxWidth="520"
                             Padding="12,7" Margin="0,0,10,0" VerticalAlignment="Center">
                         <Border.RenderTransform>
-                            <ScaleTransform x:Name="CompactPushScale" ScaleX="0.94" ScaleY="0.94"/>
+                            <TransformGroup>
+                                <ScaleTransform x:Name="CompactPushScale" ScaleX="0.94" ScaleY="0.94"/>
+                                <TranslateTransform x:Name="CompactPushTranslate" X="0" Y="0"/>
+                            </TransformGroup>
                         </Border.RenderTransform>
                         <!-- 单行：图标 + 标题 + 摘要（副标题优先，其次正文），过长省略；不撑宽、不撑高灵动岛 -->
                         <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
@@ -452,7 +455,7 @@
                                     <TextBlock Text="{Binding Icon}" FontFamily="{Binding Icon, Converter={StaticResource GlyphFont}}" FontSize="10" VerticalAlignment="Center" Margin="0,0,6,0"
                                                Foreground="{Binding TextSecondary, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue=Gray}"/>
                                     <ProgressBar Width="58" Height="4" Maximum="1" VerticalAlignment="Center" Margin="0,0,6,0"
-                                                 Value="{Binding DataContext.VolumeTempPercent, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
+                                                 Value="{Binding DataContext.VolumeTempPercent, Mode=OneWay, RelativeSource={RelativeSource AncestorType=ItemsControl}}">
                                         <ProgressBar.Template>
                                             <ControlTemplate TargetType="ProgressBar">
                                                 <Grid>
@@ -750,9 +753,14 @@
                     </ItemsControl>
                     </StackPanel>
 
-                    <!-- 按钮靠右 -->
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0,0,0"
-                                Visibility="{Binding HasMedia, Converter={StaticResource BoolToVis}}">
+                    <!-- 按钮靠右（勿扰月牙不依赖媒体，始终可显示；媒体按钮仅在播放时显示） -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0,0,0">
+                        <!-- 勿扰模式指示：角落月牙图标，点击一键关闭勿扰 -->
+                        <Button Style="{StaticResource IconButton}" Click="DndBadge_Click"
+                                ToolTip="{Binding DndBadgeTip, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue=勿扰模式：点击关闭}"
+                                Visibility="{Binding IsDndActive, Converter={StaticResource BoolToVis}}" Margin="0,0,4,0">
+                            <TextBlock Text="&#xE9D5;" FontFamily="Segoe MDL2 Assets" FontSize="13"/>
+                        </Button>
                         <!-- 声音波纹：随音量起伏（紧凑行） -->
                                                 <StackPanel x:Name="WaveBoxCompact" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,8,0"
                                     Visibility="{Binding HasWave, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVis}}">
@@ -797,10 +805,12 @@
                             <Grid x:Name="WaveRingHostCompact" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,6,0" Visibility="Collapsed"/>
                             <Grid x:Name="WaveParticlesHostCompact" Width="18" Height="18" VerticalAlignment="Center" Margin="0,0,6,0" Visibility="Collapsed"/>
                         </StackPanel>
-                        <Button Style="{StaticResource IconButton}" Command="{Binding PlayPauseCommand}">
+                        <Button Style="{StaticResource IconButton}" Command="{Binding PlayPauseCommand}"
+                                Visibility="{Binding HasMedia, Converter={StaticResource BoolToVis}}">
                             <TextBlock Text="{Binding PlayPauseGlyph}" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
                         </Button>
-                        <Button Style="{StaticResource IconButton}" Command="{Binding NextCommand}">
+                        <Button Style="{StaticResource IconButton}" Command="{Binding NextCommand}"
+                                Visibility="{Binding HasMedia, Converter={StaticResource BoolToVis}}">
                             <TextBlock Text="&#xE893;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
                         </Button>
                     </StackPanel>
@@ -1040,9 +1050,20 @@
                                 <TextBlock Text="&#xE893;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
                             </Button>
                         </StackPanel>
-                        <!-- 音量 -->
+                        <!-- 音量 + 音频输出设备切换（点击循环切换默认输出设备） -->
                         <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center"
                                     Visibility="{Binding HasVolumeControl, Converter={StaticResource BoolToVis}}">
+                            <Button Style="{StaticResource IconButton}" Padding="8,4" Margin="0,0,8,0"
+                                    Click="AudioDeviceCycle_Click"
+                                    ToolTip="{Binding AudioDeviceTip, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue=切换音频输出设备}">
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="&#xE8D6;" FontFamily="Segoe MDL2 Assets" FontSize="11" VerticalAlignment="Center"
+                                               Foreground="{Binding TextPrimary, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue=White}"/>
+                                    <TextBlock x:Name="AudioDeviceNameText" Text="" FontSize="10.5" Margin="5,0,0,0"
+                                               VerticalAlignment="Center" MaxWidth="130" TextTrimming="CharacterEllipsis"
+                                               Foreground="{Binding TextPrimary, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue=White}"/>
+                                </StackPanel>
+                            </Button>
                             <Slider x:Name="VolumeSlider" Style="{StaticResource ThinSlider}" Width="90" Minimum="0" Maximum="1"
                                     Value="{Binding Volume, Mode=TwoWay}"/>
                         </StackPanel>
@@ -1213,6 +1234,16 @@
                     </StackPanel>
                 </ScrollViewer>
                 </Grid>
+
+                <!-- 极简休眠小圆点：无媒体/无通知/无活跃组件时卡片收缩为小圆点贴顶，鼠标移过自动恢复（默认关闭） -->
+                <Border x:Name="MinimalSleepDot" Width="14" Height="14" CornerRadius="7"
+                        HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Background="{Binding TextPrimary, RelativeSource={RelativeSource AncestorType=Window}, FallbackValue=White}"
+                        Visibility="{Binding MinimalSleepActive, Converter={StaticResource BoolToVis}}">
+                    <Border.RenderTransform>
+                        <ScaleTransform x:Name="MinimalSleepDotScale" ScaleX="1" ScaleY="1"/>
+                    </Border.RenderTransform>
+                </Border>
             </Grid>
         </Border>
     </Grid>
