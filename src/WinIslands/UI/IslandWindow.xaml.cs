@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.IO;
 using System.ComponentModel;
@@ -299,15 +299,9 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         }
         InitWaveVisualStyles();
 
-        // 悬停不展开；极简休眠（1.2.4）：鼠标移到岛（圆点）上立即唤醒，移出后若无真实内容回到圆点
-        Card.MouseEnter += (_, _) =>
-        {
-            _collapseTimer.Stop();
-            if (_vm.MinimalSleepActive) _vm.WakeFromMinimalSleep();
-        };
+        // 悬停不展开；移出时若已展开则延迟收起
         Card.MouseLeave += (_, _) =>
         {
-            _vm.BackToMinimalSleep();
             if (_vm.IsExpanded) _collapseTimer.Start();
         };
 
@@ -530,10 +524,6 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
     public bool SingleLineMode => _settings.Current.SingleLineMode;
     /// <summary>跑马灯开关（歌名/歌词超宽时横向滚动）。</summary>
     public bool MarqueeEnabled => _settings.Current.MarqueeTextEnabled;
-    /// <summary>勿扰月牙按钮提示（点击一键关闭勿扰，语言随界面切换）。</summary>
-    public string DndBadgeTip => Localization.Get("Island_DndBadgeTip");
-    /// <summary>音频输出设备切换按钮提示（点击循环切换默认输出）。</summary>
-    public string AudioDeviceTip => Localization.Get("Island_AudioDeviceTip");
     // 声音波纹：播放中 + 开启波纹设置 + 岛可见才显示（空闲时停止计时器）
     public bool HasWave => _vm.IsVisible && _vm.HasMedia && _vm.IsPlaying && _settings.Current.WaveVisualizerEnabled;
 
@@ -872,43 +862,6 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         e.Handled = true;
     }
 
-    /// <summary>勿扰指示（月牙）点击：一键关闭当前生效的勿扰——手动开关直接复位；
-    /// 若为时段勿扰则在时段内关闭总开关（用户可自行重开，见 1.2.4 功能 3）。</summary>
-    private void DndBadge_Click(object sender, RoutedEventArgs e)
-    {
-        _settings.Update(s =>
-        {
-            if (s.DoNotDisturbManual) s.DoNotDisturbManual = false;
-            else if (s.DoNotDisturbEnabled) s.DoNotDisturbEnabled = false;
-        });
-        _vm.CheckDndState();
-        e.Handled = true;
-    }
-
-    /// <summary>快速切换音频输出设备（1.2.4 功能 4）：点击循环切换到下一个系统默认输出，
-    /// 并在岛上短暂提示。切换为系统级设置，已打开的播放器需重启后生效。</summary>
-    private void AudioDeviceCycle_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var devices = SystemVolume.GetDevices();
-            if (devices.Count == 0) return;
-            var idx = devices.FindIndex(d => d.IsDefault);
-            if (idx < 0) idx = -1;
-            var next = devices[(idx + 1) % devices.Count];
-            if (!SystemVolume.SetDefaultDevice(next.Id)) return;
-            AudioDeviceNameText.Text = next.Name;
-            _vm.ShowEventCard("audio:device", Localization.Get("Media_AudioOutput"),
-                string.Format(Localization.Get("Media_AudioOutputSwitched"), next.Name),
-                "\uE8D6", "info", 4);
-        }
-        catch (Exception ex)
-        {
-            AppLogger.Warn($"AudioDeviceCycle_Click failed: {ex.Message}");
-        }
-        e.Handled = true;
-    }
-
     private void MenuOnlineLyrics_Click(object sender, RoutedEventArgs e)
     {
         _settings.Update(s => s.OnlineLyricsEnabled = !s.OnlineLyricsEnabled);
@@ -950,31 +903,6 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         Reposition();
         if (_vm.IsVisible) ShowIsland(instant: true);
         else Hide();
-        RefreshAudioDeviceName(); // 启动时显示当前默认音频输出设备名（后台线程枚举，不阻塞首帧）
-    }
-
-    /// <summary>刷新音频输出设备显示名：后台线程枚举设备以避开可能的 COM 耗时，结果回 UI 线程写入。</summary>
-    private void RefreshAudioDeviceName()
-    {
-        try
-        {
-            _ = System.Threading.Tasks.Task.Run(() =>
-            {
-                var devices = SystemVolume.GetDevices();
-                var def = devices.Find(d => d.IsDefault);
-                if (def is not null)
-                {
-                    Dispatcher.BeginInvoke(() =>
-                    {
-                        if (AudioDeviceNameText is not null) AudioDeviceNameText.Text = def.Name;
-                    });
-                }
-            });
-        }
-        catch (Exception ex)
-        {
-            AppLogger.Warn($"RefreshAudioDeviceName failed: {ex.Message}");
-        }
     }
 
     /// <summary>刷新玻璃分层底色为当前主题底色（冻结缓存，避免每帧重建）。</summary>
@@ -1203,8 +1131,6 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotificationHistoryVisible)));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotificationHistoryTitle)));
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(NotificationHistoryClearText)));
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(DndBadgeTip)));
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(AudioDeviceTip)));
     }
 
     private void NotificationHistory_Click(object sender, RoutedEventArgs e)
@@ -1243,80 +1169,12 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         sb.Begin();
     }
 
-    /// <summary>极简休眠（1.2.4 功能 2，默认关闭）：无媒体/无通知/无活跃组件时卡片收缩为 28px 小圆点贴顶；
-    /// 唤醒（鼠标移过/新内容出现）后恢复紧凑尺寸。宽度/高度/圆角同步弹簧过渡，丝滑不生硬。</summary>
-    private void AnimateMinimalSleep()
-    {
-        if (!IsLoaded) return;
-        _currentStoryboard?.Stop();
-        var targetW = _vm.MinimalSleepActive ? 28 : CompactWidth;
-        var targetH = _vm.MinimalSleepActive ? 28 : CompactHeight;
-        var targetCr = _vm.MinimalSleepActive
-            ? new CornerRadius(14)
-            : new CornerRadius(Math.Clamp(_settings.Current.CornerRadius, 16, 40));
-        // 减少动态效果：瞬时切换，不播放动画
-        if (_settings.Current.ReduceMotion)
-        {
-            Card.BeginAnimation(FrameworkElement.WidthProperty, null);
-            Card.BeginAnimation(FrameworkElement.HeightProperty, null);
-            Card.BeginAnimation(Border.CornerRadiusProperty, null);
-            Card.Width = targetW;
-            Card.Height = targetH;
-            Card.CornerRadius = targetCr;
-            return;
-        }
-        Card.BeginAnimation(FrameworkElement.WidthProperty, null);
-        Card.BeginAnimation(FrameworkElement.HeightProperty, null);
-        Card.BeginAnimation(Border.CornerRadiusProperty, null);
-        var (styleEase, styleMs) = GetSizeAnimationStyle(expand: !_vm.MinimalSleepActive);
-        var lm = _settings.Current.LowPowerMode ? 0.6 : 1.0;
-        var dur = (int)(Math.Clamp(styleMs * 0.72, 240, 620) * lm);
-        var sb = new Storyboard();
-        AddAnim(sb, Card, FrameworkElement.WidthProperty, targetW, dur, styleEase);
-        AddAnim(sb, Card, FrameworkElement.HeightProperty, targetH, dur, styleEase);
-        var crAnim = new CornerRadiusAnimation(targetCr, TimeSpan.FromMilliseconds(dur))
-        {
-            EasingFunction = styleEase,
-        };
-        Storyboard.SetTarget(crAnim, Card);
-        Storyboard.SetTargetProperty(crAnim, new PropertyPath(Border.CornerRadiusProperty));
-        sb.Children.Add(crAnim);
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
-        sb.Begin();
-    }
-
-    /// <summary>第三方应用上岛：按设置的上岛动画类型播放（Spring 弹簧缩放 / Fade 纯淡入 / Slide 右滑入 / Scale 整体缩放），
-    /// 全部 60fps 非线性缓动，连贯不生硬（1.2.4 功能 6）。</summary>
+    /// <summary>第三方应用上岛：推送卡片淡入 + 轻微缩放的丝滑动画。</summary>
     private void PlayPushCardAnimation()
     {
         if (!IsLoaded || CompactPushCard is null || !_vm.HasActivePush) return;
-        var style = string.IsNullOrEmpty(_settings.Current.PushAnimationStyle) ? "Spring" : _settings.Current.PushAnimationStyle;
-        // 重置上一轮动画残留（透明度/缩放/位移），保证每次推送从统一起点开始，快速连续推送不叠加
-        CompactPushCard.BeginAnimation(UIElement.OpacityProperty, null);
-        CompactPushScale.BeginAnimation(ScaleTransform.ScaleXProperty, null);
-        CompactPushScale.BeginAnimation(ScaleTransform.ScaleYProperty, null);
-        CompactPushTranslate.BeginAnimation(TranslateTransform.XProperty, null);
-        CompactPushTranslate.BeginAnimation(TranslateTransform.YProperty, null);
         CompactPushCard.Opacity = 0;
-        switch (style)
-        {
-            case "Fade":   // 纯淡入：无缩放无位移，最克制
-                CompactPushScale.ScaleX = CompactPushScale.ScaleY = 1;
-                CompactPushTranslate.X = 0;
-                break;
-            case "Slide":  // 右侧滑入：轻微横向位移 + 淡入
-                CompactPushScale.ScaleX = CompactPushScale.ScaleY = 1;
-                CompactPushTranslate.X = 12;
-                break;
-            case "Scale":  // 整体缩放：0.9 -> 1 + 淡入
-                CompactPushScale.ScaleX = CompactPushScale.ScaleY = 0.9;
-                CompactPushTranslate.X = 0;
-                break;
-            default:       // Spring（默认）：0.94 -> 1 弹簧回弹 + 淡入
-                CompactPushScale.ScaleX = CompactPushScale.ScaleY = 0.94;
-                CompactPushTranslate.X = 0;
-                break;
-        }
+        CompactPushScale.ScaleX = CompactPushScale.ScaleY = 0.94;
         var sb = new Storyboard();
         var (styleEase, styleMs) = GetSizeAnimationStyle(expand: true);
         var smooth = new CubicEase { EasingMode = EasingMode.EaseOut };
@@ -1325,8 +1183,6 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         AddAnim(sb, CompactPushCard, UIElement.OpacityProperty, 1, (int)(220 * lm), smooth);
         AddAnim(sb, CompactPushScale, ScaleTransform.ScaleXProperty, 1, scaleDur, styleEase);
         AddAnim(sb, CompactPushScale, ScaleTransform.ScaleYProperty, 1, scaleDur, styleEase);
-        if (style == "Slide")
-            AddAnim(sb, CompactPushTranslate, TranslateTransform.XProperty, 0, scaleDur, styleEase);
         Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
         sb.Begin();
     }
@@ -1403,13 +1259,9 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             case nameof(IslandViewModel.HasActivePush):
                 ApplySize();           // 确保窗口足够大（首次）
                 AnimateCompactSize();  // 尺寸变化：弹簧动画，丝滑
-                PlayPushCardAnimation(); // 上岛卡片：按类型播放入场动画
+                PlayPushCardAnimation(); // 上岛卡片：淡入 + 缩放动画
                 ApplyExpandedSectionVisibility();
                 RaisePushThemeProps();
-                break;
-            case nameof(IslandViewModel.MinimalSleepActive):
-                // 极简休眠（1.2.4）：进入收缩为小圆点，退出恢复紧凑尺寸，弹簧过渡
-                AnimateMinimalSleep();
                 break;
             case nameof(IslandViewModel.HasMedia):
                 ApplyExpandedSectionVisibility();

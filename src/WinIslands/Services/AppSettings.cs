@@ -103,7 +103,6 @@ public sealed class AppSettings
     public bool IsLocked { get; set; } = true;   // 上锁后不可拖动，解锁后可拖动
     public bool HideWhenNoMedia { get; set; } = true;
     public bool IslandAlwaysVisible { get; set; } = false;   // 常驻：始终显示（无视媒体/暂停）
-    public bool MinimalSleepEnabled { get; set; } = false;  // 极简休眠（默认关）：无媒体/无通知/无活跃组件时收缩为小圆点贴顶，鼠标移过恢复
     public bool ShowMediaInfo { get; set; } = true;              // 是否显示媒体播放信息（歌名/封面/歌词等）
     public bool ReduceMotion { get; set; } = false;             // 减少动态效果（无障碍/省电）
     public bool GlobalHotkeysEnabled { get; set; } = true;         // 全局快捷键
@@ -123,7 +122,6 @@ public sealed class AppSettings
     public List<string> CallNotifyApps { get; set; } = new() { "Weixin", "WeChat", "QQ" };
     // -- 动效与性能（33 动效皮肤 / 37 低功耗模式）--
     public string AnimationStyle { get; set; } = "Spring";   // Spring | Soft | Elastic | Fade（动效皮肤）
-    public string PushAnimationStyle { get; set; } = "Spring"; // 上岛动画类型：Spring | Fade | Slide | Scale（每种组件可分别设置）
     public int IslandAnimationDuration { get; set; } = 700;  // 展开/收起动画时长（毫秒，300~1400，越大越丝滑）
     public bool LowPowerMode { get; set; } = false;          // 低功耗模式：空闲降帧渲染波纹、简化动画
 
@@ -299,7 +297,6 @@ public sealed class AppSettings
 
     // ── 效率工具 ──
     public bool ClipboardHistoryEnabled { get; set; } = false;  // 剪贴板历史（默认关，随需开启）
-    public bool ClipboardImageEnabled { get; set; } = true;   // 复制图片时上岛显示缩略图（可拖出保存）
     public int ClipboardHistoryMax { get; set; } = 15;
     public bool CopyToastEnabled { get; set; } = true;       // 复制文本时提示「已复制」
     public bool CodeToastEnabled { get; set; } = true;       // 识别短信验证码并高亮提示

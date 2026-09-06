@@ -35,9 +35,6 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
     private bool _expanded;
     private bool _visible;
     private bool _userHidden;
-    private bool _minimalSleep;      // 极简休眠中：岛上只保留小圆点贴顶，鼠标移过恢复
-    private bool _minimalSleepWake;   // 极简休眠悬停唤醒标记：为 true 时即使无内容也保持显示，移出后回到圆点
-    private bool _dndActive;         // 勿扰模式激活中（显示月牙图标）
     private bool _suppressVolume;
     private int _suppressSeek;
     private string _lyricsKey = string.Empty;
@@ -153,7 +150,6 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
             ClockText = DateTime.Now.ToString("HH:mm");
             DateText = FormatDateText(DateTime.Now);
             CheckPushExpiry();
-            CheckDndState();
             if (_activePush is not null) OnPropertyChanged(nameof(ActivePushProgress)); // v3 动态进度按秒推进
             UpdateSystemStats();
             UpdateCapsLockCountdown();
@@ -1408,21 +1404,6 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
                 try { return new BitmapImage(new Uri(img, UriKind.Absolute)); }
                 catch { return null; }
             }
-            // 本地文件路径图片（如剪贴板图片上岛、第三方推送携带本地图片路径）
-            if (File.Exists(img))
-            {
-                try
-                {
-                    var bmp = new BitmapImage();
-                    bmp.BeginInit();
-                    bmp.CacheOption = BitmapCacheOption.OnLoad;
-                    bmp.UriSource = new Uri(img, UriKind.Absolute);
-                    bmp.EndInit();
-                    bmp.Freeze();
-                    return bmp;
-                }
-                catch { return null; }
-            }
             return null;
         }
     }
@@ -1660,7 +1641,7 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
     /// 复用上岛推送队列：同 id 覆盖；到点后由 CheckPushExpiry 自动回收。
     /// </summary>
     public void ShowEventCard(string id, string title, string? subtitle, string icon,
-        string type = "info", int durationSeconds = 5, string? body = null, string? image = null)
+        string type = "info", int durationSeconds = 5, string? body = null)
     {
         // 勿扰模式：灵动岛事件卡片不展示（白名单仍展示由上层决定，这里只做总开关）
         if (DoNotDisturb.IsActive(_settings.Current)) return;
@@ -1698,7 +1679,6 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
             Priority = "high", // 系统事件优先于普通第三方推送展示
             DurationSeconds = dur,
             ExpiresAt = DateTime.UtcNow.AddSeconds(dur),
-            Image = image ?? string.Empty,
         });
     }
 
@@ -2026,44 +2006,6 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
     {
         get => _visible;
         set => Set(ref _visible, value);
-    }
-
-    /// <summary>极简休眠中：岛上只保留小圆点（无任何内容），鼠标移过自动恢复。</summary>
-    public bool MinimalSleepActive
-    {
-        get => _minimalSleep;
-        set => Set(ref _minimalSleep, value);
-    }
-
-    /// <summary>极简休眠悬停唤醒：鼠标移过圆点后短暂恢复显示（无真实内容时；有媒体/通知等时自然保持）。</summary>
-    public void WakeFromMinimalSleep()
-    {
-        if (!_settings.Current.MinimalSleepEnabled || _userHidden || FullScreenHidden || LockScreenHidden) return;
-        if (!MinimalSleepActive) return;
-        _minimalSleepWake = true;
-        UpdateVisibility();
-    }
-
-    /// <summary>极简休眠收回：鼠标移出后若无真实内容则回到小圆点形态。</summary>
-    public void BackToMinimalSleep()
-    {
-        if (!_settings.Current.MinimalSleepEnabled) return;
-        _minimalSleepWake = false;
-        UpdateVisibility();
-    }
-
-    /// <summary>勿扰模式激活中：角落显示月牙图标，点击可一键关闭勿扰。</summary>
-    public bool IsDndActive
-    {
-        get => _dndActive;
-        set => Set(ref _dndActive, value);
-    }
-
-    /// <summary>轮询勿扰开关状态（定时检测，状态变化时通知 UI 更新月牙图标）。</summary>
-    public void CheckDndState()
-    {
-        var active = DoNotDisturb.IsActive(_settings.Current);
-        if (active != _dndActive) IsDndActive = active;
     }
 
     // Used by XAML to collapse expanded-only sections without a converter.
@@ -2499,21 +2441,6 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
         // 常驻时不因暂停而隐藏
         if (!alwaysVisible && hasMedia && Status == PlaybackStatus.Paused && !_settings.Current.ShowWhenPaused)
             show = false;
-
-        // 极简休眠（设置中可开关，默认关闭）：无媒体/无通知/无活跃组件时收缩为小圆点贴顶，鼠标移过恢复。
-        // 手动隐藏/全屏/锁屏时不进入休眠（尊重用户主动隐藏）；休眠态仍需保持窗口可见（UI 以小圆点形态呈现）。
-        // 悬停唤醒（_minimalSleepWake）：移过圆点时短暂保持显示（仅空内容时），移出后回到圆点；有真实内容时自然退出休眠。
-        if (_settings.Current.MinimalSleepEnabled && !_userHidden && !FullScreenHidden && !LockScreenHidden)
-        {
-            if (!show && _minimalSleepWake) show = true;
-            MinimalSleepActive = !show;
-            if (MinimalSleepActive) _minimalSleepWake = false;
-        }
-        else
-        {
-            MinimalSleepActive = false;
-            _minimalSleepWake = false;
-        }
 
         // 条件规则引擎：隐藏/强制显示/强制收起（多个规则叠加，隐藏优先）
         var ruleEval = RuleEngine.Evaluate(_settings.Current, hasMedia, _snapshot?.Track.SourceAppId);

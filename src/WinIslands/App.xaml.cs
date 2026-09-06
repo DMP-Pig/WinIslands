@@ -1,4 +1,4 @@
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.Win32;
 using System.Windows;
@@ -159,7 +159,6 @@ public partial class App : Application
         _clipboard.MaxEntries = _settings.Current.ClipboardHistoryMax;
         // 复制提示（14 已复制 / 15 验证码 / 27 复制进度）：独立于剪贴板历史，任何一项开启即轮询
         _clipboard.EntryAdded += OnClipboardEntryAdded;
-        _clipboard.ImageCopied += OnClipboardImageCopied;
         UpdateClipboardPolling();
         UpdateKeyboardPolling();
         _schedule.Reminder += item => Dispatcher.BeginInvoke(() =>
@@ -728,26 +727,7 @@ public partial class App : Application
         if (_clipboard is null || _settings is null) return;
         var s = _settings.Current;
         var copyUi = s.CopyToastEnabled || s.CodeToastEnabled || s.CopyProgressEnabled;
-        _clipboard.SetPolling(s.ClipboardHistoryEnabled || copyUi || s.ClipboardImageEnabled);
-    }
-
-    /// <summary>剪贴板新增图片 → 上岛显示缩略图（可拖出保存），开关 ClipboardImageEnabled 控制。</summary>
-    private void OnClipboardImageCopied(string imagePath)
-    {
-        try
-        {
-            if (_settings is null) return;
-            if (!_settings.Current.ClipboardImageEnabled) return;
-            if (string.IsNullOrWhiteSpace(imagePath) || !System.IO.File.Exists(imagePath)) return;
-            Dispatcher.BeginInvoke(() => _vm?.ShowEventCard("clip:image",
-                Localization.Get("Clipboard_ImageTitle"),
-                Localization.Get("Clipboard_ImageBody"),
-                "", "info", 6, image: imagePath));
-        }
-        catch (Exception ex)
-        {
-            AppLogger.Warn($"剪贴板图片上岛失败: {ex.Message}");
-        }
+        _clipboard.SetPolling(s.ClipboardHistoryEnabled || copyUi);
     }
 
     /// <summary>剪贴板新增内容 → 已复制 / 验证码 / 大文本进度提示（14/15/27）。</summary>
