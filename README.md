@@ -10,6 +10,9 @@
 
 ---
 
+- **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推进改为 smoothstep 缓动 + 字间交叉过渡，高亮像光带一样从左到右连续流动，起笔/收笔有加减速，不再一顿一顿。
+- **🔋 低电量常驻指示（1.2.4）**：电量低于阈值且未接电源时，灵动岛右上角常驻显示电量胶囊（≤10% 红色 / 其余橙色），随电量实时刷新；接上电源或电量回升后自动消失，设置中可开关。
+- **🎧 设备连接动画（1.2.4）**：蓝牙设备连接/断开时展示 iOS 风格动画卡片；连接时自动读取设备电量并显示「设备名 · 电量 xx%」，读不到电量时只显示设备名，不阻塞界面。
 - **🎤 歌词样式可调（1.2.3）**：普通歌词/当前行字号、行间距、卡拉OK推进速度、高亮色与基础色均可自定义，设置页即时生效，独立歌词小窗同步跟随。
 - **📋 通知历史（1.2.3）**：展开灵动岛后在底部查看历史通知，点击可重新弹出，可设置保留条数并一键清空。
 - **🔔 推送与通知优化（1.2.2）**：未展开时上岛/消息提醒单行显示（图标 + 标题 + 单行摘要），超长自动省略不再撑宽灵动岛；长通知时自动调节岛宽，右侧组件与文字完整显示，不被边缘裁切。
@@ -25,6 +28,9 @@
 ---
 
 ## ✨ 功能亮点
+- **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推进改为 smoothstep 缓动 + 字间交叉过渡，高亮像光带一样从左到右连续流动，起笔/收笔有加减速，不再一顿一顿。
+- **🔋 低电量常驻指示（1.2.4）**：电量低于阈值且未接电源时，灵动岛右上角常驻显示电量胶囊（≤10% 红色 / 其余橙色），随电量实时刷新；接上电源或电量回升后自动消失，设置中可开关。
+- **🎧 设备连接动画（1.2.4）**：蓝牙设备连接/断开时展示 iOS 风格动画卡片；连接时自动读取设备电量并显示「设备名 · 电量 xx%」，读不到电量时只显示设备名，不阻塞界面。
 - **🎤 歌词样式可调（1.2.3）**：普通歌词/当前行字号、行间距、卡拉OK推进速度、高亮色与基础色均可自定义，设置页即时生效，独立歌词小窗同步跟随。
 - **📋 通知历史（1.2.3）**：展开灵动岛后在底部查看历史通知，点击可重新弹出，可设置保留条数并一键清空。
 
@@ -46,13 +52,13 @@
 
 ---
 
-## 📥 下载（最新稳定版 1.2.3）
+## 📥 下载（最新稳定版 1.2.4）
 
 | 平台 | 下载 | 说明 |
 | --- | --- | --- |
-| Windows x64 | [x64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | 主流 64 位电脑首选，单文件免安装，直接运行 |
-| Windows ARM64 | [ARM64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Surface Pro X / 骁龙机型等 ARM 设备 |
-| Windows 通用 | [通用安装包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Inno Setup 安装向导，x64 / ARM64 自动按架构安装 |
+| Windows x64 | [x64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | 主流 64 位电脑首选，单文件免安装，直接运行 |
+| Windows ARM64 | [ARM64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | Surface Pro X / 骁龙机型等 ARM 设备 |
+| Windows 通用 | [通用安装包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Inno Setup 安装向导，x64 / ARM64 自动按架构安装 |
 
 历史版本与完整更新日志见 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)。
 
@@ -230,6 +236,9 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
+- **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推進改為 smoothstep 緩動 + 字間交叉過渡，高亮像光帶一樣從左到右連續流動，起筆/收筆有加減速，不再一頓一頓。
+- **🔋 低電量常駐指示（1.2.4）**：電量低於閾值且未接電源時，動態島右上角常駐顯示電量膠囊（≤10% 紅色 / 其餘橙色），隨電量即時刷新；接上電源或電量回升後自動消失，設定中可開關。
+- **🎧 裝置連線動畫（1.2.4）**：藍牙裝置連線/中斷時展示 iOS 風格動畫卡片；連線時自動讀取裝置電量並顯示「裝置名稱 · 電量 xx%」，讀不到電量時只顯示裝置名稱，不阻塞介面。
 - **🎤 歌詞樣式可調（1.2.3）**：普通歌詞/目前行字號、行距、卡拉OK推進速度、高亮色與基礎色皆可自訂，設定頁即時生效，獨立歌詞小窗同步跟隨。
 - **📋 通知歷史（1.2.3）**：展開動態島後在底部檢視歷史通知，點擊可重新彈出，可設定保留筆數並一鍵清空。
 - **🔔 推播與通知最佳化（1.2.2）**：未展開時上島/訊息提醒單行顯示（圖示 + 標題 + 單行摘要），過長自動省略不再撐寬動態島；長通知時自動調整島寬，右側元件與文字完整顯示，不被邊緣裁切。
@@ -245,6 +254,9 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ 功能亮點
+- **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推進改為 smoothstep 緩動 + 字間交叉過渡，高亮像光帶一樣從左到右連續流動，起筆/收筆有加減速，不再一頓一頓。
+- **🔋 低電量常駐指示（1.2.4）**：電量低於閾值且未接電源時，動態島右上角常駐顯示電量膠囊（≤10% 紅色 / 其餘橙色），隨電量即時刷新；接上電源或電量回升後自動消失，設定中可開關。
+- **🎧 裝置連線動畫（1.2.4）**：藍牙裝置連線/中斷時展示 iOS 風格動畫卡片；連線時自動讀取裝置電量並顯示「裝置名稱 · 電量 xx%」，讀不到電量時只顯示裝置名稱，不阻塞介面。
 - **🎤 歌詞樣式可調（1.2.3）**：普通歌詞/目前行字號、行距、卡拉OK推進速度、高亮色與基礎色皆可自訂，設定頁即時生效，獨立歌詞小窗同步跟隨。
 - **📋 通知歷史（1.2.3）**：展開動態島後在底部檢視歷史通知，點擊可重新彈出，可設定保留筆數並一鍵清空。
 
@@ -266,13 +278,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 下載（最新穩定版 1.2.3）
+## 📥 下載（最新穩定版 1.2.4）
 
 | 平台 | 下載 | 說明 |
 | --- | --- | --- |
-| Windows x64 | [x64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | 主流 64 位元電腦首選，單檔免安裝，直接執行 |
-| Windows ARM64 | [ARM64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Surface Pro X / 驍龍機型等 ARM 裝置 |
-| Windows 通用 | [通用安裝包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Inno Setup 安裝精靈，x64 / ARM64 自動依架構安裝 |
+| Windows x64 | [x64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | 主流 64 位元電腦首選，單檔免安裝，直接執行 |
+| Windows ARM64 | [ARM64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | Surface Pro X / 驍龍機型等 ARM 裝置 |
+| Windows 通用 | [通用安裝包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Inno Setup 安裝精靈，x64 / ARM64 自動依架構安裝 |
 
 歷史版本與完整更新日誌見 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)。
 
@@ -450,6 +462,9 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
+- **🎶 Smoother karaoke highlighting (1.2.4)**: character-by-character progress now uses smoothstep easing with cross-fades between letters — the highlight flows continuously left to right like a light band, easing in and out instead of stepping abruptly.
+- **🔋 Persistent low-battery indicator (1.2.4)**: when the battery drops below the threshold and is not charging, a small battery pill stays in the island’s top-right corner (red ≤10% / orange otherwise), refreshing in real time; it disappears automatically when plugged in or recovered, and can be toggled in settings.
+- **🎧 Device connection animation (1.2.4)**: Bluetooth connect/disconnect now shows an iOS-style animated card; on connect, the device’s battery is read automatically and shown as “Device name · Battery xx%” (name only when battery can’t be read), without blocking the UI.
 - **🎤 Adjustable lyric style (1.2.3)**: customize normal/current-line font size, line spacing, karaoke advance speed, and highlight/base colors; changes apply instantly and the standalone lyrics window follows.
 - **📋 Notification history (1.2.3)**: review recent notifications at the bottom of the expanded island, click to replay, configure the max count, and clear with one click.
 - **🔔 Push & notification polish (1.2.2)**: collapsed alerts show a single line (icon + title + one-line summary) and truncate when long, so they no longer widen the island; the island auto-widens for long notifications so right-side widgets and text stay fully visible.
@@ -465,6 +480,9 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ Highlights
+- **🎶 Smoother karaoke highlighting (1.2.4)**: character-by-character progress now uses smoothstep easing with cross-fades between letters — the highlight flows continuously left to right like a light band, easing in and out instead of stepping abruptly.
+- **🔋 Persistent low-battery indicator (1.2.4)**: when the battery drops below the threshold and is not charging, a small battery pill stays in the island’s top-right corner (red ≤10% / orange otherwise), refreshing in real time; it disappears automatically when plugged in or recovered, and can be toggled in settings.
+- **🎧 Device connection animation (1.2.4)**: Bluetooth connect/disconnect now shows an iOS-style animated card; on connect, the device’s battery is read automatically and shown as “Device name · Battery xx%” (name only when battery can’t be read), without blocking the UI.
 - **🎤 Adjustable lyric style (1.2.3)**: customize normal/current-line font size, line spacing, karaoke advance speed, and highlight/base colors; changes apply instantly and the standalone lyrics window follows.
 - **📋 Notification history (1.2.3)**: review recent notifications at the bottom of the expanded island, click to replay, configure the max count, and clear with one click.
 
@@ -486,13 +504,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 Download (latest stable 1.2.3)
+## 📥 Download (latest stable 1.2.4)
 
 | Platform | Download | Notes |
 | --- | --- | --- |
-| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
-| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
-| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
+| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
+| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
+| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
 
 All historical versions and the full changelog: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -670,6 +688,9 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 
 ---
 
+- **🎶 Resaltado de karaoke más fluido (1.2.4)**: el avance letra a letra ahora usa suavizado smoothstep con transiciones cruzadas entre caracteres: el resaltado fluye de izquierda a derecha como una cinta de luz, con aceleración/deceleración, sin pasos bruscos.
+- **🔋 Indicador de batería baja persistente (1.2.4)**: cuando la batería baja del umbral y no está cargando, una pequeña píldora de batería permanece en la esquina superior derecha de la isla (roja ≤10 % / naranja en otros casos), actualizándose en tiempo real; desaparece al conectar la carga o recuperarse, y se puede activar en los ajustes.
+- **🎧 Animación de conexión de dispositivos (1.2.4)**: al conectar/desconectar un dispositivo Bluetooth se muestra una tarjeta animada estilo iOS; al conectar se lee automáticamente la batería y se muestra «Nombre del dispositivo · Batería xx %» (solo el nombre si no se puede leer), sin bloquear la interfaz.
 - **🎤 Estilo de letras ajustable (1.2.3)**: personaliza el tamaño de fuente de las líneas normales/actual, el interlineado, la velocidad del karaoke y los colores de resaltado/base; los cambios se aplican al instante y la ventana de letras independiente los sigue.
 - **📋 Historial de notificaciones (1.2.3)**: revisa las notificaciones recientes en la parte inferior de la isla expandida, haz clic para reproducirlas, configura el límite y límpialo con un clic.
 - **🔔 Mejoras en notificaciones (1.2.2)**: las alertas plegadas muestran una sola línea (icono + título + resumen de una línea) y se truncan si son largas, sin ensanchar la isla; la isla se ensancha automáticamente para que los widgets de la derecha y el texto se vean completos.
@@ -685,6 +706,9 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 ---
 
 ## ✨ Características destacadas
+- **🎶 Resaltado de karaoke más fluido (1.2.4)**: el avance letra a letra ahora usa suavizado smoothstep con transiciones cruzadas entre caracteres: el resaltado fluye de izquierda a derecha como una cinta de luz, con aceleración/deceleración, sin pasos bruscos.
+- **🔋 Indicador de batería baja persistente (1.2.4)**: cuando la batería baja del umbral y no está cargando, una pequeña píldora de batería permanece en la esquina superior derecha de la isla (roja ≤10 % / naranja en otros casos), actualizándose en tiempo real; desaparece al conectar la carga o recuperarse, y se puede activar en los ajustes.
+- **🎧 Animación de conexión de dispositivos (1.2.4)**: al conectar/desconectar un dispositivo Bluetooth se muestra una tarjeta animada estilo iOS; al conectar se lee automáticamente la batería y se muestra «Nombre del dispositivo · Batería xx %» (solo el nombre si no se puede leer), sin bloquear la interfaz.
 - **🎤 Estilo de letras ajustable (1.2.3)**: personaliza el tamaño de fuente de las líneas normales/actual, el interlineado, la velocidad del karaoke y los colores de resaltado/base; los cambios se aplican al instante y la ventana de letras independiente los sigue.
 - **📋 Historial de notificaciones (1.2.3)**: revisa las notificaciones recientes en la parte inferior de la isla expandida, haz clic para reproducirlas, configura el límite y límpialo con un clic.
 
@@ -706,13 +730,13 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 
 ---
 
-## 📥 Descargas (última estable 1.2.3)
+## 📥 Descargas (última estable 1.2.4)
 
 | Plataforma | Descarga | Notas |
 | --- | --- | --- |
-| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Para PCs de 64 bits convencionales; archivo único, sin instalación |
-| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Asistente Inno Setup; instala x64 / ARM64 según la arquitectura |
+| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | Para PCs de 64 bits convencionales; archivo único, sin instalación |
+| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Asistente Inno Setup; instala x64 / ARM64 según la arquitectura |
 
 Todas las versiones históricas y el registro de cambios completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -890,6 +914,9 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 
 ---
 
+- **🎶 Karaoké fluide affiné (1.2.4)** : la progression mot à mot utilise désormais un lissage smoothstep avec transitions croisées entre les lettres — la surbrillance coule de gauche à droite comme un faisceau de lumière, avec accélération/décélération, sans à-coups.
+- **🔋 Indicateur de batterie faible persistant (1.2.4)** : lorsque la batterie descend sous le seuil sans charge, une petite pilule de batterie reste affichée en haut à droite de l’île (rouge ≤10 % / orange sinon), mise à jour en temps réel ; elle disparaît automatiquement une fois branché ou rechargé, et peut être activée dans les réglages.
+- **🎧 Animation de connexion d’appareils (1.2.4)** : la connexion/déconnexion Bluetooth affiche désormais une carte animée style iOS ; à la connexion, le niveau de batterie de l’appareil est lu automatiquement et affiché comme « Nom de l’appareil · Batterie xx % » (nom seul si la batterie n’est pas lisible), sans bloquer l’interface.
 - **🎤 Style des paroles réglable (1.2.3)** : personnalisez la taille de police des lignes normales/actuelle, l’interligne, la vitesse du karaoké et les couleurs de surbrillance/base ; les changements s’appliquent instantanément et la fenêtre de paroles indépendante suit.
 - **📋 Historique des notifications (1.2.3)** : consultez les notifications récentes en bas de l’île déployée, cliquez pour les rejouer, configurez le nombre maximum et effacez en un clic.
 - **🔔 Notifications optimisées (1.2.2)** : les alertes repliées affichent une seule ligne (icône + titre + résumé sur une ligne) et sont tronquées si longues, sans élargir l'île ; l'île s'élargit automatiquement pour que les widgets à droite et le texte restent entièrement visibles.
@@ -905,6 +932,9 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 ---
 
 ## ✨ Points forts
+- **🎶 Karaoké fluide affiné (1.2.4)** : la progression mot à mot utilise désormais un lissage smoothstep avec transitions croisées entre les lettres — la surbrillance coule de gauche à droite comme un faisceau de lumière, avec accélération/décélération, sans à-coups.
+- **🔋 Indicateur de batterie faible persistant (1.2.4)** : lorsque la batterie descend sous le seuil sans charge, une petite pilule de batterie reste affichée en haut à droite de l’île (rouge ≤10 % / orange sinon), mise à jour en temps réel ; elle disparaît automatiquement une fois branché ou rechargé, et peut être activée dans les réglages.
+- **🎧 Animation de connexion d’appareils (1.2.4)** : la connexion/déconnexion Bluetooth affiche désormais une carte animée style iOS ; à la connexion, le niveau de batterie de l’appareil est lu automatiquement et affiché comme « Nom de l’appareil · Batterie xx % » (nom seul si la batterie n’est pas lisible), sans bloquer l’interface.
 - **🎤 Style des paroles réglable (1.2.3)** : personnalisez la taille de police des lignes normales/actuelle, l’interligne, la vitesse du karaoké et les couleurs de surbrillance/base ; les changements s’appliquent instantanément et la fenêtre de paroles indépendante suit.
 - **📋 Historique des notifications (1.2.3)** : consultez les notifications récentes en bas de l’île déployée, cliquez pour les rejouer, configurez le nombre maximum et effacez en un clic.
 
@@ -926,13 +956,13 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 
 ---
 
-## 📥 Téléchargement (dernière version stable 1.2.3)
+## 📥 Téléchargement (dernière version stable 1.2.4)
 
 | Plateforme | Téléchargement | Notes |
 | --- | --- | --- |
-| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Le choix recommandé pour les PC 64 bits ; fichier unique, sans installation, exécution directe |
-| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
-| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
+| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | Le choix recommandé pour les PC 64 bits ; fichier unique, sans installation, exécution directe |
+| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
+| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
 
 Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1110,6 +1140,9 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 
 ---
 
+- **🎶 تحسين انسياب كلمات الكاريوكي (1.2.4)**: أصبح تقدّم الحروف يستخدم تدرّجًا سلسًا (smoothstep) مع انتقالات متداخلة بين الأحرف — يشعّ التمييز من اليسار إلى اليمين كشريط ضوئي متواصل، مع تسارع/تباطؤ في البداية والنهاية، دون توقّفات مفاجئة.
+- **🔋 مؤشر انخفاض البطارية الدائم (1.2.4)**: عندما تنخفض البطارية دون الحدّ المحدد دون شحن، تبقى حبّة بطارية صغيرة في الزاوية العلوية اليمنى من الجزيرة (حمراء ≤10% / برتقالية في غير ذلك)، وتتحدّث لحظيًا؛ تختفي تلقائيًا عند التوصيل بالشاحن أو ارتفاع الشحن، ويمكن إيقافها من الإعدادات.
+- **🎧 حركة اتصال الأجهزة (1.2.4)**: عند اتصال/انقطاع جهاز بلوتوث تظهر بطاقة متحركة بأسلوب iOS؛ وعند الاتصال تُقرأ بطارية الجهاز تلقائيًا ويُعرض «اسم الجهاز · البطارية xx%»، وعند تعذّر القراءة يُعرض الاسم فقط، دون تعطيل الواجهة.
 - **🎤 ضبط نمط الكلمات (1.2.3)**: خصّص حجم خط الكلمات العادية/الحالية وتباعد الأسطر وسرعة الكاريوكي وألوان التمييز/الأساس؛ تُطبَّق التغييرات فورًا وتتبعها نافذة الكلمات المستقلة.
 - **📋 سجل الإشعارات (1.2.3)**: اعرض الإشعارات الأخيرة أسفل الجزيرة الموسّعة، وانقر لإعادة عرضها، وحدّد الحد الأقصى وامسح بنقرة واحدة.
 - **🔔 تحسين الإشعارات والتنبيهات (1.2.2)**: تعرض التنبيهات المطوية سطرًا واحدًا (أيقونة + عنوان + ملخص سطر واحد) وتُقتطع عند الطول، فلا توسّع الجزيرة؛ وتتوسع الجزيرة تلقائيًا لعرض أدوات الجانب الأيمن والنص كاملًا.
@@ -1125,6 +1158,9 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 ---
 
 ## ✨ أبرز المزايا
+- **🎶 تحسين انسياب كلمات الكاريوكي (1.2.4)**: أصبح تقدّم الحروف يستخدم تدرّجًا سلسًا (smoothstep) مع انتقالات متداخلة بين الأحرف — يشعّ التمييز من اليسار إلى اليمين كشريط ضوئي متواصل، مع تسارع/تباطؤ في البداية والنهاية، دون توقّفات مفاجئة.
+- **🔋 مؤشر انخفاض البطارية الدائم (1.2.4)**: عندما تنخفض البطارية دون الحدّ المحدد دون شحن، تبقى حبّة بطارية صغيرة في الزاوية العلوية اليمنى من الجزيرة (حمراء ≤10% / برتقالية في غير ذلك)، وتتحدّث لحظيًا؛ تختفي تلقائيًا عند التوصيل بالشاحن أو ارتفاع الشحن، ويمكن إيقافها من الإعدادات.
+- **🎧 حركة اتصال الأجهزة (1.2.4)**: عند اتصال/انقطاع جهاز بلوتوث تظهر بطاقة متحركة بأسلوب iOS؛ وعند الاتصال تُقرأ بطارية الجهاز تلقائيًا ويُعرض «اسم الجهاز · البطارية xx%»، وعند تعذّر القراءة يُعرض الاسم فقط، دون تعطيل الواجهة.
 - **🎤 ضبط نمط الكلمات (1.2.3)**: خصّص حجم خط الكلمات العادية/الحالية وتباعد الأسطر وسرعة الكاريوكي وألوان التمييز/الأساس؛ تُطبَّق التغييرات فورًا وتتبعها نافذة الكلمات المستقلة.
 - **📋 سجل الإشعارات (1.2.3)**: اعرض الإشعارات الأخيرة أسفل الجزيرة الموسّعة، وانقر لإعادة عرضها، وحدّد الحد الأقصى وامسح بنقرة واحدة.
 
@@ -1146,13 +1182,13 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 
 ---
 
-## 📥 التحميل (آخر إصدار مستقر 1.2.3)
+## 📥 التحميل (آخر إصدار مستقر 1.2.4)
 
 | النظام | التحميل | ملاحظات |
 | --- | --- | --- |
-| Windows x64 | [نسخة محمولة x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | الخيار الأول لأجهزة 64 بت الشائعة؛ ملف واحد بدون تثبيت، يعمل مباشرة |
-| Windows ARM64 | [نسخة محمولة ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | لأجهزة Surface Pro X / أجهزة ARM Snapdragon |
-| Windows شامل | [مثبّت شامل](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | معالج Inno Setup؛ يثبّت x64 / ARM64 حسب البنية |
+| Windows x64 | [نسخة محمولة x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | الخيار الأول لأجهزة 64 بت الشائعة؛ ملف واحد بدون تثبيت، يعمل مباشرة |
+| Windows ARM64 | [نسخة محمولة ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | لأجهزة Surface Pro X / أجهزة ARM Snapdragon |
+| Windows شامل | [مثبّت شامل](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | معالج Inno Setup؛ يثبّت x64 / ARM64 حسب البنية |
 
 جميع الإصدارات السابقة وسجل التغييرات الكامل: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1330,6 +1366,9 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
+- **🎶 Плавное караоке (1.2.4)**: продвижение по буквам теперь использует плавную интерполяцию smoothstep с кросс-переходами между буквами — подсветка течёт слева направо как световая лента, плавно разгоняясь и замедляясь, без скачков.
+- **🔋 Постоянный индикатор низкого заряда (1.2.4)**: когда заряд падает ниже порога и устройство не заряжается, в правом верхнем углу острова постоянно отображается небольшая пилюля заряда (красная ≤10 % / иначе оранжевая), обновляясь в реальном времени; она исчезает при подключении к сети или повышении заряда, и её можно отключить в настройках.
+- **🎧 Анимация подключения устройств (1.2.4)**: при подключении/отключении Bluetooth показывается анимированная карточка в стиле iOS; при подключении автоматически считывается заряд устройства и отображается «Название устройства · Заряд xx%» (только название, если заряд прочитать нельзя), не блокируя интерфейс.
 - **🎤 Настраиваемый стиль текста (1.2.3)**: настройте размер шрифта обычных/текущих строк, межстрочный интервал, скорость караоке и цвета подсветки/основы; изменения применяются мгновенно, отдельное окно текста синхронизируется.
 - **📋 История уведомлений (1.2.3)**: просматривайте последние уведомления внизу развёрнутого острова, нажмите, чтобы воспроизвести снова, задайте лимит и очистите одним кликом.
 - **🔔 Улучшение уведомлений (1.2.2)**: свёрнутые оповещения показываются одной строкой (иконка + заголовок + однострочное резюме) и обрезаются при длине, не расширяя остров; остров автоматически расширяется, чтобы виджеты справа и текст были полностью видны.
@@ -1345,6 +1384,9 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ Ключевые возможности
+- **🎶 Плавное караоке (1.2.4)**: продвижение по буквам теперь использует плавную интерполяцию smoothstep с кросс-переходами между буквами — подсветка течёт слева направо как световая лента, плавно разгоняясь и замедляясь, без скачков.
+- **🔋 Постоянный индикатор низкого заряда (1.2.4)**: когда заряд падает ниже порога и устройство не заряжается, в правом верхнем углу острова постоянно отображается небольшая пилюля заряда (красная ≤10 % / иначе оранжевая), обновляясь в реальном времени; она исчезает при подключении к сети или повышении заряда, и её можно отключить в настройках.
+- **🎧 Анимация подключения устройств (1.2.4)**: при подключении/отключении Bluetooth показывается анимированная карточка в стиле iOS; при подключении автоматически считывается заряд устройства и отображается «Название устройства · Заряд xx%» (только название, если заряд прочитать нельзя), не блокируя интерфейс.
 - **🎤 Настраиваемый стиль текста (1.2.3)**: настройте размер шрифта обычных/текущих строк, межстрочный интервал, скорость караоке и цвета подсветки/основы; изменения применяются мгновенно, отдельное окно текста синхронизируется.
 - **📋 История уведомлений (1.2.3)**: просматривайте последние уведомления внизу развёрнутого острова, нажмите, чтобы воспроизвести снова, задайте лимит и очистите одним кликом.
 
@@ -1366,13 +1408,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 Скачать (последняя стабильная версия 1.2.3)
+## 📥 Скачать (последняя стабильная версия 1.2.4)
 
 | Платформа | Скачать | Примечания |
 | --- | --- | --- |
-| Windows x64 | [Портативная x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Рекомендуется для обычных 64-битных ПК; один файл, без установки, запуск сразу |
-| Windows ARM64 | [Портативная ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Для Surface Pro X / устройств ARM Snapdragon |
-| Windows универсальная | [Универсальный установщик](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Мастер Inno Setup; устанавливает x64 / ARM64 в зависимости от архитектуры |
+| Windows x64 | [Портативная x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | Рекомендуется для обычных 64-битных ПК; один файл, без установки, запуск сразу |
+| Windows ARM64 | [Портативная ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | Для Surface Pro X / устройств ARM Snapdragon |
+| Windows универсальная | [Универсальный установщик](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Мастер Inno Setup; устанавливает x64 / ARM64 в зависимости от архитектуры |
 
 Все предыдущие версии и полный журнал изменений: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1550,6 +1592,9 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
+- **🎶 Karaokê mais fluido (1.2.4)**: o avanço letra por letra agora usa suavização smoothstep com transições cruzadas entre caracteres — o destaque flui da esquerda para a direita como uma fita de luz, com aceleração/desaceleração, sem passos bruscos.
+- **🔋 Indicador persistente de bateria fraca (1.2.4)**: quando a bateria fica abaixo do limite e não está carregando, uma pequena pílula de bateria permanece no canto superior direito da ilha (vermelha ≤10% / laranja caso contrário), atualizando em tempo real; desaparece ao conectar o carregador ou recuperar, e pode ser ativada nas configurações.
+- **🎧 Animação de conexão de dispositivos (1.2.4)**: ao conectar/desconectar um dispositivo Bluetooth, um cartão animado estilo iOS é exibido; ao conectar, a bateria do dispositivo é lida automaticamente e mostrada como «Nome do dispositivo · Bateria xx%» (somente o nome se não for possível ler), sem bloquear a interface.
 - **🎤 Estilo de letra ajustável (1.2.3)**: personalize o tamanho da fonte das linhas normais/atual, o espaçamento, a velocidade do karaokê e as cores de destaque/base; as mudanças se aplicam na hora e a janela de letras independente acompanha.
 - **📋 Histórico de notificações (1.2.3)**: veja as notificações recentes na parte inferior da ilha expandida, clique para reproduzi-las, defina o limite e limpe com um clique.
 - **🔔 Notificações aprimoradas (1.2.2)**: alertas recolhidos mostram uma única linha (ícone + título + resumo em uma linha) e são truncados quando longos, sem alargar a ilha; a ilha se alarga automaticamente para que os widgets à direita e o texto fiquem totalmente visíveis.
@@ -1565,6 +1610,9 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ Destaques
+- **🎶 Karaokê mais fluido (1.2.4)**: o avanço letra por letra agora usa suavização smoothstep com transições cruzadas entre caracteres — o destaque flui da esquerda para a direita como uma fita de luz, com aceleração/desaceleração, sem passos bruscos.
+- **🔋 Indicador persistente de bateria fraca (1.2.4)**: quando a bateria fica abaixo do limite e não está carregando, uma pequena pílula de bateria permanece no canto superior direito da ilha (vermelha ≤10% / laranja caso contrário), atualizando em tempo real; desaparece ao conectar o carregador ou recuperar, e pode ser ativada nas configurações.
+- **🎧 Animação de conexão de dispositivos (1.2.4)**: ao conectar/desconectar um dispositivo Bluetooth, um cartão animado estilo iOS é exibido; ao conectar, a bateria do dispositivo é lida automaticamente e mostrada como «Nome do dispositivo · Bateria xx%» (somente o nome se não for possível ler), sem bloquear a interface.
 - **🎤 Estilo de letra ajustável (1.2.3)**: personalize o tamanho da fonte das linhas normais/atual, o espaçamento, a velocidade do karaokê e as cores de destaque/base; as mudanças se aplicam na hora e a janela de letras independente acompanha.
 - **📋 Histórico de notificações (1.2.3)**: veja as notificações recentes na parte inferior da ilha expandida, clique para reproduzi-las, defina o limite e limpe com um clique.
 
@@ -1586,13 +1634,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 Download (última versão estável 1.2.3)
+## 📥 Download (última versão estável 1.2.4)
 
 | Plataforma | Download | Observações |
 | --- | --- | --- |
-| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo único, sem instalação, execução direta |
-| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
+| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo único, sem instalação, execução direta |
+| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-1.2.4-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.4/WinIslands-Setup-1.2.4.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
 
 Todas as versões anteriores e o changelog completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 

@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -14,7 +14,7 @@ namespace WinIslands.UI;
 /// 逐字卡拉OK歌词控件（带平滑过渡动画，60fps）。
 /// 两种模式：
 ///  1. 逐字模式（有 <see cref="Words"/>，来自 AMLL TTML）：每个字/词按各自独立起止时间
-///     从左到右点亮，控件内部按墙钟在两次位置更新之间连续推进，动画丝滑不跳变；
+///     从左到右点亮（字间带交叉过渡的缓动曲线，动画连贯不顿挫），控件内部按墙钟在两次位置更新之间连续推进；
 ///  2. 整行均分模式（无 Words，兜底）：按 <see cref="HighlightFraction"/> 比例把字符均匀点亮。
 /// 暂停/启动恢复时保持「暂停时刻」的高亮不动；播放中换句时从 0 开始，第一个字先不亮。
 /// </summary>
@@ -284,14 +284,17 @@ public class KaraokeTextBlock : TextBlock
         var hl = ToColor(HighlightBrush) ?? System.Windows.Media.Colors.White;
         var bs = ToColor(BaseBrush) ?? System.Windows.Media.Colors.Gray;
 
+        // 字间交叉过渡：后续字在其开始前约 45ms 提前起笔，前一字在结束后同样微延收笔，
+        // 两段缓动曲线首尾重叠 → 高亮像光带一样从左到右“流动”，不会在字边界停一下再动一下；
+        // 句首第一个字不提前，保证换句时第一个字保持未点亮。
+        const double leadSeconds = 0.045;
         for (var i = 0; i < _wordRuns.Count && i < _words.Count; i++)
         {
             var w = _words[i];
-            double frac;
-            if (pos < w.BeginSec) frac = 0;
-            else if (pos >= w.EndSec) frac = 1;
-            else frac = Math.Clamp((pos - w.BeginSec) / w.DurationSec, 0, 1);
-
+            var dur = Math.Max(w.DurationSec, 0.001);
+            var lead = i > 0 ? Math.Min(leadSeconds, dur * 0.5) : 0.0;
+            var raw = (pos - (w.BeginSec - lead)) / (dur + lead);
+            var frac = SmoothStep(raw); // ease-in-out：起笔/收笔有加减速，匀速的机械感消失
             _wordRuns[i].Foreground = Frozen(new System.Windows.Media.SolidColorBrush(Lerp(bs, hl, frac)));
         }
     }
@@ -356,6 +359,13 @@ public class KaraokeTextBlock : TextBlock
     }
 
     private static System.Windows.Media.SolidColorBrush Frozen(System.Windows.Media.SolidColorBrush b) { b.Freeze(); return b; }
+
+    /// <summary>ease-in-out 缓动（smoothstep）：起笔慢→中段快→收笔慢，配合字间交叉过渡实现丝滑连贯的逐字推进。</summary>
+    private static double SmoothStep(double t)
+    {
+        t = Math.Clamp(t, 0, 1);
+        return t * t * (3 - 2 * t);
+    }
 
     private static System.Windows.Media.Color Lerp(System.Windows.Media.Color a, System.Windows.Media.Color b, double t)
         => System.Windows.Media.Color.FromArgb(

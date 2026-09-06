@@ -1,4 +1,4 @@
-using System.Text.Json;
+﻿using System.Text.Json;
 using System.Text.Json.Serialization;
 
 using System.IO;
@@ -136,6 +136,7 @@ public sealed class AppSettings
     public string HotkeyClipboardPanel { get; set; } = "Ctrl+Alt+V";   // 剪贴板历史面板快捷键
     public bool ClipboardPanelEnabled { get; set; } = true;             // 剪贴板历史面板开关
     public int LowBatteryThreshold { get; set; } = 20;             // 低电量提醒阈值（%）
+    public bool LowBatteryPersistentEnabled { get; set; } = true;   // 1.2.4 低电量常驻指示（右上角电量胶囊，常驻不反复弹通知）
     public bool ChargedNotifyEnabled { get; set; } = true;          // 充电完成提醒：连接电源且电量达到阈值时弹一次
     public int ChargedThreshold { get; set; } = 100;                // 充电完成提醒阈值（%）
     public bool DiskAlertEnabled { get; set; } = true;       // 磁盘剩余空间不足提醒

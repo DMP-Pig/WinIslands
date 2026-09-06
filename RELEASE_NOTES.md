@@ -12,6 +12,19 @@
 
 ## 简体中文
 
+## WinIslands 1.2.4（正式版 / Stable）
+
+一款现代化、多功能的 Windows 灵动岛组件。A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 卡拉OK逐字平滑重做**：逐字推进改为 smoothstep 缓动 + 字间交叉过渡，高亮像光带一样从左到右连续流动，起笔/收笔有加减速，不再一顿一顿。
+
+- **🔋 低电量常驻指示**：电量低于阈值且未接电源时，灵动岛右上角常驻显示电量胶囊（≤10% 红色 / 其余橙色），随电量实时刷新；接上电源或电量回升后自动消失，设置中可开关。
+
+- **🎧 设备连接动画**：蓝牙设备连接/断开时展示 iOS 风格动画卡片；连接时自动读取设备电量并显示「设备名 · 电量 xx%」，读不到电量时只显示设备名，不阻塞界面。
+
+
 ## WinIslands 1.2.1（正式版 / Stable）
 
 ## WinIslands 1.2.2（正式版 / Stable）
@@ -423,6 +436,19 @@
 ---
 
 ## 繁體中文
+
+## WinIslands 1.2.4（正式版 / Stable）
+
+一款現代化、多功能的 Windows 動態島元件。A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 卡拉OK逐字平滑重做**：逐字推進改為 smoothstep 緩動 + 字間交叉過渡，高亮像光帶一樣從左到右連續流動，起筆/收筆有加減速，不再一頓一頓。
+
+- **🔋 低電量常駐指示**：電量低於閾值且未接電源時，動態島右上角常駐顯示電量膠囊（≤10% 紅色 / 其餘橙色），隨電量即時刷新；接上電源或電量回升後自動消失，設定中可開關。
+
+- **🎧 裝置連線動畫**：藍牙裝置連線/中斷時展示 iOS 風格動畫卡片；連線時自動讀取裝置電量並顯示「裝置名稱 · 電量 xx%」，讀不到電量時只顯示裝置名稱，不阻塞介面。
+
 
 ## WinIslands 1.2.1（正式版 / Stable）
 
@@ -836,6 +862,19 @@
 
 ## English
 
+## WinIslands 1.2.4（正式版 / Stable）
+
+A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 Smoother karaoke highlighting**: character-by-character progress now uses smoothstep easing with cross-fades between letters — the highlight flows continuously left to right like a light band, easing in and out instead of stepping abruptly.
+
+- **🔋 Persistent low-battery indicator**: when the battery drops below the threshold and is not charging, a small battery pill stays in the island's top-right corner (red ≤10% / orange otherwise), refreshing in real time; it disappears automatically when plugged in or recovered, and can be toggled in settings.
+
+- **🎧 Device connection animation**: Bluetooth connect/disconnect now shows an iOS-style animated card; on connect, the device's battery is read automatically and shown as "Device name · Battery xx%" (name only when battery can't be read), without blocking the UI.
+
+
 ## WinIslands 1.2.1 (Stable)
 
 ## WinIslands 1.2.2 (Stable)
@@ -1247,6 +1286,19 @@ A modern, multi-functional Dynamic Island widget for Windows.
 ---
 
 ## Español
+
+## WinIslands 1.2.4（正式版 / Stable）
+
+Una moderna y multifuncional Dynamic Island para Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 Resaltado de karaoke más fluido**: el avance letra a letra ahora usa suavizado smoothstep con transiciones cruzadas entre caracteres: el resaltado fluye de izquierda a derecha como una cinta de luz, con aceleración/deceleración, sin pasos bruscos.
+
+- **🔋 Indicador de batería baja persistente**: cuando la batería baja del umbral y no está cargando, una pequeña píldora de batería permanece en la esquina superior derecha de la isla (roja ≤10 % / naranja en otros casos), actualizándose en tiempo real; desaparece al conectar la carga o recuperarse, y se puede activar en los ajustes.
+
+- **🎧 Animación de conexión de dispositivos**: al conectar/desconectar un dispositivo Bluetooth se muestra una tarjeta animada estilo iOS; al conectar se lee automáticamente la batería y se muestra «Nombre del dispositivo · Batería xx %» (solo el nombre si no se puede leer), sin bloquear la interfaz.
+
 
 ## WinIslands 1.2.1 (Estable)
 
@@ -1660,6 +1712,19 @@ Un widget Dynamic Island moderno y multifuncional para Windows.
 
 ## Français
 
+## WinIslands 1.2.4（正式版 / Stable）
+
+Une Dynamic Island moderne et polyvalente pour Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 Karaoké fluide affiné** : la progression mot à mot utilise désormais un lissage smoothstep avec transitions croisées entre les lettres — la surbrillance coule de gauche à droite comme un faisceau de lumière, avec accélération/décélération, sans à-coups.
+
+- **🔋 Indicateur de batterie faible persistant** : lorsque la batterie descend sous le seuil sans charge, une petite pilule de batterie reste affichée en haut à droite de l'île (rouge ≤10 % / orange sinon), mise à jour en temps réel ; elle disparaît automatiquement une fois branché ou rechargé, et peut être activée dans les réglages.
+
+- **🎧 Animation de connexion d'appareils** : la connexion/déconnexion Bluetooth affiche désormais une carte animée style iOS ; à la connexion, le niveau de batterie de l'appareil est lu automatiquement et affiché comme « Nom de l'appareil · Batterie xx % » (nom seul si la batterie n'est pas lisible), sans bloquer l'interface.
+
+
 ## WinIslands 1.2.1 (Stable)
 
 ## WinIslands 1.2.2 (Stable)
@@ -2071,6 +2136,19 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 ---
 
 ## العربية
+
+## WinIslands 1.2.4（正式版 / Stable）
+
+جزيرة ديناميكية حديثة ومتعددة الوظائف لنظام ويندوز. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 تحسين انسياب كلمات الكاريوكي**: أصبح تقدّم الحروف يستخدم تدرّجًا سلسًا (smoothstep) مع انتقالات متداخلة بين الأحرف — يشعّ التمييز من اليسار إلى اليمين كشريط ضوئي متواصل، مع تسارع/تباطؤ في البداية والنهاية، دون توقّفات مفاجئة.
+
+- **🔋 مؤشر انخفاض البطارية الدائم**: عندما تنخفض البطارية دون الحدّ المحدد دون شحن، تبقى حبّة بطارية صغيرة في الزاوية العلوية اليمنى من الجزيرة (حمراء ≤10% / برتقالية في غير ذلك)، وتتحدّث لحظيًا؛ تختفي تلقائيًا عند التوصيل بالشاحن أو ارتفاع الشحن، ويمكن إيقافها من الإعدادات.
+
+- **🎧 حركة اتصال الأجهزة**: عند اتصال/انقطاع جهاز بلوتوث تظهر بطاقة متحركة بأسلوب iOS؛ وعند الاتصال تُقرأ بطارية الجهاز تلقائيًا ويُعرض «اسم الجهاز · البطارية xx%»، وعند تعذّر القراءة يُعرض الاسم فقط، دون تعطيل الواجهة.
+
 
 ## WinIslands 1.2.1 (مستقر)
 
@@ -2484,6 +2562,19 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 
 ## Русский
 
+## WinIslands 1.2.4（正式版 / Stable）
+
+Современный многофункциональный Dynamic Island для Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 Плавное караоке**: продвижение по буквам теперь использует плавную интерполяцию smoothstep с кросс-переходами между буквами — подсветка течёт слева направо как световая лента, плавно разгоняясь и замедляясь, без скачков.
+
+- **🔋 Постоянный индикатор низкого заряда**: когда заряд падает ниже порога и устройство не заряжается, в правом верхнем углу острова постоянно отображается небольшая пилюля заряда (красная ≤10 % / иначе оранжевая), обновляясь в реальном времени; она исчезает при подключении к сети или повышении заряда, и её можно отключить в настройках.
+
+- **🎧 Анимация подключения устройств**: при подключении/отключении Bluetooth показывается анимированная карточка в стиле iOS; при подключении автоматически считывается заряд устройства и отображается «Название устройства · Заряд xx%» (только название, если заряд прочитать нельзя), не блокируя интерфейс.
+
+
 ## WinIslands 1.2.1 (Stable)
 
 ## WinIslands 1.2.2 (Stable)
@@ -2895,6 +2986,19 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 ---
 
 ## Português
+
+## WinIslands 1.2.4（正式版 / Stable）
+
+Um Dynamic Island moderno e multifuncional para Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🎶 Karaokê mais fluido**: o avanço letra por letra agora usa suavização smoothstep com transições cruzadas entre caracteres — o destaque flui da esquerda para a direita como uma fita de luz, com aceleração/desaceleração, sem passos bruscos.
+
+- **🔋 Indicador persistente de bateria fraca**: quando a bateria fica abaixo do limite e não está carregando, uma pequena pílula de bateria permanece no canto superior direito da ilha (vermelha ≤10% / laranja caso contrário), atualizando em tempo real; desaparece ao conectar o carregador ou recuperar, e pode ser ativada nas configurações.
+
+- **🎧 Animação de conexão de dispositivos**: ao conectar/desconectar um dispositivo Bluetooth, um cartão animado estilo iOS é exibido; ao conectar, a bateria do dispositivo é lida automaticamente e mostrada como «Nome do dispositivo · Bateria xx%» (somente o nome se não for possível ler), sem bloquear a interface.
+
 
 ## WinIslands 1.2.1 (Estável)
 

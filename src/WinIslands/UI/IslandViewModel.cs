@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows.Media;
@@ -976,6 +976,24 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
 
             var acOnline = ps.PowerLineStatus == System.Windows.Forms.PowerLineStatus.Online;
 
+            // 低电量常驻指示（1.2.4）：电量 ≤ 阈值+2 且未接电源时，右上角胶囊常驻显示电量百分比，
+            // 随电量实时刷新；接上电源或电量回升到阈值+5 以上才消失。与一次性弹出提醒解耦，不重复弹通知。
+            if (_settings.Current.LowBatteryPersistentEnabled && hasBattery && _settings.Current.LowBatteryThreshold > 0)
+            {
+                var low = !acOnline && battery <= _settings.Current.LowBatteryThreshold + 2;
+                var recovered = acOnline || battery > _settings.Current.LowBatteryThreshold + 5;
+                if (low)
+                {
+                    ShowLowBatteryBadge = true;
+                    LowBatteryBadgeText = $"{(int)Math.Round(battery)}%";
+                    var red = battery <= 10;
+                    LowBatteryBadgeBrush = red ? _lowBatteryRedBrush : _lowBatteryOrangeBrush;
+                    LowBatteryBadgeBackground = red ? _lowBatteryRedBgBrush : _lowBatteryOrangeBgBrush;
+                }
+                else if (recovered) ShowLowBatteryBadge = false;
+            }
+            else ShowLowBatteryBadge = false;
+
             // 开始充电提醒（电源接入瞬间触发一次，iOS 风格上岛卡片；拔出电源后复位可再次触发）
             if (hasBattery && _settings.Current.ChargedNotifyEnabled)
             {
@@ -1169,6 +1187,25 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
     public string NetCurvePoints { get => _netCurvePoints; private set => Set(ref _netCurvePoints, value); }
     private string _batteryText = string.Empty;
     public string BatteryText { get => _batteryText; private set => Set(ref _batteryText, value); }
+
+    // 低电量常驻胶囊配色（1.2.4，iOS 风格：≤10% 红 / 其余橙；背景为同色低透明度）
+    private static readonly SolidColorBrush _lowBatteryRedBrush = FrozenBrush(System.Windows.Media.Color.FromArgb(0xFF, 0xFF, 0x45, 0x3A));
+    private static readonly SolidColorBrush _lowBatteryOrangeBrush = FrozenBrush(System.Windows.Media.Color.FromArgb(0xFF, 0xFF, 0x9F, 0x0A));
+    private static readonly SolidColorBrush _lowBatteryRedBgBrush = FrozenBrush(System.Windows.Media.Color.FromArgb(0x24, 0xFF, 0x45, 0x3A));
+    private static readonly SolidColorBrush _lowBatteryOrangeBgBrush = FrozenBrush(System.Windows.Media.Color.FromArgb(0x24, 0xFF, 0x9F, 0x0A));
+    private static SolidColorBrush FrozenBrush(System.Windows.Media.Color c) { var b = new SolidColorBrush(c); b.Freeze(); return b; }
+    private bool _showLowBatteryBadge;
+    /// <summary>低电量常驻指示是否显示（电量低于阈值且未接电源时为 true）。</summary>
+    public bool ShowLowBatteryBadge { get => _showLowBatteryBadge; private set => Set(ref _showLowBatteryBadge, value); }
+    private string _lowBatteryBadgeText = string.Empty;
+    /// <summary>低电量胶囊电量文本（如「23%」）。</summary>
+    public string LowBatteryBadgeText { get => _lowBatteryBadgeText; private set => Set(ref _lowBatteryBadgeText, value); }
+    private SolidColorBrush _lowBatteryBadgeBrush = _lowBatteryRedBrush;
+    /// <summary>低电量胶囊前景/图标色（≤10% 红，其余橙，随电量实时变化）。</summary>
+    public SolidColorBrush LowBatteryBadgeBrush { get => _lowBatteryBadgeBrush; private set => Set(ref _lowBatteryBadgeBrush, value); }
+    private SolidColorBrush _lowBatteryBadgeBackground = _lowBatteryRedBgBrush;
+    /// <summary>低电量胶囊背景（同色低透明度，随电量实时变化）。</summary>
+    public SolidColorBrush LowBatteryBadgeBackground { get => _lowBatteryBadgeBackground; private set => Set(ref _lowBatteryBadgeBackground, value); }
     private string _inputMethodText = string.Empty;
     /// <summary>输入法状态文本（如「中 · 微软拼音」）。</summary>
     public string InputMethodText { get => _inputMethodText; private set => Set(ref _inputMethodText, value); }
@@ -1680,6 +1717,26 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
             DurationSeconds = dur,
             ExpiresAt = DateTime.UtcNow.AddSeconds(dur),
         });
+    }
+
+    /// <summary>
+    /// 蓝牙设备连接/断开：iOS 风格事件卡片（1.2.4）。
+    /// 标题 = 已连接 / 已断开；副标题 = 设备名（读到电量时附加「· 电量 xx%」，读不到只显示设备名）。
+    /// 复用上岛推送队列：弹簧入场 + 尺寸自适应动画自动生效。任何异常都不会阻塞主流程。
+    /// </summary>
+    public void ShowDeviceEvent(string id, bool connected, string deviceName, int? batteryPercent)
+    {
+        try
+        {
+            if (DoNotDisturb.IsActive(_settings.Current)) return;
+            var subtitle = string.IsNullOrWhiteSpace(deviceName) ? string.Empty : deviceName.Trim();
+            if (batteryPercent.HasValue && batteryPercent.Value >= 0 && batteryPercent.Value <= 100)
+                subtitle = $"{subtitle}  ·  {Localization.Get("Battery_Level")} {batteryPercent.Value}%";
+            ShowEventCard(id,
+                Localization.Get(connected ? "Events_BluetoothConnected" : "Events_BluetoothDisconnected"),
+                subtitle, "\uE702", connected ? "success" : "info", 5);
+        }
+        catch (Exception ex) { AppLogger.Warn($"ShowDeviceEvent failed: {ex.Message}"); }
     }
 
     /// <summary>点击通知历史条目：以事件卡片形式重新弹出（去除记录时附加的 sys: 前缀）。</summary>

@@ -565,6 +565,7 @@
                                     IsSnapToTickEnabled="True" TickFrequency="1"/>
                             <TextBlock x:Name="TxtLowBatteryHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
                                        TextWrapping="Wrap" Margin="0,2,0,0"/>
+                            <CheckBox x:Name="ChkLowBatteryPersist" IsChecked="{Binding Working.LowBatteryPersistentEnabled}" Margin="0,4,0,0"/>
                             <TextBlock x:Name="LblCharged" Style="{StaticResource Label}" Margin="0,10,0,0"/>
                             <CheckBox x:Name="ChkChargedNotify" IsChecked="{Binding Working.ChargedNotifyEnabled}"/>
                             <TextBlock x:Name="LblChargedThreshold" Style="{StaticResource Label}"/>

@@ -483,6 +483,7 @@ public partial class SettingsWindow : Window
         LblHotkeyClipboard.Text = Localization.Get("General_HotkeyClipboard");
         LblLowBattery.Text = Localization.Get("General_LowBattery");
         TxtLowBatteryHint.Text = Localization.Get("General_LowBatteryHint");
+        ChkLowBatteryPersist.Content = Localization.Get("General_LowBatteryPersist");
         LblCharged.Text = Localization.Get("General_Charged");
         ChkChargedNotify.Content = Localization.Get("General_ChargedCheck");
         LblChargedThreshold.Text = Localization.Get("General_ChargedThreshold");

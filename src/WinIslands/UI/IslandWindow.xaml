@@ -750,9 +750,21 @@
                     </ItemsControl>
                     </StackPanel>
 
-                    <!-- 按钮靠右 -->
-                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0,0,0"
-                                Visibility="{Binding HasMedia, Converter={StaticResource BoolToVis}}">
+                    <!-- 低电量常驻胶囊 + 媒体控制按钮（靠右） -->
+                    <StackPanel Grid.Column="1" Orientation="Horizontal" VerticalAlignment="Center" Margin="14,0,0,0">
+                        <!-- 低电量常驻指示（1.2.4）：电量低于阈值且未接电源时右上角胶囊常驻显示，随电量变化，不反复弹通知 -->
+                        <Border CornerRadius="9" Padding="8,3" Margin="0,0,8,0" VerticalAlignment="Center"
+                                Background="{Binding LowBatteryBadgeBackground}"
+                                Visibility="{Binding ShowLowBatteryBadge, Converter={StaticResource BoolToVis}}">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBlock Text="&#xEBA0;" FontFamily="Segoe MDL2 Assets" FontSize="11" Margin="0,0,5,0"
+                                           VerticalAlignment="Center" Foreground="{Binding LowBatteryBadgeBrush}"/>
+                                <TextBlock Text="{Binding LowBatteryBadgeText}" FontSize="11.5" FontWeight="SemiBold"
+                                           VerticalAlignment="Center" Foreground="{Binding LowBatteryBadgeBrush}"/>
+                            </StackPanel>
+                        </Border>
+                        <StackPanel Orientation="Horizontal" VerticalAlignment="Center"
+                                    Visibility="{Binding HasMedia, Converter={StaticResource BoolToVis}}">
                         <!-- 声音波纹：随音量起伏（紧凑行） -->
                                                 <StackPanel x:Name="WaveBoxCompact" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,8,0"
                                     Visibility="{Binding HasWave, RelativeSource={RelativeSource AncestorType=Window}, Converter={StaticResource BoolToVis}}">
@@ -803,6 +815,7 @@
                         <Button Style="{StaticResource IconButton}" Command="{Binding NextCommand}">
                             <TextBlock Text="&#xE893;" FontFamily="Segoe MDL2 Assets" FontSize="14"/>
                         </Button>
+                        </StackPanel>
                     </StackPanel>
                 </Grid>
 

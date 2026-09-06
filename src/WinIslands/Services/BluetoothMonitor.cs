@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using Windows.Devices.Bluetooth;
 using Windows.Devices.Enumeration;
@@ -183,6 +184,72 @@ public sealed class BluetoothMonitor : IDisposable
         {
             AppLogger.Warn($"BT disconnect failed: {ex.Message}");
             return false;
+        }
+    }
+
+    /// <summary>
+    /// 读取已连接蓝牙设备的电量百分比（0..100）— GATT Battery Service (0x180F) / Battery Level (0x2A19)。
+    /// 仅适用于支持该服务的 Bluetooth LE 设备；经典蓝牙、桌面设备或不支持时返回 null，
+    /// 调用方优雅降级为只显示设备名。全部异常/超时均吞掉，绝不影响主流程。
+    /// </summary>
+    public async System.Threading.Tasks.Task<int?> GetBatteryLevelAsync(string deviceName)
+    {
+        System.Threading.CancellationTokenSource? cts = null;
+        try
+        {
+            var id = FindDeviceId(deviceName);
+            if (string.IsNullOrEmpty(id)) return null;
+            cts = new System.Threading.CancellationTokenSource(TimeSpan.FromSeconds(4));
+
+            // 第一次尝试：AEP id 直接解析 LE 设备（部分 AEP 本身就是 LE 接口，可省一次全量枚举）
+            Windows.Devices.Bluetooth.BluetoothLEDevice? le = null;
+            try { le = await Windows.Devices.Bluetooth.BluetoothLEDevice.FromIdAsync(id).AsTask().WaitAsync(cts.Token); }
+            catch { le = null; }
+
+            // 兜底：按设备名在全部 LE 设备列表中匹配（经典蓝牙 AEP 无法直接转 LE，需按名称找）
+            if (le is null)
+            {
+                try
+                {
+                    var allLe = await Windows.Devices.Enumeration.DeviceInformation.FindAllAsync(
+                        Windows.Devices.Bluetooth.BluetoothLEDevice.GetDeviceSelector()).AsTask().WaitAsync(cts.Token);
+                    foreach (var d in allLe)
+                    {
+                        if (string.Equals(d.Name, deviceName, StringComparison.OrdinalIgnoreCase))
+                        {
+                            try { le = await Windows.Devices.Bluetooth.BluetoothLEDevice.FromIdAsync(d.Id).AsTask().WaitAsync(cts.Token); }
+                            catch { le = null; }
+                            if (le is not null) break;
+                        }
+                    }
+                }
+                catch { le = null; }
+            }
+            if (le is null) return null;
+
+            var svcResult = await le.GetGattServicesForUuidAsync(
+                Windows.Devices.Bluetooth.GenericAttributeProfile.GattServiceUuids.Battery).AsTask().WaitAsync(cts.Token);
+            var svc = svcResult.Services.FirstOrDefault();
+            if (svc is null) return null;
+            var chResult = await svc.GetCharacteristicsForUuidAsync(
+                Windows.Devices.Bluetooth.GenericAttributeProfile.GattCharacteristicUuids.BatteryLevel).AsTask().WaitAsync(cts.Token);
+            var ch = chResult.Characteristics.FirstOrDefault();
+            if (ch is null) return null;
+            var read = await ch.ReadValueAsync(Windows.Devices.Bluetooth.BluetoothCacheMode.Uncached).AsTask().WaitAsync(cts.Token);
+            if (read.Status != Windows.Devices.Bluetooth.GenericAttributeProfile.GattCommunicationStatus.Success) return null;
+            if (read.Value is null || read.Value.Length == 0) return null;
+            var reader = Windows.Storage.Streams.DataReader.FromBuffer(read.Value);
+            var v = reader.ReadByte(); // 电池百分比 0..100
+            return v;
+        }
+        catch (Exception ex)
+        {
+            AppLogger.Debug($"BT battery read failed for '{deviceName}': {ex.Message}");
+            return null;
+        }
+        finally
+        {
+            try { cts?.Dispose(); } catch { }
         }
     }
 

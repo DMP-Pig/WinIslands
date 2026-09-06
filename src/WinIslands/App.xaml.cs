@@ -111,12 +111,15 @@ public partial class App : Application
         _coordinator = new MediaCoordinator(_settings, smtc, _cider, title, Dispatcher);
         _lyrics = new LyricsService(_settings, _cider);
 
-        // ── 蓝牙监控：连接/断开事件以 iOS 风格卡片在灵动岛上展示 ──
+        // ── 蓝牙监控：连接/断开事件以 iOS 风格卡片在灵动岛上展示（1.2.4：设备名 + 电量，读不到电量时只显示名称）──
         _bluetooth = new BluetoothMonitor();
-        _bluetooth.DeviceConnected += (_, name) => Dispatcher.BeginInvoke(() =>
-            _vm?.ShowEventCard("bt:conn:" + name, Localization.Get("Events_BluetoothConnected"), name, "\uE702", "success", 5));
+        _bluetooth.DeviceConnected += async (_, name) =>
+        {
+            var battery = await _bluetooth.GetBatteryLevelAsync(name); // 异步读电量，失败返回 null，不阻塞 UI
+            Dispatcher.BeginInvoke(() => _vm?.ShowDeviceEvent("bt:conn:" + name, connected: true, deviceName: name, batteryPercent: battery));
+        };
         _bluetooth.DeviceDisconnected += (_, name) => Dispatcher.BeginInvoke(() =>
-            _vm?.ShowEventCard("bt:disc:" + name, Localization.Get("Events_BluetoothDisconnected"), name, "\uE702", "info", 5));
+            _vm?.ShowDeviceEvent("bt:disc:" + name, connected: false, deviceName: name, batteryPercent: null));
         // 来电提醒：微信/QQ 语音视频通话窗口检测（仅本机，不上传数据）
         _callMonitor = new IncomingCallMonitor();
         _callMonitor.CallStarted += (appName, title, kind) =>

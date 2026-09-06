@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
@@ -12,9 +12,9 @@
     <RootNamespace>WinIslands</RootNamespace>
     <ApplicationManifest>app.manifest</ApplicationManifest>
     <ApplicationIcon>Assets\winislands.ico</ApplicationIcon>
-    <Version>1.2.3</Version>
-    <AssemblyVersion>1.2.3.0</AssemblyVersion>
-    <FileVersion>1.2.3.0</FileVersion>
+    <Version>1.2.4</Version>
+    <AssemblyVersion>1.2.4.0</AssemblyVersion>
+    <FileVersion>1.2.4.0</FileVersion>
     <Authors>WinIslands</Authors>
     <Product>WinIslands</Product>
     <Description>macOS-style Dynamic Island for Windows - media controls, lyrics and more.</Description>
