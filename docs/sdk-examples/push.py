@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""WinIsland SDK 示例：推送一张卡片（Python 标准库实现，无需安装 requests）。
+"""WinIslands SDK 示例：推送一张卡片（Python 标准库实现，无需安装 requests）。
 
 用法:
     python push.py [port] [token] [id]
@@ -17,7 +17,7 @@ PUSH_ID = sys.argv[3] if len(sys.argv) > 3 else "demo-" + __import__("uuid").uui
 
 payload = {
     "id": PUSH_ID,
-    "title": "来自 WinIsland SDK 的消息",
+    "title": "来自 WinIslands SDK 的消息",
     "subtitle": "push.py 示例",
     "body": "这是一张由 Python 脚本推送的上岛卡片，支持进度、按钮与整卡回跳。",
     "icon": "\ue7f4",
@@ -38,7 +38,7 @@ req = urllib.request.Request(
     method="POST",
 )
 if TOKEN:
-    req.add_header("X-WinIsland-Token", TOKEN)
+    req.add_header("X-WinIslands-Token", TOKEN)
 
 with urllib.request.urlopen(req, timeout=5) as resp:
     info = json.loads(resp.read().decode("utf-8"))

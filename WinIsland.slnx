@@ -1,8 +1,0 @@
-<Solution>
-  <Folder Name="/src/">
-    <Project Path="src/WinIsland/WinIsland.csproj" />
-  </Folder>
-  <Folder Name="/tests/">
-    <Project Path="tests/WinIsland.Tests/WinIsland.Tests.csproj" />
-  </Folder>
-</Solution>

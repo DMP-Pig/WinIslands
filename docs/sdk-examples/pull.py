@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""WinIsland SDK 示例：查询当前活跃卡片（Python 标准库）。
+"""WinIslands SDK 示例：查询当前活跃卡片（Python 标准库）。
 
 用法:
     python pull.py [port] [token]
@@ -17,7 +17,7 @@ req = urllib.request.Request(
     method="GET",
 )
 if TOKEN:
-    req.add_header("X-WinIsland-Token", TOKEN)
+    req.add_header("X-WinIslands-Token", TOKEN)
 
 with urllib.request.urlopen(req, timeout=5) as resp:
     cards = json.loads(resp.read().decode("utf-8"))

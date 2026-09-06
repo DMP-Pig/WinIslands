@@ -1,6 +1,6 @@
-﻿<#
+<#
 .SYNOPSIS
-    Builds a distributable WinIsland package.
+    Builds a distributable WinIslands package.
 
 .DESCRIPTION
     - Self-contained (default): includes the .NET 8 runtime, runs anywhere.
@@ -20,7 +20,7 @@ param(
 
 $ErrorActionPreference = 'Stop'
 $root = Split-Path -Parent $PSScriptRoot
-$proj = Join-Path $root 'src\WinIsland\WinIsland.csproj'
+$proj = Join-Path $root 'src\WinIslands\WinIslands.csproj'
 if ($OutputDir -eq "") { $OutputDir = Join-Path $root 'publish' }
 
 $dotnet = Join-Path $env:USERPROFILE '.dotnet\dotnet.exe'
@@ -41,7 +41,7 @@ Write-Host "==> dotnet $($args -join ' ')"
 if ($LASTEXITCODE -ne 0) { throw "publish failed" }
 
 if (-not $SkipZip) {
-    $zip = Join-Path $OutputDir "WinIsland-$rid.zip"
+    $zip = Join-Path $OutputDir "WinIslands-$rid.zip"
     if (Test-Path $zip) { Remove-Item $zip -Force }
     Compress-Archive -Path (Join-Path $out '*') -DestinationPath $zip -CompressionLevel Optimal
     Write-Host "==> zip created: $zip"

@@ -1,8 +1,8 @@
-﻿; WinIsland - Inno Setup installer for the 1.0.1 stable release
-#define MyAppName "WinIsland"
+; WinIslands - Inno Setup installer for the 1.0.1 stable release
+#define MyAppName "WinIslands"
 #define MyAppVersion "1.0.1"
-#define MyAppPublisher "WinIsland"
-#define MyAppExeName "WinIsland.exe"
+#define MyAppPublisher "WinIslands"
+#define MyAppExeName "WinIslands.exe"
 #define SourceDir "..\..\releases\1.0.1\win-x64"
 
 [Setup]
@@ -14,7 +14,7 @@ DefaultDirName={autopf}\{#MyAppName}
 DefaultGroupName={#MyAppName}
 UninstallDisplayIcon={app}\{#MyAppExeName}
 OutputDir=..\..\releases\1.0.1
-OutputBaseFilename=WinIsland-Setup-{#MyAppVersion}
+OutputBaseFilename=WinIslands-Setup-{#MyAppVersion}
 Compression=lzma2
 SolidCompression=yes
 WizardStyle=modern
@@ -26,7 +26,7 @@ Name: "english"; MessagesFile: "compiler:Default.isl"
 
 [Tasks]
 Name: "desktopicon"; Description: "{cm:CreateDesktopIcon}"; GroupDescription: "{cm:AdditionalIcons}"
-Name: "autostart"; Description: "Start WinIsland automatically with Windows"; GroupDescription: "Startup:"
+Name: "autostart"; Description: "Start WinIslands automatically with Windows"; GroupDescription: "Startup:"
 
 [Files]
 Source: "{#SourceDir}\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
@@ -40,5 +40,5 @@ Name: "{autodesktop}\{#MyAppName}"; Filename: "{app}\{#MyAppExeName}"; Tasks: de
 Filename: "{app}\{#MyAppExeName}"; Description: "{cm:LaunchProgram,{#MyAppName}}"; Flags: nowait postinstall skipifsilent
 
 [Registry]
-Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "WinIsland"; ValueData: """{app}\{#MyAppExeName}"""; Flags: uninsdeletevalue; Tasks: autostart
+Root: HKCU; Subkey: "Software\Microsoft\Windows\CurrentVersion\Run"; ValueType: string; ValueName: "WinIslands"; ValueData: """{app}\{#MyAppExeName}"""; Flags: uninsdeletevalue; Tasks: autostart
 

@@ -1,0 +1,1304 @@
+<Window x:Class="WinIslands.UI.SettingsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:converters="clr-namespace:WinIslands.UI.Converters"
+        Title="WinIslands 设置" Width="790" Height="720" MinWidth="660" MinHeight="560"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None" AllowsTransparency="True" Background="Transparent"
+        ResizeMode="NoResize" ShowInTaskbar="False"
+        FontFamily="Segoe UI Variable Text, Segoe UI" TextOptions.TextFormattingMode="Ideal"
+        PreviewMouseWheel="Root_PreviewMouseWheel"
+        Foreground="{DynamicResource TextPrimaryBrush}">
+    <Window.Resources>
+        <!-- 隐式文本默认前景色：确保深色模式下所有 TextBlock 为浅色文字、浅色模式为深色文字，
+             防止遗漏的控件（Popup/模板/DataTemplate 等继承断裂处）仍显示默认黑色。 -->
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+        </Style>
+        <converters:BoolToVisibilityConverter x:Key="BoolToVis"/>
+        <converters:BoolToVisibilityConverter x:Key="InvBoolToVis" Invert="True"/>
+        <Style TargetType="TextBlock" x:Key="Label">
+            <Setter Property="FontSize" Value="12"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            <Setter Property="Margin" Value="0,10,0,4"/>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ControlBgBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="14,7"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="Bd" CornerRadius="10" Background="{TemplateBinding Background}" TextElement.Foreground="{TemplateBinding Foreground}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" RecognizesAccessKey="True" TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.75"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button" x:Key="PrimaryButton" BasedOn="{StaticResource {x:Type Button}}">
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="FontWeight" Value="SemiBold"/>
+            <Setter Property="Padding" Value="22,8"/>
+        </Style>
+        <Style TargetType="CheckBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="Margin" Value="0,5"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="CheckBox">
+                        <StackPanel Orientation="Horizontal" Background="Transparent" TextElement.Foreground="{TemplateBinding Foreground}">
+                            <Border x:Name="Box" Width="18" Height="18" CornerRadius="6" BorderThickness="1.2"
+                                    Background="{DynamicResource ControlBgBrush}" BorderBrush="{DynamicResource ControlBorderBrush}"
+                                    VerticalAlignment="Center">
+                                <TextBlock x:Name="Check" Text="&#xE73E;" FontFamily="Segoe MDL2 Assets" FontSize="10"
+                                           Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           Visibility="Collapsed" Margin="0,-1,0,0"/>
+                            </Border>
+                            <ContentPresenter Margin="9,0,0,0" VerticalAlignment="Center" RecognizesAccessKey="True" TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </StackPanel>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Box" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                                <Setter TargetName="Check" Property="Visibility" Value="Visible"/>
+                            </Trigger>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Box" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter Property="Opacity" Value="0.4"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="CaretBrush" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="SelectionBrush" Value="{DynamicResource AccentBrush}"/>
+            <Setter Property="Background" Value="{DynamicResource ControlBgBrush}"/>
+            <Setter Property="BorderBrush" Value="{DynamicResource ControlBorderBrush}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="8,5"/>
+            <Setter Property="MinHeight" Value="30"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TextBox">
+                        <Border x:Name="Bd" CornerRadius="9" Background="{TemplateBinding Background}" TextElement.Foreground="{TemplateBinding Foreground}"
+                                BorderBrush="{TemplateBinding BorderBrush}" BorderThickness="{TemplateBinding BorderThickness}">
+                            <ScrollViewer x:Name="PART_ContentHost" Margin="{TemplateBinding Padding}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsKeyboardFocused" Value="True">
+                                <Setter TargetName="Bd" Property="BorderBrush" Value="{DynamicResource AccentBrush}"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="MinHeight" Value="32"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBox">
+                        <Grid TextElement.Foreground="{TemplateBinding Foreground}">
+                            <ToggleButton x:Name="Toggle" Focusable="False" ClickMode="Press"
+                                          IsChecked="{Binding IsDropDownOpen, Mode=TwoWay, RelativeSource={RelativeSource TemplatedParent}}">
+                                <ToggleButton.Template>
+                                    <ControlTemplate TargetType="ToggleButton">
+                                        <Border x:Name="Bd" CornerRadius="10" Background="{DynamicResource ControlBgBrush}"
+                                                BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <ContentPresenter Margin="10,0,0,0" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}"
+                                                                  Content="{Binding SelectionBoxItem, RelativeSource={RelativeSource AncestorType=ComboBox}}"
+                                                                  ContentTemplate="{Binding SelectionBoxItemTemplate, RelativeSource={RelativeSource AncestorType=ComboBox}}"/>
+                                                <TextBlock Grid.Column="1" Text="&#xE70D;" FontFamily="Segoe MDL2 Assets" FontSize="10"
+                                                           Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,0,9,0" VerticalAlignment="Center"/>
+                                            </Grid>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HoverBrush}"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </ToggleButton.Template>
+                            </ToggleButton>
+                            <Popup IsOpen="{TemplateBinding IsDropDownOpen}" Placement="Bottom" AllowsTransparency="True"
+                                   PopupAnimation="Slide" Focusable="False">
+                                <Border x:Name="DropDown" CornerRadius="10" MinWidth="{TemplateBinding ActualWidth}"
+                                        MaxHeight="{TemplateBinding MaxDropDownHeight}"
+                                        Background="{DynamicResource GlassBgBrush}" BorderBrush="{DynamicResource GlassBorderBrush}"
+                                        BorderThickness="1" Margin="0,4,0,0" Padding="3">
+                                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                        <ItemsPresenter/>
+                                    </ScrollViewer>
+                                </Border>
+                            </Popup>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ComboBoxItem">
+            <Setter Property="Foreground" Value="{DynamicResource TextPrimaryBrush}"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ComboBoxItem">
+                        <Border x:Name="Bd" CornerRadius="7" Padding="{TemplateBinding Padding}" Background="Transparent" TextElement.Foreground="{TemplateBinding Foreground}">
+                            <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentSoftBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Slider">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Slider">
+                        <Grid Height="24" VerticalAlignment="Center">
+                            <Border Height="4" CornerRadius="2" Background="{DynamicResource TrackBrush}" VerticalAlignment="Center"/>
+                            <Track x:Name="PART_Track">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="Slider.DecreaseLarge" Background="{DynamicResource AccentBrush}">
+                                        <RepeatButton.Template>
+                                            <ControlTemplate TargetType="RepeatButton">
+                                                <Border Height="4" CornerRadius="2" Background="{TemplateBinding Background}"/>
+                                            </ControlTemplate>
+                                        </RepeatButton.Template>
+                                    </RepeatButton>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="Slider.IncreaseLarge">
+                                        <RepeatButton.Template>
+                                            <ControlTemplate TargetType="RepeatButton">
+                                                <Border Height="4" CornerRadius="2" Background="Transparent"/>
+                                            </ControlTemplate>
+                                        </RepeatButton.Template>
+                                    </RepeatButton>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Ellipse Width="14" Height="14" Fill="{DynamicResource TextPrimaryBrush}"
+                                                         Stroke="{DynamicResource GlassBorderBrush}" StrokeThickness="1"/>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TabControl">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="VerticalContentAlignment" Value="Stretch"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabControl">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Border Grid.Row="0" Margin="16,4,16,0" CornerRadius="13" Padding="5"
+                                    Background="{DynamicResource ControlBgBrush}" BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1">
+                                <TabPanel IsItemsHost="True"/>
+                            </Border>
+                            <Border Grid.Row="1" Margin="16,10,16,16" CornerRadius="18"
+                                    Background="{DynamicResource CardBgBrush}" BorderBrush="{DynamicResource GlassBorderBrush}" BorderThickness="1"
+                                    ClipToBounds="True" VerticalAlignment="Stretch">
+                                <ContentPresenter ContentSource="SelectedContent" Margin="4" VerticalAlignment="Stretch"/>
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TabItem">
+            <Setter Property="Foreground" Value="{DynamicResource TextSecondaryBrush}"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="TabItem">
+                        <Border x:Name="Bd" CornerRadius="9" Padding="13,6" Margin="2" Background="Transparent" Cursor="Hand" TextElement.Foreground="{TemplateBinding Foreground}">
+                            <ContentPresenter ContentSource="Header" RecognizesAccessKey="True" VerticalAlignment="Center" TextElement.Foreground="{TemplateBinding Foreground}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HoverBrush}"/>
+                            </Trigger>
+                            <Trigger Property="IsSelected" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                <Setter Property="Foreground" Value="White"/>
+                                <Setter Property="FontWeight" Value="SemiBold"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="ScrollBar">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ScrollBar">
+                        <Grid Background="Transparent">
+                            <Border Margin="3,2" CornerRadius="3" Background="{DynamicResource ScrollTrackBrush}"/>
+                            <Track x:Name="PART_Track" IsDirectionReversed="True">
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageUpCommand" Opacity="0"/>
+                                </Track.DecreaseRepeatButton>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton Command="ScrollBar.PageDownCommand" Opacity="0"/>
+                                </Track.IncreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb>
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="Thumb">
+                                                <Border x:Name="ThumbBd" CornerRadius="4" Margin="2" Background="{DynamicResource ScrollThumbBrush}"/>
+                                                <ControlTemplate.Triggers>
+                                                    <Trigger Property="IsMouseOver" Value="True">
+                                                        <Setter TargetName="ThumbBd" Property="Background" Value="{DynamicResource TextSecondaryBrush}"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                            </Track>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+
+    <Border x:Name="Root" CornerRadius="22" Margin="10"
+            Background="{DynamicResource GlassBgBrush}" BorderBrush="{DynamicResource GlassBorderBrush}" BorderThickness="1"
+            ClipToBounds="True">
+        <Border.Effect>
+            <DropShadowEffect BlurRadius="30" ShadowDepth="0" Opacity="0.35" Color="Black"/>
+        </Border.Effect>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Grid x:Name="TitleBar" Grid.Row="0" Height="54" Background="Transparent"
+                  MouseLeftButtonDown="TitleBar_MouseLeftButtonDown">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <Border Width="26" Height="26" CornerRadius="9" Margin="18,0,0,0" VerticalAlignment="Center"
+                        Background="{DynamicResource AccentBrush}">
+                    <TextBlock Text="&#xE7F4;" FontFamily="Segoe MDL2 Assets" FontSize="13" Foreground="White"
+                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                </Border>
+                <StackPanel Grid.Column="1" Margin="12,0,0,0" VerticalAlignment="Center">
+                    <TextBlock Text="WinIslands" FontSize="15" FontWeight="SemiBold" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                    <TextBlock Text="设置" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" Margin="0,1,0,0"/>
+                </StackPanel>
+                <Button Grid.Column="2" Width="34" Height="34" Margin="0,0,14,0" Padding="0" Background="Transparent" BorderThickness="0"
+                        Click="CloseButton_Click" ToolTip="关闭">
+                    <TextBlock Text="&#xE8BB;" FontFamily="Segoe MDL2 Assets" FontSize="12" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                </Button>
+            </Grid>
+
+            <Grid Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="218"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+
+                <ListBox x:Name="NavList" Grid.Column="0" Margin="12,8,0,8" Padding="4,4"
+                         Background="{DynamicResource SidebarBrush}" BorderThickness="0"
+                         Foreground="{DynamicResource TextPrimaryBrush}"
+                         ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                         ScrollViewer.VerticalScrollBarVisibility="Auto"
+                         SelectionChanged="NavList_SelectionChanged">
+                    <ListBox.ItemContainerStyle>
+                        <Style TargetType="ListBoxItem">
+                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+                            <Setter Property="Padding" Value="0"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="ListBoxItem">
+                                        <Border x:Name="Bd" CornerRadius="9" Padding="10,7" Margin="1,1" Background="Transparent" TextElement.Foreground="{TemplateBinding Foreground}">
+                                            <ContentPresenter TextElement.Foreground="{TemplateBinding Foreground}"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource HoverBrush}"/>
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Bd" Property="Background" Value="{DynamicResource AccentBrush}"/>
+                                                <Setter Property="Foreground" Value="White"/>
+                                                <Setter Property="FontWeight" Value="SemiBold"/>
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE713;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavGeneral" Text="通用" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7E8;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavQuick" Text="快捷操作" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE790;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavAppearance" Text="外观" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8B7;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavComponents" Text="组件" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8D6;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavMedia" Text="媒体" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE714;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavMediaInfo" Text="媒体信息展示" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8F1;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavLyrics" Text="歌词" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE767;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavCider" Text="Cider" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE7F4;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavIsland" Text="上岛 API" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE823;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavProductivity" Text="效率工具" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE896;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavUpdate" Text="更新" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE946;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavAbout" Text="关于" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8D7;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavEvents" Text="事件" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                    <ListBoxItem>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock Text="&#xE8C8;" FontFamily="Segoe MDL2 Assets" FontSize="13" Width="24" VerticalAlignment="Center" Opacity="0.9"/>
+                            <TextBlock x:Name="NavRules" Text="规则" FontSize="12.5" Margin="6,0,0,0" VerticalAlignment="Center"/>
+                        </StackPanel>
+                    </ListBoxItem>
+                </ListBox>
+
+
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Grid.Row="0" Margin="26,16,18,6">
+                        <TextBlock x:Name="PageTitle" FontSize="21" FontWeight="SemiBold"
+                                   Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        <TextBlock x:Name="PageSubtitle" FontSize="11" Margin="0,3,0,0"
+                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                    </StackPanel>
+                    <TabControl x:Name="MainTabs" Grid.Row="1" BorderThickness="0"
+                                SelectionChanged="MainTabs_SelectionChanged">
+                        <TabControl.Template>
+                            <ControlTemplate TargetType="TabControl">
+                                <ContentPresenter ContentSource="SelectedContent"/>
+                            </ControlTemplate>
+                        </TabControl.Template>
+                <TabItem x:Name="TabGeneral" Header="通用">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <TextBlock x:Name="LblLanguage" Style="{StaticResource Label}" Text="界面语言"/>
+                            <ComboBox SelectedValuePath="Value" DisplayMemberPath="Display"
+                                      SelectedValue="{Binding Language}">
+                                <ComboBoxItem Tag="zh-CN" Content="简体中文"/>
+                                <ComboBoxItem Tag="en-US" Content="English"/>
+                            </ComboBox>
+                            <CheckBox x:Name="ChkStartWithWindows" Content="开机自启" IsChecked="{Binding Working.StartWithWindows}"/>
+                            <CheckBox x:Name="ChkStartHidden" Content="启动时隐藏灵动岛" IsChecked="{Binding Working.StartHidden}"/>
+                            <CheckBox x:Name="ChkHideWhenNoMedia" Content="无媒体播放时自动隐藏" IsChecked="{Binding Working.HideWhenNoMedia}"/>
+                            <CheckBox x:Name="ChkFullScreenHide" IsChecked="{Binding Working.FullScreenAutoHideEnabled}"/>
+                            <CheckBox x:Name="ChkLockScreenHide" IsChecked="{Binding Working.LockScreenAutoHideEnabled}"/>
+                            <CheckBox x:Name="ChkShowWhenPaused" Content="暂停时仍然显示" IsChecked="{Binding Working.ShowWhenPaused}"/>
+                            <CheckBox x:Name="ChkAlwaysVisible" IsChecked="{Binding Working.IslandAlwaysVisible}"/>
+                            <TextBlock x:Name="LblDoubleClick" Style="{StaticResource Label}"/>
+                            <ComboBox SelectedValuePath="Tag" SelectedValue="{Binding Working.DoubleClickAction}">
+                                <ComboBoxItem x:Name="CbiDcPlayPause" Tag="PlayPause" Content="播放 / 暂停"/>
+                                <ComboBoxItem x:Name="CbiDcToggleExpand" Tag="ToggleExpand" Content="展开 / 收起"/>
+                                <ComboBoxItem x:Name="CbiDcShowDesktop" Tag="ShowDesktop" Content="显示桌面"/>
+                                <ComboBoxItem x:Name="CbiDcToggleVisible" Tag="ToggleVisible" Content="隐藏 / 显示灵动岛"/>
+                                <ComboBoxItem x:Name="CbiDcNext" Tag="NextTrack" Content="下一首"/>
+                                <ComboBoxItem x:Name="CbiDcPrev" Tag="PrevTrack" Content="上一首"/>
+                                <ComboBoxItem x:Name="CbiDcOpenSettings" Tag="OpenSettings" Content="打开设置"/>
+                                <ComboBoxItem x:Name="CbiDcNone" Tag="None" Content="无动作"/>
+                            </ComboBox>
+                            <TextBlock x:Name="LblMiddleClick" Style="{StaticResource Label}"/>
+                            <ComboBox x:Name="CmbMiddleClick" SelectedValuePath="Tag" SelectedValue="{Binding Working.MiddleClickAction}">
+                                <ComboBoxItem x:Name="CbiMcPlayPause" Tag="PlayPause" Content="播放 / 暂停"/>
+                                <ComboBoxItem x:Name="CbiMcToggleExpand" Tag="ToggleExpand" Content="展开 / 收起"/>
+                                <ComboBoxItem x:Name="CbiMcShowDesktop" Tag="ShowDesktop" Content="显示桌面"/>
+                                <ComboBoxItem x:Name="CbiMcToggleVisible" Tag="ToggleVisible" Content="隐藏 / 显示灵动岛"/>
+                                <ComboBoxItem x:Name="CbiMcNext" Tag="NextTrack" Content="下一首"/>
+                                <ComboBoxItem x:Name="CbiMcPrev" Tag="PrevTrack" Content="上一首"/>
+                                <ComboBoxItem x:Name="CbiMcOpenSettings" Tag="OpenSettings" Content="打开设置"/>
+                                <ComboBoxItem x:Name="CbiMcNone" Tag="None" Content="无动作"/>
+                            </ComboBox>
+                            <CheckBox x:Name="ChkReduceMotion" IsChecked="{Binding Working.ReduceMotion}"/>
+                            <CheckBox x:Name="ChkLowPower" IsChecked="{Binding Working.LowPowerMode}"/>
+                            <CheckBox x:Name="ChkMinimalSleep" IsChecked="{Binding Working.MinimalSleepEnabled}"/>
+                            <CheckBox x:Name="ChkShowLunar" IsChecked="{Binding Working.ShowLunarOnDate}"/>
+                            <CheckBox x:Name="ChkGlobalHotkeys" IsChecked="{Binding Working.GlobalHotkeysEnabled}"/>
+                            <TextBlock x:Name="TxtHotkeysHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,0,0,10"/>
+                            <TextBlock x:Name="LblHotkeyToggle" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyToggleVisible, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="LblHotkeyPlayPause" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyPlayPause, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="LblHotkeyNext" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyNext, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="LblHotkeyPrev" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyPrev, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="LblHotkeyExpand" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyExpand, UpdateSourceTrigger=PropertyChanged}"/>
+                            <CheckBox x:Name="ChkQuickLauncher" IsChecked="{Binding Working.QuickLauncherEnabled}"/>
+                            <TextBlock x:Name="LblHotkeyLauncher" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyLauncher, UpdateSourceTrigger=PropertyChanged}"/>
+                            <CheckBox x:Name="ChkClipboardPanel" IsChecked="{Binding Working.ClipboardPanelEnabled}"/>
+                            <TextBlock x:Name="LblHotkeyClipboard" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.HotkeyClipboardPanel, UpdateSourceTrigger=PropertyChanged}"/>
+                            <TextBlock x:Name="LblLowBattery" Style="{StaticResource Label}"/>
+                            <Slider Minimum="0" Maximum="50" Value="{Binding Working.LowBatteryThreshold}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="5"/>
+                            <TextBlock x:Name="LblKeyCaps" Style="{StaticResource Label}" Margin="0,10,0,0"/>
+                            <Slider Minimum="1" Maximum="10" Value="{Binding Working.KeyIndicatorSeconds}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="1"/>
+                            <TextBlock x:Name="TxtLowBatteryHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0"/>
+                            <TextBlock x:Name="LblCharged" Style="{StaticResource Label}" Margin="0,10,0,0"/>
+                            <CheckBox x:Name="ChkChargedNotify" IsChecked="{Binding Working.ChargedNotifyEnabled}"/>
+                            <TextBlock x:Name="LblChargedThreshold" Style="{StaticResource Label}"/>
+                            <Slider Minimum="0" Maximum="100" Value="{Binding Working.ChargedThreshold}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="5"/>
+                            <TextBlock x:Name="TxtChargedHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabQuick" Header="快捷操作">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <CheckBox x:Name="ChkQuickActions" IsChecked="{Binding Working.QuickActionsEnabled}" Margin="0,0,0,4"/>
+                            <TextBlock x:Name="TxtQuickHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,0,0,10" MaxWidth="520"/>
+                            <ItemsControl ItemsSource="{Binding QuickActionRows}">
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Border CornerRadius="10" Background="#14FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1"
+                                                Padding="10,6" Margin="0,3">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <CheckBox IsChecked="{Binding IsChecked}" VerticalAlignment="Center"/>
+                                                <TextBlock Grid.Column="1" Text="{Binding Label}" FontSize="12" VerticalAlignment="Center" Margin="10,0,0,0"/>
+                                                <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <Button Content="&#xE70E;" FontFamily="Segoe MDL2 Assets" FontSize="10" Width="26" Height="24" Padding="0"
+                                                            Margin="0,0,4,0" Background="Transparent" BorderThickness="0" Opacity="0.75"
+                                                            Click="QuickActionMove_Click" CommandParameter="{Binding Key}" Tag="-1" ToolTip="上移"/>
+                                                    <Button Content="&#xE70D;" FontFamily="Segoe MDL2 Assets" FontSize="10" Width="26" Height="24" Padding="0"
+                                                            Background="Transparent" BorderThickness="0" Opacity="0.75"
+                                                            Click="QuickActionMove_Click" CommandParameter="{Binding Key}" Tag="1" ToolTip="下移"/>
+                                                </StackPanel>
+                                            </Grid>
+                                        </Border>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabAppearance" Header="外观">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <TextBlock x:Name="LblTheme" Style="{StaticResource Label}" Text="主题"/>
+                            <TextBlock x:Name="LblThemePreset" Style="{StaticResource Label}"/>
+                            <ComboBox ItemsSource="{Binding ThemePresetOptions}" SelectedValuePath="Value"
+                                      DisplayMemberPath="Display" SelectedValue="{Binding Working.ThemePreset}"/>
+                            <ComboBox ItemsSource="{Binding ThemeOptions}" SelectedValuePath="Value"
+                                      DisplayMemberPath="Display" SelectedValue="{Binding Working.Theme}"/>
+                            <CheckBox x:Name="ChkThemeScheduled" IsChecked="{Binding Working.ThemeScheduledEnabled}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                <TextBlock x:Name="LblThemeDarkStart" Style="{StaticResource Label}" Margin="0,0,10,0"/>
+                                <Slider Minimum="0" Maximum="23" Value="{Binding Working.ThemeScheduleDarkStartHour}" Width="130" HorizontalAlignment="Left"
+                                        IsSnapToTickEnabled="True" TickFrequency="1" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" Margin="0,2,0,0">
+                                <TextBlock x:Name="LblThemeDarkEnd" Style="{StaticResource Label}" Margin="0,0,10,0"/>
+                                <Slider Minimum="0" Maximum="23" Value="{Binding Working.ThemeScheduleDarkEndHour}" Width="130" HorizontalAlignment="Left"
+                                        IsSnapToTickEnabled="True" TickFrequency="1" VerticalAlignment="Center"/>
+                            </StackPanel>
+                            <TextBlock x:Name="TxtThemeScheduleNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0"/>
+                            <TextBlock x:Name="LblThemeTint" Style="{StaticResource Label}"/>
+                            <TextBox x:Name="TxtThemeTint" Width="130" HorizontalAlignment="Left"
+                                     Text="{Binding Working.ThemeTint}"/>
+                            <TextBlock x:Name="TxtThemeTintNote" FontSize="11"
+                                       Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0"/>
+
+                            <TextBlock x:Name="LblAnimationStyle" Style="{StaticResource Label}"/>
+                            <TextBlock x:Name="LblPushAnimStyle" Style="{StaticResource Label}"/>
+                            <ComboBox x:Name="CboPushAnimStyle" ItemsSource="{Binding PushAnimationStyleOptions}" SelectedValuePath="Value"
+                                      DisplayMemberPath="Display" SelectedValue="{Binding Working.PushAnimationStyle}"/>
+                            <ComboBox ItemsSource="{Binding AnimationStyleOptions}" SelectedValuePath="Value"
+                                      DisplayMemberPath="Display" SelectedValue="{Binding Working.AnimationStyle}"/>
+                            <TextBlock x:Name="LblAnimDuration" Style="{StaticResource Label}"/>
+                            <Slider Minimum="300" Maximum="1400" Value="{Binding Working.IslandAnimationDuration}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="50"/>
+                            <TextBlock x:Name="TxtAnimDurationHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0" MaxWidth="480" HorizontalAlignment="Left"/>
+
+                            <TextBlock x:Name="LblAccent" Style="{StaticResource Label}" Text="主题色"/>
+                            <WrapPanel x:Name="ColorSwatches">
+                                <ItemsControl ItemsSource="{Binding PresetColors}">
+                                    <ItemsControl.ItemsPanel>
+                                        <ItemsPanelTemplate><WrapPanel/></ItemsPanelTemplate>
+                                    </ItemsControl.ItemsPanel>
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Button Width="26" Height="26" Margin="2" Tag="{Binding}"
+                                                    Background="{Binding}" BorderThickness="1" BorderBrush="#33000000"
+                                                    ToolTip="{Binding}" Click="ColorSwatch_Click">
+                                                <Button.Template>
+                                                    <ControlTemplate TargetType="Button">
+                                                        <Border Background="{TemplateBinding Background}" CornerRadius="13"/>
+                                                    </ControlTemplate>
+                                                </Button.Template>
+                                            </Button>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </WrapPanel>
+                            <CheckBox x:Name="ChkWallpaperTheme" IsChecked="{Binding Working.WallpaperThemeColorEnabled}"/>
+                            <TextBlock x:Name="LblFontFamily" Style="{StaticResource Label}"/>
+                            <TextBox Width="220" HorizontalAlignment="Left" Text="{Binding Working.FontFamily}"/>
+                            <TextBlock x:Name="LblFontScale" Style="{StaticResource Label}"/>
+                            <Slider Minimum="0.8" Maximum="1.4" Value="{Binding Working.FontScale}" Width="300" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="LblCornerRadius" Style="{StaticResource Label}"/>
+                            <Slider Minimum="16" Maximum="40" Value="{Binding Working.CornerRadius}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="2"/>
+                            <TextBox x:Name="AccentBox" Width="130" HorizontalAlignment="Left" Margin="2,4,0,0"
+                                     Text="{Binding Working.AccentColor}"/>
+
+                            <TextBlock x:Name="LblPosition" Style="{StaticResource Label}" Text="位置"/>
+                            <ComboBox ItemsSource="{Binding PositionOptions}" SelectedValuePath="Value"
+                                      DisplayMemberPath="Display" SelectedValue="{Binding Working.Position}"/>
+                            <CheckBox x:Name="ChkEdgeSnap" IsChecked="{Binding Working.EdgeSnapEnabled}" Content="拖动后自动吸附屏幕边缘 / 居中"/>
+
+                            <TextBlock x:Name="LblMonitor" Style="{StaticResource Label}" Text="显示器"/>
+                            <ComboBox ItemsSource="{Binding MonitorOptions}" SelectedValuePath="Value"
+                                      DisplayMemberPath="Display" SelectedValue="{Binding Working.Monitor}"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,4,0,0">
+                                <TextBlock x:Name="LblMonitorIndex" Text="屏幕编号" VerticalAlignment="Center" Margin="0,0,8,0" FontSize="12"
+                                           Foreground="{DynamicResource TextPrimaryBrush}"/>
+                                <TextBox Width="70" Text="{Binding Working.MonitorIndex}"/>
+                            </StackPanel>
+
+                            <Grid Margin="0,6,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <StackPanel Grid.Column="0" Margin="0,0,8,0">
+                                    <TextBlock x:Name="LblOffsetX" Style="{StaticResource Label}" Text="水平偏移"/>
+                                    <TextBox Text="{Binding Working.OffsetX}"/>
+                                </StackPanel>
+                                <StackPanel Grid.Column="1">
+                                    <TextBlock x:Name="LblOffsetY" Style="{StaticResource Label}" Text="垂直偏移"/>
+                                    <TextBox Text="{Binding Working.OffsetY}"/>
+                                </StackPanel>
+                            </Grid>
+
+                            <TextBlock x:Name="LblOpacity" Style="{StaticResource Label}" Text="不透明度"/>
+                            <Slider Minimum="0.3" Maximum="1" Value="{Binding Working.Opacity}" Width="300" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="LblIslandSize" Style="{StaticResource Label}"/>
+                            <TextBlock x:Name="LblCompactWidth" Style="{StaticResource Label}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Slider Minimum="260" Maximum="520" Value="{Binding Working.CompactWidth}" Width="230" IsSnapToTickEnabled="True" TickFrequency="2" Tag="CompactWidth" ValueChanged="SizeSlider_ValueChanged"/>
+                                <CheckBox x:Name="ChkCompactWidthAuto" IsChecked="{Binding Working.CompactWidthAuto}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                            </StackPanel>
+                            <TextBlock x:Name="LblCompactHeight" Style="{StaticResource Label}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Slider Minimum="48" Maximum="140" Value="{Binding Working.CompactHeight}" Width="230" IsSnapToTickEnabled="True" TickFrequency="1" Tag="CompactHeight" ValueChanged="SizeSlider_ValueChanged"/>
+                                <CheckBox x:Name="ChkCompactHeightAuto" IsChecked="{Binding Working.CompactHeightAuto}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                            </StackPanel>
+                            <TextBlock x:Name="LblExpandedWidth" Style="{StaticResource Label}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Slider Minimum="340" Maximum="620" Value="{Binding Working.ExpandedWidth}" Width="230" IsSnapToTickEnabled="True" TickFrequency="2" Tag="ExpandedWidth" ValueChanged="SizeSlider_ValueChanged"/>
+                                <CheckBox x:Name="ChkExpandedWidthAuto" IsChecked="{Binding Working.ExpandedWidthAuto}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                            </StackPanel>
+                            <TextBlock x:Name="LblExpandedHeight" Style="{StaticResource Label}"/>
+                            <StackPanel Orientation="Horizontal">
+                                <Slider Minimum="240" Maximum="620" Value="{Binding Working.MaxExpandedHeight}" Width="230" IsSnapToTickEnabled="True" TickFrequency="2" Tag="ExpandedHeight" ValueChanged="SizeSlider_ValueChanged"/>
+                                <CheckBox x:Name="ChkExpandedHeightAuto" IsChecked="{Binding Working.MaxExpandedHeightAuto}" VerticalAlignment="Center" Margin="12,0,0,0"/>
+                            </StackPanel>
+
+                            <CheckBox x:Name="ChkCoverTint" IsChecked="{Binding Working.CoverTintBackground}"/>
+                            <CheckBox x:Name="ChkMarquee" IsChecked="{Binding Working.MarqueeTextEnabled}"/>
+                            <CheckBox x:Name="ChkWave" IsChecked="{Binding Working.WaveVisualizerEnabled}"/>
+                            <CheckBox x:Name="ChkNetCurve" IsChecked="{Binding Working.NetCurveEnabled}"/>
+                            <CheckBox x:Name="ChkWaveSync" IsChecked="{Binding Working.WaveSyncEnabled}"/>
+                            <TextBlock x:Name="LblWaveStyle" Style="{StaticResource Label}"/>
+                            <ComboBox SelectedValuePath="Value" DisplayMemberPath="Display" Width="220" HorizontalAlignment="Left"
+                                      SelectedValue="{Binding Working.WaveStyle}">
+                                <ComboBox.ItemsSource>
+                                    <Binding Path="WaveStyleOptions"/>
+                                </ComboBox.ItemsSource>
+                            </ComboBox>
+                            <TextBlock x:Name="LblWaveSensitivity" Style="{StaticResource Label}"/>
+                            <Slider Minimum="0.2" Maximum="3" Value="{Binding Working.WaveSensitivity}" Width="300" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="LblWaveHeight" Style="{StaticResource Label}"/>
+                            <Slider Minimum="0.4" Maximum="1.6" Value="{Binding Working.WaveHeight}" Width="300" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="TxtWaveNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,2,0,0" MaxWidth="480" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="LblWidgets" Style="{StaticResource Label}"/>
+                            <CheckBox x:Name="ChkShowWidgets" IsChecked="{Binding Working.ShowWidgetsWhenNoMedia}"/>
+                            <CheckBox x:Name="ChkWidgetTime" IsChecked="{Binding Working.WidgetShowTime}"/>
+                            <CheckBox x:Name="ChkWidgetWeather" IsChecked="{Binding Working.WidgetShowWeather}"/>
+                            <TextBlock x:Name="LblWeatherCity" Style="{StaticResource Label}"/>
+                            <TextBox x:Name="WeatherCityBox" Width="200" HorizontalAlignment="Left" Text="{Binding Working.WeatherCity}"/>
+                            <TextBlock x:Name="TxtWidgetNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,6,0,0"/>
+
+                            <TextBlock x:Name="LblCompact" Style="{StaticResource Label}" Text="紧凑模式显示内容"/>
+                            <CheckBox x:Name="ChkCompactArt" Content="封面" IsChecked="{Binding Working.CompactShowArt}"/>
+                            <CheckBox x:Name="ChkCompactTitle" Content="歌名" IsChecked="{Binding Working.CompactShowTitle}"/>
+                            <CheckBox x:Name="ChkCompactProgress" Content="进度条" IsChecked="{Binding Working.CompactShowProgress}"/>
+                            <CheckBox x:Name="ChkSingleLine" IsChecked="{Binding Working.SingleLineMode}"/>
+                            <CheckBox x:Name="ChkMiniPlayer" IsChecked="{Binding Working.MiniPlayerEnabled}"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabComponents" Header="组件">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <TextBlock x:Name="LblCompOrder" FontWeight="SemiBold" Foreground="{DynamicResource TextSecondaryBrush}" Margin="2,2,2,4"/>
+                            <Border CornerRadius="12" Background="{DynamicResource ControlBgBrush}"
+                                    BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1" Padding="0" Margin="0,0,0,8">
+                                <ScrollViewer x:Name="OrderScroll" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled"
+                                              Padding="8,6" PreviewMouseWheel="OrderScroll_PreviewMouseWheel">
+                                    <ItemsControl x:Name="OrderStrip" ItemsSource="{Binding OrderItems}" AllowDrop="True"
+                                                  PreviewDragOver="OrderStrip_PreviewDragOver" PreviewDrop="OrderStrip_Drop">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate><StackPanel Orientation="Horizontal"/></ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <Border x:Name="Chip" CornerRadius="9" Padding="16,7" Margin="4" Cursor="Hand"
+                                                        Background="{DynamicResource ControlBgBrush}" BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1"
+                                                        PreviewMouseLeftButtonDown="Chip_PreviewMouseLeftButtonDown" PreviewMouseMove="Chip_PreviewMouseMove">
+                                                    <TextBlock Text="{Binding Name}"/>
+                                                </Border>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                </ScrollViewer>
+                            </Border>
+                            <Border CornerRadius="12" Background="{DynamicResource ControlBgBrush}"
+                                    BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1" Padding="4,2">
+                                <StackPanel>
+                                    <Grid Margin="2,6,2,4">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*"/>
+                                            <ColumnDefinition Width="76"/>
+                                            <ColumnDefinition Width="104"/>
+                                            <ColumnDefinition Width="104"/>
+                                        </Grid.ColumnDefinitions>
+                                        <TextBlock x:Name="LblCompName" Text="组件" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        <TextBlock x:Name="LblCompIcon" Grid.Column="1" Text="图标" HorizontalAlignment="Center" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        <TextBlock x:Name="LblCompIdle" Grid.Column="2" Text="无歌曲播放时" HorizontalAlignment="Center" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                        <TextBlock x:Name="LblCompPlaying" Grid.Column="3" Text="有歌曲播放时" HorizontalAlignment="Center" FontWeight="SemiBold"
+                                                   Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                    </Grid>
+                                    <ScrollViewer MaxHeight="300" VerticalScrollBarVisibility="Auto">
+                                    <ItemsControl ItemsSource="{Binding Components}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="2,4,2,4">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="76"/>
+                                                    <ColumnDefinition Width="104"/>
+                                                    <ColumnDefinition Width="104"/>
+                                                </Grid.ColumnDefinitions>
+                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Margin="8,0,0,0"/>
+                                                <TextBox Grid.Column="1" Text="{Binding Icon, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" MaxLength="4" FontSize="11"
+                                                         VerticalAlignment="Center" Margin="2,0" Padding="3,2"
+                                                         IsEnabled="{Binding SupportsIcon}" Visibility="{Binding SupportsIcon, Converter={StaticResource BoolToVis}}"
+                                                         ToolTip="{Binding IconPlaceholder, StringFormat={}默认：{0}}"/>
+                                                <CheckBox Grid.Column="2" IsChecked="{Binding Idle, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                                                <CheckBox Grid.Column="3" IsChecked="{Binding Playing, Mode=TwoWay}" HorizontalAlignment="Center"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    </ScrollViewer>
+                                </StackPanel>
+                            </Border>
+                            <TextBlock x:Name="TxtCompNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,8,0,0"/>
+
+                            <TextBlock x:Name="LblUsageMergeTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                            <CheckBox x:Name="ChkUsageMerge" IsChecked="{Binding Working.UsageMergeEnabled}"/>
+                            <TextBlock x:Name="LblUsageMergeItems" Style="{StaticResource Label}"/>
+                            <WrapPanel>
+                                <CheckBox x:Name="ChkUsageMergeMic" IsChecked="{Binding Working.UsageMergeMic}" Margin="0,0,16,6"/>
+                                <CheckBox x:Name="ChkUsageMergeCam" IsChecked="{Binding Working.UsageMergeCam}" Margin="0,0,16,6"/>
+                                <CheckBox x:Name="ChkUsageMergeMeeting" IsChecked="{Binding Working.UsageMergeMeeting}" Margin="0,0,16,6"/>
+                                <CheckBox x:Name="ChkUsageMergeRecording" IsChecked="{Binding Working.UsageMergeRecording}"/>
+                            </WrapPanel>
+                            <TextBlock x:Name="TxtUsageMergeNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,4,0,0" MaxWidth="520"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabMedia" Header="媒体">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <CheckBox x:Name="ChkUseSystemVolume" Content="非 Cider 来源时控制系统音量" IsChecked="{Binding Working.UseSystemVolume}"/>
+                            <TextBlock x:Name="LblAudioOutput" Style="{StaticResource Label}" Margin="0,14,0,0"/>
+                            <ComboBox x:Name="CboAudioOutput" Width="380" HorizontalAlignment="Left" DisplayMemberPath="Name"
+                                      SelectionChanged="AudioOutput_SelectionChanged"/>
+                            <TextBlock x:Name="TxtAudioOutputNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,4,0,0"/>
+                            <TextBlock x:Name="TxtMediaInfo" Text="媒体来源优先级：Cider 本地 API → Windows 全局媒体会话 (SMTC) → 窗口标题识别" 
+                                       FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,8,0,0"/>
+
+                            <TextBlock x:Name="LblMediaApps" Style="{StaticResource Label}"/>
+                            <Border CornerRadius="12" Background="{DynamicResource ControlBgBrush}"
+                                    BorderBrush="{DynamicResource ControlBorderBrush}" BorderThickness="1" Padding="4,2">
+                                <ItemsControl ItemsSource="{Binding MediaAppRows}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <Grid Margin="2,4,2,4">
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                                    <Button Width="20" Height="20" Padding="0" FontSize="10" Background="Transparent" BorderThickness="0"
+                                                            Content="▲" ToolTip="上移" Click="MediaUp_Click"/>
+                                                    <Button Width="20" Height="20" Padding="0" FontSize="10" Background="Transparent" BorderThickness="0" Margin="2,0,0,0"
+                                                            Content="▼" ToolTip="下移" Click="MediaDown_Click"/>
+                                                </StackPanel>
+                                                <TextBlock Grid.Column="1" Text="{Binding Name}" VerticalAlignment="Center" Margin="8,0,0,0"
+                                                           TextTrimming="CharacterEllipsis"/>
+                                                <CheckBox Grid.Column="2" Content="启用" IsChecked="{Binding Enabled, Mode=TwoWay}" Margin="0,0,8,0"/>
+                                            </Grid>
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </Border>
+                            <TextBlock x:Name="TxtMediaNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabMediaInfo" Header="媒体信息展示">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <CheckBox x:Name="ChkShowMediaInfo" IsChecked="{Binding Working.ShowMediaInfo}"/>
+                            <TextBlock x:Name="LblExpandedSections" Style="{StaticResource Label}" Margin="0,10,0,0"/>
+                            <CheckBox x:Name="ChkExpandedArtTitle" IsChecked="{Binding Working.ExpandedShowArtTitle}"/>
+                            <CheckBox x:Name="ChkExpandedProgress" IsChecked="{Binding Working.ExpandedShowProgress}"/>
+                            <CheckBox x:Name="ChkExpandedControls" IsChecked="{Binding Working.ExpandedShowControls}"/>
+                            <CheckBox x:Name="ChkExpandedLyrics" IsChecked="{Binding Working.ExpandedShowLyrics}"/>
+                            <TextBlock x:Name="LblCardStyle" Style="{StaticResource Label}" Margin="0,12,0,0"/>
+                            <ComboBox x:Name="CboCardStyle" Width="320" HorizontalAlignment="Left" Padding="6,4"
+                                      SelectionChanged="CardStyle_SelectionChanged"/>
+                            <TextBlock x:Name="TxtMediaInfoNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,8,0,0"/>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabLyrics" Header="歌词">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                        <CheckBox x:Name="ChkLyricsSourcePick" IsChecked="{Binding Working.LyricsSourcePick}" Margin="0,0,0,6"/>
+                        <TextBlock x:Name="LblLyricsPreferredSource" Style="{StaticResource Label}" Margin="0,2,0,2"/>
+                        <ComboBox ItemsSource="{Binding LyricsSourceOptions}" SelectedValuePath="Value"
+                                  DisplayMemberPath="Display" SelectedValue="{Binding Working.LyricsPreferredSource}"
+                                  Width="260" HorizontalAlignment="Left"/>
+                        <CheckBox x:Name="ChkAmllTtml" IsChecked="{Binding Working.AmllTtmlEnabled}" Margin="0,10,0,6"/>
+                        <CheckBox x:Name="ChkOnlineLyrics" Content="在线歌词（网易云，非官方接口，默认开启）" IsChecked="{Binding Working.OnlineLyricsEnabled}"/>
+                        <TextBlock x:Name="TxtLyricsNote" Text="在线歌词使用非官方接口，仅供个人学习，请尊重版权。" FontSize="11" Foreground="#E6A055" TextWrapping="Wrap" Margin="0,2,0,8"/>
+                        <TextBlock x:Name="LblLyricsFolder" Style="{StaticResource Label}" Text="歌词文件夹（留空自动搜索）"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <TextBox Text="{Binding Working.LyricsFolder}"/>
+                            <Button x:Name="BtnBrowse" Grid.Column="1" Content="浏览..." Margin="6,0,0,0" Click="BrowseLyrics_Click"/>
+                        </Grid>
+                        <CheckBox x:Name="ChkStandaloneLyrics" Content="启用独立歌词小窗" IsChecked="{Binding Working.StandaloneLyricsWindow}" Margin="0,10,0,0"/>
+                        <CheckBox Content="逐字高亮（卡拉OK效果）" IsChecked="{Binding Working.KaraokeHighlight}"/>
+                        <CheckBox x:Name="ChkBilingual" Content="双语歌词（自动合并相邻翻译行）" IsChecked="{Binding Working.BilingualLyrics}" Margin="0,8,0,0"/>
+                        <TextBlock x:Name="LblLyricsOpacity" Style="{StaticResource Label}" Text="歌词小窗不透明度" Margin="0,12,0,0"/>
+                        <Slider Minimum="0.3" Maximum="1" Value="{Binding Working.LyricsWindowOpacity}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="0.05"/>
+                        <CheckBox x:Name="ChkLyricsLocked" Content="锁定歌词小窗（锁定后鼠标穿透，不挡操作）" IsChecked="{Binding Working.LyricsWindowLocked}" Margin="0,8,0,0"/>
+                        <TextBlock x:Name="LblLyricsStyleTitle" Style="{StaticResource Label}" FontWeight="SemiBold" Margin="0,14,0,0" Text="歌词样式"/>
+                        <TextBlock x:Name="LblLyricsBaseSize" Style="{StaticResource Label}" Text="普通歌词字号"/>
+                        <Slider Minimum="9" Maximum="28" Value="{Binding Working.LyricFontSize}" Width="300" HorizontalAlignment="Left" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                        <TextBlock x:Name="LblLyricsCurrentSize" Style="{StaticResource Label}" Text="当前行字号"/>
+                        <Slider Minimum="12" Maximum="36" Value="{Binding Working.LyricCurrentFontSize}" Width="300" HorizontalAlignment="Left" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                        <TextBlock x:Name="LblLyricsLineSpacing" Style="{StaticResource Label}" Text="行间距"/>
+                        <Slider Minimum="0.8" Maximum="2.0" Value="{Binding Working.LyricLineSpacing}" Width="300" HorizontalAlignment="Left" IsSnapToTickEnabled="True" TickFrequency="0.1"/>
+                        <TextBlock x:Name="LblLyricsKaraokeSpeed" Style="{StaticResource Label}" Text="卡拉OK速度"/>
+                        <Slider Minimum="0.5" Maximum="2.0" Value="{Binding Working.KaraokeSpeed}" Width="300" HorizontalAlignment="Left" IsSnapToTickEnabled="True" TickFrequency="0.1"/>
+                        <TextBlock x:Name="LblLyricsHighlightColor" Style="{StaticResource Label}" Text="高亮颜色"/>
+                        <TextBox Width="160" HorizontalAlignment="Left" Text="{Binding Working.LyricHighlightColor, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock x:Name="LblLyricsBaseColor" Style="{StaticResource Label}" Text="基础颜色"/>
+                        <TextBox Width="160" HorizontalAlignment="Left" Text="{Binding Working.LyricBaseColor, UpdateSourceTrigger=PropertyChanged}"/>
+                        <TextBlock x:Name="TxtLyricsColorNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,4,0,0" MaxWidth="520"/>
+
+                    </StackPanel>
+</ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabCider" Header="Cider">
+                    <StackPanel Margin="10,6">
+                        <CheckBox x:Name="ChkCiderEnabled" Content="启用 Cider 本地 API" IsChecked="{Binding Working.CiderEnabled}"/>
+                        <TextBlock x:Name="LblCiderPort" Style="{StaticResource Label}" Text="端口（0 = 自动检测，默认 10767）"/>
+                        <TextBox Width="130" HorizontalAlignment="Left" Text="{Binding Working.CiderPort}"/>
+                        <TextBlock x:Name="LblCiderToken" Style="{StaticResource Label}" Text="API Token（可留空）"/>
+                        <TextBox Text="{Binding Working.CiderToken}" Width="320" HorizontalAlignment="Left"/>
+                        <TextBlock x:Name="TxtCiderHint" Text="在 Cider 中开启：设置 → 连接性 → 允许外部控制（Manage External Application Access），生成 Token 后填入。" 
+                                   FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}" TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem x:Name="TabIsland" Header="上岛 API">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <CheckBox x:Name="ChkIslandApi" IsChecked="{Binding Working.IslandApiEnabled}"/>
+                            <TextBlock x:Name="LblIslandPort" Style="{StaticResource Label}"/>
+                            <TextBox Width="130" HorizontalAlignment="Left" Text="{Binding Working.IslandApiPort}"/>
+                            <TextBlock x:Name="LblIslandToken" Style="{StaticResource Label}"/>
+                            <TextBox Width="300" HorizontalAlignment="Left" Text="{Binding Working.IslandApiToken}"/>
+                            <TextBlock x:Name="LblIslandDuration" Style="{StaticResource Label}"/>
+                            <Slider Minimum="5" Maximum="300" Value="{Binding Working.IslandApiDefaultDuration}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="5"/>
+                            <TextBlock x:Name="TxtIslandNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,10,0,0" FontFamily="Consolas"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabProductivity" Header="Productivity">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Margin="10,6">
+                            <TextBlock x:Name="LblProdClipboard" Style="{StaticResource Label}"/>
+                            <CheckBox x:Name="ChkClipboardEnabled" IsChecked="{Binding Working.ClipboardHistoryEnabled}"/>
+                            <CheckBox x:Name="ChkClipboardImage" IsChecked="{Binding Working.ClipboardImageEnabled}"/>
+                            <TextBlock x:Name="LblClipboardMax" Style="{StaticResource Label}"/>
+                            <Slider Minimum="3" Maximum="200" Value="{Binding Working.ClipboardHistoryMax}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="1"/>
+                            <TextBlock x:Name="TxtClipboardNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0"/>
+                            <CheckBox x:Name="ChkCopyToast" IsChecked="{Binding Working.CopyToastEnabled}"/>
+                            <CheckBox x:Name="ChkCodeToast" IsChecked="{Binding Working.CodeToastEnabled}"/>
+                            <CheckBox x:Name="ChkCopyProgress" IsChecked="{Binding Working.CopyProgressEnabled}"/>
+                            <TextBlock x:Name="LblCopyThreshold" Style="{StaticResource Label}"/>
+                            <Slider Minimum="500" Maximum="20000" Value="{Binding Working.CopyProgressThreshold}" Width="300" HorizontalAlignment="Left"/>
+                            <TextBlock x:Name="TxtCopyNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,2,0,0"/>
+
+                            <TextBlock x:Name="LblFileCopyTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                            <CheckBox x:Name="ChkFileCopy" IsChecked="{Binding Working.FileCopyNotifyEnabled}"/>
+                            <TextBlock x:Name="TxtFileCopyNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,4,0,0" MaxWidth="520"/>
+
+                            <TextBlock x:Name="LblDownloadTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                            <CheckBox x:Name="ChkDownload" IsChecked="{Binding Working.DownloadProgressEnabled}"/>
+                            <TextBlock x:Name="TxtDownloadNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,4,0,0" MaxWidth="520"/>
+
+                            <TextBlock x:Name="LblProdPomodoro" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                            <CheckBox x:Name="ChkPomodoroEnabled" IsChecked="{Binding Working.PomodoroEnabled}"/>
+                            <TextBlock x:Name="LblWorkMinutes" Style="{StaticResource Label}"/>
+                            <Slider Minimum="1" Maximum="120" Value="{Binding Working.PomodoroWorkMinutes}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="5"/>
+                            <TextBlock x:Name="LblBreakMinutes" Style="{StaticResource Label}"/>
+                            <Slider Minimum="1" Maximum="60" Value="{Binding Working.PomodoroBreakMinutes}" Width="300" HorizontalAlignment="Left"
+                                    IsSnapToTickEnabled="True" TickFrequency="5"/>
+                            <StackPanel Orientation="Horizontal" Margin="0,8,0,0">
+                                <Button x:Name="BtnPomodoroStart" Padding="12,5" Click="PomodoroStart_Click"/>
+                                <Button x:Name="BtnPomodoroBreak" Padding="12,5" Margin="8,0,0,0" Click="PomodoroBreak_Click"/>
+                                <Button x:Name="BtnPomodoroStop" Padding="12,5" Margin="8,0,0,0" Click="PomodoroStop_Click"/>
+                                <TextBlock x:Name="TxtPomodoroClock" FontSize="13" FontWeight="SemiBold" VerticalAlignment="Center"
+                                           Margin="14,0,0,0" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                            </StackPanel>
+
+                            <TextBlock x:Name="LblProdTodo" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="TodoInput"/>
+                                <Button x:Name="BtnTodoAdd" Grid.Column="1" Content="+" Margin="6,0,0,0" Padding="12,5" Click="TodoAdd_Click"/>
+                            </Grid>
+                            <ListBox x:Name="TodoList" MaxHeight="180" Margin="0,8,0,0" BorderThickness="0" Background="Transparent"
+                            Foreground="{DynamicResource TextPrimaryBrush}"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2,0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="Auto"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <CheckBox IsChecked="{Binding Done}" Click="TodoToggle_Click" VerticalAlignment="Center"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Text}" VerticalAlignment="Center" Margin="8,0,8,0"
+                                                       TextTrimming="CharacterEllipsis"/>
+                                            <Button Grid.Column="2" Content="&#xE711;" FontFamily="Segoe MDL2 Assets" Padding="8,2"
+                                                    Background="Transparent" BorderThickness="0" Click="TodoRemove_Click"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+
+                            <TextBlock x:Name="LblProdSchedule" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBox x:Name="ScheduleTitleInput"/>
+                                <TextBox x:Name="ScheduleTimeInput" Grid.Column="1" Margin="6,0,0,0"/>
+                                <Button x:Name="BtnScheduleAdd" Grid.Column="2" Margin="6,0,0,0" Padding="12,5" Click="ScheduleAdd_Click"/>
+                            </Grid>
+                            <ListBox x:Name="ScheduleList" MaxHeight="160" Margin="0,8,0,0" BorderThickness="0" Background="Transparent"
+                            Foreground="{DynamicResource TextPrimaryBrush}"
+                                     ScrollViewer.VerticalScrollBarVisibility="Auto">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid Margin="0,2,0,2">
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="120"/>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+                                            <TextBlock Text="{Binding When, StringFormat=MM-dd HH:mm}" Foreground="{DynamicResource TextSecondaryBrush}"/>
+                                            <TextBlock Grid.Column="1" Text="{Binding Title}" TextTrimming="CharacterEllipsis" Margin="6,0,6,0"/>
+                                            <Button Grid.Column="2" Content="&#xE711;" FontFamily="Segoe MDL2 Assets" Padding="8,2"
+                                                    Background="Transparent" BorderThickness="0" Click="ScheduleRemove_Click"/>
+                                        </Grid>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                            <TextBlock x:Name="TxtProdNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                       TextWrapping="Wrap" Margin="0,8,0,0"/>
+                        </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+
+                <TabItem x:Name="TabUpdate" Header="Update">
+                    <StackPanel Margin="10,6">
+                        <CheckBox x:Name="ChkAutoUpdateCheck" IsChecked="{Binding Working.AutoUpdateCheck}"/>
+                        <Button x:Name="BtnCheckUpdate" Padding="14,6" Margin="0,10,0,0" Click="CheckUpdate_Click"/>
+                        <TextBlock x:Name="TxtUpdateNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,10,0,0"/>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem x:Name="TabAbout" Header="关于">
+                    <StackPanel Margin="10,6">
+                        <TextBlock x:Name="TxtAbout" Text="WinIslands — Windows 灵动岛&#10;灵感来自 macOS Dynamic Island。&#10;基于 .NET 8 + WPF，仅使用系统媒体会话与本地 API。" 
+                                   FontSize="12" TextWrapping="Wrap" LineHeight="20" Foreground="{DynamicResource TextPrimaryBrush}"/>
+                        <StackPanel Orientation="Horizontal" Margin="0,16,0,0">
+                            <Button x:Name="BtnOpenConfig" Content="打开配置目录" Padding="10,4" Click="OpenConfigFolder_Click"/>
+                            <Button x:Name="BtnDiagnostics" Content="诊断信息" Padding="10,4" Margin="8,0,0,0" Click="Diagnostics_Click"/>
+                        </StackPanel>
+                    </StackPanel>
+                </TabItem>
+
+                <TabItem x:Name="TabEvents" Header="事件">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10,6">
+                        <CheckBox x:Name="ChkBluetoothNotify" IsChecked="{Binding Working.BluetoothNotifyEnabled}"/>
+                        <CheckBox x:Name="ChkCallNotify" IsChecked="{Binding Working.CallNotifyEnabled}" Margin="0,8,0,0"/>
+                        <TextBlock x:Name="LblCallApps" Style="{StaticResource Label}" Text="检测的应用（进程名，逗号分隔）" Margin="0,4,0,0"/>
+                        <TextBox x:Name="TxtCallApps" Text="{Binding CallNotifyAppsText, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="430" HorizontalAlignment="Left" Margin="0,0,0,6"/>
+                        <CheckBox x:Name="ChkNetworkNotify" IsChecked="{Binding Working.NetworkNotifyEnabled}"/>
+                        <CheckBox x:Name="ChkDiskAlert" IsChecked="{Binding Working.DiskAlertEnabled}"/>
+                        <TextBlock x:Name="LblDiskThreshold" Style="{StaticResource Label}"/>
+                        <Slider Minimum="0" Maximum="100" Value="{Binding Working.DiskAlertThresholdGB}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="5"/>
+                        <TextBlock x:Name="TxtDiskThresholdHint" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,2,0,0"/>
+                        <TextBlock x:Name="LblDndTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkDndManual" IsChecked="{Binding Working.DoNotDisturbManual}"/>
+                        <CheckBox x:Name="ChkDndSchedule" IsChecked="{Binding Working.DoNotDisturbEnabled}"/>
+                        <TextBlock x:Name="LblDndStart" Style="{StaticResource Label}"/>
+                        <Slider Minimum="0" Maximum="23" Value="{Binding Working.DoNotDisturbStartHour}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="1"/>
+                        <TextBlock x:Name="LblDndEnd" Style="{StaticResource Label}"/>
+                        <Slider Minimum="0" Maximum="23" Value="{Binding Working.DoNotDisturbEndHour}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="1"/>
+                        <TextBlock x:Name="TxtDndNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0"/>
+
+                        <TextBlock x:Name="LblDndAllowlist" Style="{StaticResource Label}"/>
+                        <TextBox x:Name="TxtDndAllowlist" Text="{Binding Working.DnDAllowlistText, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="430" Height="54" HorizontalAlignment="Left" AcceptsReturn="True" TextWrapping="Wrap"
+                                 VerticalScrollBarVisibility="Auto" Padding="8,5" FontSize="11.5"/>
+
+                        <TextBlock x:Name="LblMeetingTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkMeetingEnabled" IsChecked="{Binding Working.MeetingAssistantEnabled}"/>
+                        <CheckBox x:Name="ChkMeetingAutoDnd" IsChecked="{Binding Working.MeetingAutoDnd}"/>
+                        <TextBlock x:Name="LblMeetingKeywords" Style="{StaticResource Label}"/>
+                        <TextBox x:Name="TxtMeetingKeywords" Text="{Binding Working.MeetingKeywords, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="430" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"/>
+                        <TextBlock x:Name="TxtMeetingNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" MaxWidth="520"/>
+
+                        <TextBlock x:Name="LblScreenCapTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkScreenCapEnabled" IsChecked="{Binding Working.ScreenCaptureNotifyEnabled}"/>
+                        <CheckBox x:Name="ChkScreenshotNotify" IsChecked="{Binding Working.ScreenshotNotifyEnabled}"/>
+                        <CheckBox x:Name="ChkRecordingNotify" IsChecked="{Binding Working.RecordingNotifyEnabled}"/>
+                        <CheckBox x:Name="ChkRecordingDnd" IsChecked="{Binding Working.RecordingDndEnabled}"/>
+                        <TextBlock x:Name="TxtScreenCapNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" MaxWidth="520"/>
+
+                        <TextBlock x:Name="LblVolTempTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkVolTemp" IsChecked="{Binding Working.VolumeTempIndicatorEnabled}"/>
+                        <TextBlock x:Name="LblVolTempSeconds" Style="{StaticResource Label}"/>
+                        <Slider Minimum="1" Maximum="10" Value="{Binding Working.VolumeTempIndicatorSeconds}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="1"/>
+
+                        <TextBlock x:Name="LblCalendarTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkCalendarEnabled" IsChecked="{Binding Working.CalendarEnabled}"/>
+                        <TextBlock x:Name="LblCalendarPath" Style="{StaticResource Label}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="TxtCalendarPath" Text="{Binding Working.CalendarIcsPath, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="430" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"/>
+                            <Button x:Name="BtnCalendarPick" Padding="10,4" Margin="8,0,0,0" Click="CalendarPick_Click"/>
+                        </StackPanel>
+                        <TextBlock x:Name="LblCalendarAdvance" Style="{StaticResource Label}"/>
+                        <Slider Minimum="0" Maximum="120" Value="{Binding Working.CalendarAdvanceMinutes}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="5"/>
+                        <TextBlock x:Name="TxtCalendarNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" MaxWidth="520"/>
+
+                        <TextBlock x:Name="LblRssTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkRssEnabled" IsChecked="{Binding Working.RssNotifyEnabled}"/>
+                        <TextBlock x:Name="LblRssUrls" Style="{StaticResource Label}"/>
+                        <TextBox x:Name="TxtRssUrls" Text="{Binding Working.RssUrls, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="430" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"
+                                 AcceptsReturn="True" TextWrapping="Wrap" Height="52" VerticalScrollBarVisibility="Auto"/>
+                        <TextBlock x:Name="LblRssInterval" Style="{StaticResource Label}"/>
+                        <Slider Minimum="5" Maximum="120" Value="{Binding Working.RssIntervalMinutes}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="5"/>
+                        <TextBlock x:Name="TxtRssNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" MaxWidth="520"/>
+
+                        <TextBlock x:Name="LblMailTitle" Style="{StaticResource Label}" Margin="0,16,0,0"/>
+                        <CheckBox x:Name="ChkMailEnabled" IsChecked="{Binding Working.MailNotifyEnabled}"/>
+                        <TextBlock x:Name="LblMailServer" Style="{StaticResource Label}"/>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBox x:Name="TxtMailServer" Text="{Binding Working.MailPop3Server, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="330" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"/>
+                            <TextBox x:Name="TxtMailPort" Text="{Binding Working.MailPop3Port, UpdateSourceTrigger=PropertyChanged}"
+                                     Width="84" Margin="8,0,0,0" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"/>
+                        </StackPanel>
+                        <CheckBox x:Name="ChkMailSsl" IsChecked="{Binding Working.MailUseSsl}"/>
+                        <TextBlock x:Name="LblMailUser" Style="{StaticResource Label}"/>
+                        <TextBox x:Name="TxtMailUser" Text="{Binding Working.MailUser, UpdateSourceTrigger=PropertyChanged}"
+                                 Width="330" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"/>
+                        <TextBlock x:Name="LblMailPass" Style="{StaticResource Label}"/>
+                        <PasswordBox x:Name="TxtMailPass" Width="330" HorizontalAlignment="Left" Padding="8,5" FontSize="11.5"
+                                     PasswordChanged="MailPass_PasswordChanged"/>
+                        <TextBlock x:Name="LblMailInterval" Style="{StaticResource Label}"/>
+                        <Slider Minimum="1" Maximum="60" Value="{Binding Working.MailCheckMinutes}" Width="300" HorizontalAlignment="Left"
+                                IsSnapToTickEnabled="True" TickFrequency="1"/>
+                        <TextBlock x:Name="TxtMailNote" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,6,0,0" MaxWidth="520"/>
+                        <TextBlock x:Name="LblHistoryTitle" Style="{StaticResource Label}" Margin="0,16,0,0" Text="通知历史"/>
+                        <CheckBox x:Name="ChkHistoryEnabled" IsChecked="{Binding Working.NotificationHistoryEnabled}"/>
+                        <TextBlock x:Name="LblHistoryMax" Style="{StaticResource Label}" Text="最多保留条数"/>
+                        <Slider Minimum="1" Maximum="100" Value="{Binding Working.NotificationHistoryMax}" Width="300" HorizontalAlignment="Left" IsSnapToTickEnabled="True" TickFrequency="1"/>
+                        <Button x:Name="BtnClearHistory" Padding="10,5" HorizontalAlignment="Left" Margin="0,6,0,0" Content="立即清空历史" Click="ClearHistory_Click"/>
+
+                    </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                <TabItem x:Name="TabRules" Header="规则">
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                    <StackPanel Margin="10,6">
+                        <TextBlock x:Name="LblRulesIntro" FontSize="11" Foreground="{DynamicResource TextSecondaryBrush}"
+                                   TextWrapping="Wrap" Margin="0,0,0,8"/>
+                        <ItemsControl ItemsSource="{Binding RuleRows}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Border CornerRadius="10" Background="#14FFFFFF" BorderBrush="#22FFFFFF" BorderThickness="1"
+                                            Padding="10,8" Margin="0,4">
+                                        <StackPanel>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="&#x1F4C4;" FontSize="13" VerticalAlignment="Center" Opacity="0.9"/>
+                                                <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Width="168" Padding="6,3"
+                                                         FontSize="11.5" VerticalContentAlignment="Center" Margin="8,0,0,0"/>
+                                                <CheckBox IsChecked="{Binding Enabled}" Margin="10,0,0,0" VerticalAlignment="Center"/>
+                                                <Button Content="&#xE711;" FontFamily="Segoe MDL2 Assets" FontSize="9" Margin="10,0,0,0"
+                                                        Width="24" Height="24" Padding="0" VerticalAlignment="Center"
+                                                        Background="Transparent" BorderThickness="0" Opacity="0.7"
+                                                        Click="RuleRemove_Click"
+                                                        ToolTip="删除规则"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" Margin="0,6,0,0">
+                                                <ComboBox ItemsSource="{Binding ConditionOptions}" SelectedValuePath="Value"
+                                                          DisplayMemberPath="Display" SelectedValue="{Binding Condition}" Width="170"
+                                                          VerticalContentAlignment="Center"/>
+                                                <StackPanel Orientation="Horizontal" Margin="8,0,0,0"
+                                                            Visibility="{Binding IsTimeRange, Converter={StaticResource BoolToVis}}">
+                                                    <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding StartHour}" Width="58"/>
+                                                    <TextBlock Text="–" Margin="4,0" VerticalAlignment="Center" Opacity="0.7"/>
+                                                    <ComboBox ItemsSource="{Binding Hours}" SelectedItem="{Binding EndHour}" Width="58"/>
+                                                </StackPanel>
+                                                <TextBox Text="{Binding AppMatch, UpdateSourceTrigger=PropertyChanged}" Width="170" Padding="6,3"
+                                                         FontSize="11.5" VerticalContentAlignment="Center" Margin="8,0,0,0"
+                                                         Visibility="{Binding IsAppMatch, Converter={StaticResource BoolToVis}}"/>
+                                                <ComboBox ItemsSource="{Binding ActionOptions}" SelectedValuePath="Value"
+                                                          DisplayMemberPath="Display" SelectedValue="{Binding Action}" Width="132"
+                                                          Margin="8,0,0,0" VerticalContentAlignment="Center"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                        <Button x:Name="BtnAddRule" Content="添加规则" Click="AddRule_Click" Padding="12,5"
+                                HorizontalAlignment="Left" Margin="0,10,0,0"/>
+                    </StackPanel>
+                    </ScrollViewer>
+                </TabItem>
+                    </TabControl>
+                </Grid>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,20,16">
+                <Button x:Name="BtnExport" Content="导出配置" Padding="12,5" Margin="0,0,8,0" Click="Export_Click"/>
+                <Button x:Name="BtnImport" Content="导入配置" Padding="12,5" Margin="0,0,8,0" Click="Import_Click"/>
+            </StackPanel>
+        </Grid>
+    </Border>
+</Window>
+
+

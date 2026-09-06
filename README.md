@@ -1,4 +1,4 @@
-﻿<div align="center">
+<div align="center">
 
 **🌐 选择语言 / Select Language**
 
@@ -15,12 +15,12 @@
 - **🔔 推送与通知优化（1.2.2）**：未展开时上岛/消息提醒单行显示（图标 + 标题 + 单行摘要），超长自动省略不再撑宽灵动岛；长通知时自动调节岛宽，右侧组件与文字完整显示，不被边缘裁切。
 ## 简体中文
 
-# WinIsland — Windows 灵动岛
+# WinIslands — Windows 灵动岛
 
 > **把 iOS 的灵动岛带到 Windows 11 / 10 —— 一款现代化、多功能的 Windows 灵动岛组件。**
 > 基于 **.NET 8 + WPF**，免费开源（MIT），**无广告 · 无遥测 · 不上报数据**。
 
-🌐 官网：https://WinIsland.JudeKwong.com ｜ GitHub：https://github.com/DMP-Pig/WinIsland
+🌐 官网：https://WinIslands.JudeKwong.com ｜ GitHub：https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -38,7 +38,7 @@
 - **✦ 外观与动效**：18 种主题皮肤、自定义强调色、液态玻璃毛玻璃、壁纸取色、跑马灯、4 种动效皮肤（iOS 弹簧等）、4 种音频波纹样式（随音乐节奏抖动）；展开/收起非线性缓动，60fps 丝滑；PerMonitorV2 高 DPI。
 - **🖱 交互与智能**：解锁拖动 + 边缘吸附、全屏/锁屏自动隐藏、双击/中键快捷动作、快捷操作按钮、文件中转站（拖文件上岛、可再拖出到其他应用）、录屏智能勿扰、定时明暗主题切换。
 - **⚡ 效率工具与自动化**：番茄钟、待办、剪贴板历史、快速启动器、日程提醒；会议静音助手、屏幕录制/截图提示、文件复制/下载进度上岛；全局快捷键与规则引擎。
-- **🛡 隐私安全**：无遥测、无广告、无数据上报。除用户手动开启的在线歌词/天气外完全离线；所有配置与数据仅存于本机 `%APPDATA%\WinIsland`。
+- **🛡 隐私安全**：无遥测、无广告、无数据上报。除用户手动开启的在线歌词/天气外完全离线；所有配置与数据仅存于本机 `%APPDATA%\WinIslands`。
 - **🔁 多歌词源一键切换**：在「自动 / 本地 LRC / AMLL TTML / Cider API / 在线歌词」之间一键循环切换，立即重新加载当前歌曲歌词
 - **🛡️ 崩溃自动恢复**：异常退出后下次启动自动提示已恢复，不再无响应、黑屏、状态丢失
 - **⏱️ 动画时长可调**：展开/收起动画时长滑杆（300–1400ms），自由调节快慢，适配个人喜好
@@ -50,11 +50,11 @@
 
 | 平台 | 下载 | 说明 |
 | --- | --- | --- |
-| Windows x64 | [x64 便携版](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | 主流 64 位电脑首选，单文件免安装，直接运行 |
-| Windows ARM64 | [ARM64 便携版](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | Surface Pro X / 骁龙机型等 ARM 设备 |
-| Windows 通用 | [通用安装包](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Inno Setup 安装向导，x64 / ARM64 自动按架构安装 |
+| Windows x64 | [x64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | 主流 64 位电脑首选，单文件免安装，直接运行 |
+| Windows ARM64 | [ARM64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Surface Pro X / 骁龙机型等 ARM 设备 |
+| Windows 通用 | [通用安装包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Inno Setup 安装向导，x64 / ARM64 自动按架构安装 |
 
-历史版本与完整更新日志见 [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases)。
+历史版本与完整更新日志见 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)。
 
 ---
 
@@ -79,8 +79,8 @@
 
 ### 构建与测试
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### 发布
@@ -94,13 +94,13 @@ dotnet test  WinIsland.slnx -c Release
 产物位于 `publish\win-x64\`。正式版按版本放到 `releases\<版本>\win-x64\` 并按版本号重命名。
 
 ### 安装包（可选）
-安装 [Inno Setup 6](https://jrsoftware.org/isinfo.php) 后执行 `iscc.exe build\release-<版本>.iss`，生成 `releases\<版本>\WinIsland-Setup-<版本>.exe`（通用安装包，x64 / ARM64 自动按架构安装）。
+安装 [Inno Setup 6](https://jrsoftware.org/isinfo.php) 后执行 `iscc.exe build\release-<版本>.iss`，生成 `releases\<版本>\WinIslands-Setup-<版本>.exe`（通用安装包，x64 / ARM64 自动按架构安装）。
 
 ---
 
 ## 🚀 使用说明
 
-1. 启动 `WinIsland.exe`（可设置开机自启），托盘出现图标；关闭主窗口不会退出进程，仅托盘化。
+1. 启动 `WinIslands.exe`（可设置开机自启），托盘出现图标；关闭主窗口不会退出进程，仅托盘化。
 2. 播放任意音乐：网易云、QQ音乐、Spotify、Apple Music 官方版等自动通过系统媒体会话显示；Cider 详见下文；其它播放器兜底窗口标题识别。
 3. **点击**灵动岛展开完整卡片（悬停不展开）：进度拖拽 seek、播放控制、音量、同步歌词；再点一下收回。
 4. 托盘菜单：显示/隐藏、独立歌词窗口、开机自启、勿扰模式、检查更新、查看日志、设置、退出。
@@ -109,14 +109,14 @@ dotnet test  WinIsland.slnx -c Release
 
 ### Cider 集成
 1. 在 Cider 设置中开启「允许外部控制」（Allow external control）。
-2. WinIsland 设置 → 媒体 → 启用 Cider（端口默认自动检测 `10767` 并扫描本机，也可手动填写）。
+2. WinIslands 设置 → 媒体 → 启用 Cider（端口默认自动检测 `10767` 并扫描本机，也可手动填写）。
 3. 播放时灵动岛来源显示 `Cider`，可显示封面/进度/歌词并控制播放、seek、音量。
 
 ---
 
 ## ⚙️ 配置项说明
 
-配置文件：`%APPDATA%\WinIsland\settings.json`（JSON；设置界面改动即时生效，可导出/导入）。
+配置文件：`%APPDATA%\WinIslands\settings.json`（JSON；设置界面改动即时生效，可导出/导入）。
 
 | 键 | 默认 | 说明 |
 | --- | --- | --- |
@@ -196,7 +196,7 @@ dotnet test  WinIsland.slnx -c Release
 
 - **无遥测、无广告、无上报**。除用户手动开启的“在线歌词”“天气”外，应用不进行任何网络请求。
 - 唯一联网场景：Cider 封面下载、AMLL 逐字歌词（api.amll.dev）、用户开启后的在线歌词与天气（Open-Meteo）。
-- 所有数据本地存储于 `%APPDATA%\WinIsland\`；日志仅记录本地运行信息。
+- 所有数据本地存储于 `%APPDATA%\WinIslands\`；日志仅记录本地运行信息。
 
 ---
 
@@ -216,7 +216,7 @@ dotnet test  WinIsland.slnx -c Release
 确认正在播放；`HideWhenNoMedia` 默认开启，无媒体时隐藏属正常。运行 `--diagnose` 查看会话列表。
 
 **Q: Cider 显示“未连接”？**
-确认 Cider 设置中开启“允许外部控制”，检查端口（默认 10767），并在 WinIsland 设置中确认已启用 Cider。
+确认 Cider 设置中开启“允许外部控制”，检查端口（默认 10767），并在 WinIslands 设置中确认已启用 Cider。
 
 **Q: 退出后托盘图标仍在？**
 托盘菜单 → 退出；直接关闭灵动岛窗口仅隐藏（托盘常驻设计）。
@@ -235,12 +235,12 @@ dotnet test  WinIsland.slnx -c Release
 - **🔔 推播與通知最佳化（1.2.2）**：未展開時上島/訊息提醒單行顯示（圖示 + 標題 + 單行摘要），過長自動省略不再撐寬動態島；長通知時自動調整島寬，右側元件與文字完整顯示，不被邊緣裁切。
 ## 繁體中文
 
-# WinIsland — Windows 動態島
+# WinIslands — Windows 動態島
 
 > **把 iOS 的動態島帶到 Windows 11 / 10 —— 一款現代化、多功能的 Windows 動態島元件。**
 > 基於 **.NET 8 + WPF**，免費開源（MIT），**無廣告 · 無遙測 · 不上報資料**。
 
-🌐 官網：https://WinIsland.JudeKwong.com ｜ GitHub：https://github.com/DMP-Pig/WinIsland
+🌐 官網：https://WinIslands.JudeKwong.com ｜ GitHub：https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -258,7 +258,7 @@ dotnet test  WinIsland.slnx -c Release
 - **✦ 外觀與動效**：18 種主題皮膚、自訂強調色、液態玻璃毛玻璃、桌布取色、跑馬燈、4 種動效皮膚（iOS 彈簧等）、4 種音訊波紋樣式（隨音樂節奏抖動）；展開/收起非線性緩動，60fps 絲滑；PerMonitorV2 高 DPI。
 - **🖱 互動與智慧**：解鎖拖曳 + 邊緣吸附、全螢幕/鎖定螢幕自動隱藏、雙擊/中鍵快捷動作、快捷操作按鈕、檔案中轉站（拖檔案上島、可再拖出到其他應用）、錄影智慧勿擾、定時明暗主題切換。
 - **⚡ 效率工具與自動化**：蕃茄鐘、待辦、剪貼簿歷史、快速啟動器、日程提醒；會議靜音助手、螢幕錄製/截圖提示、檔案複製/下載進度上島；全域快速鍵與規則引擎。
-- **🛡 隱私安全**：無遙測、無廣告、無資料上報。除使用者手動開啟的線上歌詞/天氣外完全離線；所有設定與資料僅存於本機 `%APPDATA%\WinIsland`。
+- **🛡 隱私安全**：無遙測、無廣告、無資料上報。除使用者手動開啟的線上歌詞/天氣外完全離線；所有設定與資料僅存於本機 `%APPDATA%\WinIslands`。
 - **🔁 多歌詞來源一鍵切換**：在「自動 / 本地 LRC / AMLL TTML / Cider API / 線上歌詞」之間一鍵循環切換，立即重新載入目前歌曲歌詞
 - **🛡️ 當機自動恢復**：異常結束後下次啟動自動提示已恢復，不再無回應、黑屏、狀態遺失
 - **⏱️ 動畫時長可調**：展開/收起動畫時長滑桿（300–1400ms），自由調整快慢，配合個人喜好
@@ -270,11 +270,11 @@ dotnet test  WinIsland.slnx -c Release
 
 | 平台 | 下載 | 說明 |
 | --- | --- | --- |
-| Windows x64 | [x64 攜帶版](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | 主流 64 位元電腦首選，單檔免安裝，直接執行 |
-| Windows ARM64 | [ARM64 攜帶版](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | Surface Pro X / 驍龍機型等 ARM 裝置 |
-| Windows 通用 | [通用安裝包](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Inno Setup 安裝精靈，x64 / ARM64 自動依架構安裝 |
+| Windows x64 | [x64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | 主流 64 位元電腦首選，單檔免安裝，直接執行 |
+| Windows ARM64 | [ARM64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Surface Pro X / 驍龍機型等 ARM 裝置 |
+| Windows 通用 | [通用安裝包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Inno Setup 安裝精靈，x64 / ARM64 自動依架構安裝 |
 
-歷史版本與完整更新日誌見 [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases)。
+歷史版本與完整更新日誌見 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)。
 
 ---
 
@@ -299,8 +299,8 @@ dotnet test  WinIsland.slnx -c Release
 
 ### 建置與測試
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### 發佈
@@ -314,13 +314,13 @@ dotnet test  WinIsland.slnx -c Release
 產物位於 `publish\win-x64\`。正式版依版本放到 `releases\<版本>\win-x64\` 並依版本號重新命名。
 
 ### 安裝包（可選）
-安裝 [Inno Setup 6](https://jrsoftware.org/isinfo.php) 後執行 `iscc.exe build\release-<版本>.iss`，產生 `releases\<版本>\WinIsland-Setup-<版本>.exe`（通用安裝包，x64 / ARM64 自動依架構安裝）。
+安裝 [Inno Setup 6](https://jrsoftware.org/isinfo.php) 後執行 `iscc.exe build\release-<版本>.iss`，產生 `releases\<版本>\WinIslands-Setup-<版本>.exe`（通用安裝包，x64 / ARM64 自動依架構安裝）。
 
 ---
 
 ## 🚀 使用說明
 
-1. 啟動 `WinIsland.exe`（可設定開機自啟），托盤出現圖示；關閉主視窗不會結束處理程序，僅托盤化。
+1. 啟動 `WinIslands.exe`（可設定開機自啟），托盤出現圖示；關閉主視窗不會結束處理程序，僅托盤化。
 2. 播放任何音樂：網易雲、QQ音樂、Spotify、Apple Music 官方版等自動透過系統媒體工作階段顯示；Cider 詳見下文；其他播放器以視窗標題識別兜底。
 3. **點擊**動態島展開完整卡片（懸停不展開）：進度拖曳 seek、播放控制、音量、同步歌詞；再點一下收回。
 4. 托盤選單：顯示/隱藏、獨立歌詞視窗、開機自啟、勿擾模式、檢查更新、檢視日誌、設定、退出。
@@ -329,14 +329,14 @@ dotnet test  WinIsland.slnx -c Release
 
 ### Cider 整合
 1. 在 Cider 設定中開啟「允許外部控制」（Allow external control）。
-2. WinIsland 設定 → 媒體 → 啟用 Cider（連接埠預設自動偵測 `10767` 並掃描本機，也可手動填寫）。
+2. WinIslands 設定 → 媒體 → 啟用 Cider（連接埠預設自動偵測 `10767` 並掃描本機，也可手動填寫）。
 3. 播放時動態島來源顯示 `Cider`，可顯示封面/進度/歌詞並控制播放、seek、音量。
 
 ---
 
 ## ⚙️ 設定項說明
 
-設定檔：`%APPDATA%\WinIsland\settings.json`（JSON；設定介面改動即時生效，可匯出/匯入）。
+設定檔：`%APPDATA%\WinIslands\settings.json`（JSON；設定介面改動即時生效，可匯出/匯入）。
 
 | 鍵 | 預設 | 說明 |
 | --- | --- | --- |
@@ -416,7 +416,7 @@ dotnet test  WinIsland.slnx -c Release
 
 - **無遙測、無廣告、無上報**。除使用者手動開啟的「線上歌詞」「天氣」外，應用不進行任何網路請求。
 - 唯一聯網場景：Cider 封面下載、AMLL 逐字歌詞（api.amll.dev）、使用者開啟後的線上歌詞與天氣（Open-Meteo）。
-- 所有資料本機儲存於 `%APPDATA%\WinIsland\`；日誌僅記錄本機執行資訊。
+- 所有資料本機儲存於 `%APPDATA%\WinIslands\`；日誌僅記錄本機執行資訊。
 
 ---
 
@@ -436,7 +436,7 @@ dotnet test  WinIsland.slnx -c Release
 確認正在播放；`HideWhenNoMedia` 預設開啟，無媒體時隱藏屬正常。執行 `--diagnose` 檢視工作階段清單。
 
 **Q: Cider 顯示「未連線」？**
-確認 Cider 設定中開啟「允許外部控制」，檢查連接埠（預設 10767），並在 WinIsland 設定中確認已啟用 Cider。
+確認 Cider 設定中開啟「允許外部控制」，檢查連接埠（預設 10767），並在 WinIslands 設定中確認已啟用 Cider。
 
 **Q: 退出後托盤圖示仍在？**
 托盤選單 → 退出；直接關閉動態島視窗僅隱藏（托盤常駐設計）。
@@ -455,12 +455,12 @@ dotnet test  WinIsland.slnx -c Release
 - **🔔 Push & notification polish (1.2.2)**: collapsed alerts show a single line (icon + title + one-line summary) and truncate when long, so they no longer widen the island; the island auto-widens for long notifications so right-side widgets and text stay fully visible.
 ## English
 
-# WinIsland — Dynamic Island for Windows
+# WinIslands — Dynamic Island for Windows
 
 > **Bring the iOS Dynamic Island to Windows 11 / 10 — a modern, multi-functional Dynamic Island widget for Windows.**
 > Built with **.NET 8 + WPF**, free and open source (MIT), **no ads · no telemetry · no data collection**.
 
-🌐 Website: https://WinIsland.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIsland
+🌐 Website: https://WinIslands.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -478,7 +478,7 @@ dotnet test  WinIsland.slnx -c Release
 - **✦ Appearance & motion**: 18 theme presets, custom accent color, liquid-glass acrylic, wallpaper color extraction, marquee, 4 motion skins (iOS spring etc.), 4 audio-wave styles (pulsing with the music); non-linear easing for expand/collapse at a smooth 60 fps; PerMonitorV2 high-DPI support.
 - **🖱 Interaction & intelligence**: unlock-to-drag with edge snapping, auto-hide on fullscreen/lock screen, double-click and middle-click quick actions, quick-action buttons, file transfer station (drag files onto the island and out to other apps), smart DND while screen-recording, scheduled light/dark theme switching.
 - **⚡ Productivity & automation**: Pomodoro timer, to-dos, clipboard history, quick launcher, schedule reminders; meeting mute assistant, screen-record/screenshot hints, file-copy/download progress on the island; global hotkeys and a rules engine.
-- **🛡 Privacy & security**: no telemetry, no ads, no data uploads. Fully offline except for user-enabled online lyrics/weather; all configuration and data stays local in `%APPDATA%\WinIsland`.
+- **🛡 Privacy & security**: no telemetry, no ads, no data uploads. Fully offline except for user-enabled online lyrics/weather; all configuration and data stays local in `%APPDATA%\WinIslands`.
 - **🔁 One-tap lyric-source switching**: cycle instantly between Auto / Local LRC / AMLL TTML / Cider API / Online lyrics, and the current song's lyrics reload right away
 - **🛡️ Automatic crash recovery**: after an abnormal exit, the next launch auto-notifies recovery — no more hangs, black screens, or lost state
 - **⏱️ Adjustable animation duration**: a new expand/collapse animation-duration slider (300–1400ms) lets you fine-tune speed to your liking
@@ -490,11 +490,11 @@ dotnet test  WinIsland.slnx -c Release
 
 | Platform | Download | Notes |
 | --- | --- | --- |
-| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
-| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
-| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
+| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
+| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
+| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
 
-All historical versions and the full changelog: [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases).
+All historical versions and the full changelog: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
 ---
 
@@ -519,8 +519,8 @@ All historical versions and the full changelog: [GitHub Releases](https://github
 
 ### Build & test
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### Publish
@@ -534,13 +534,13 @@ dotnet test  WinIsland.slnx -c Release
 Output goes to `publish\win-x64\`. For stable releases, place the build under `releases\<version>\win-x64\` and rename it with the version number.
 
 ### Installer (optional)
-Install [Inno Setup 6](https://jrsoftware.org/isinfo.php), then run `iscc.exe build\release-<version>.iss` to produce `releases\<version>\WinIsland-Setup-<version>.exe` (universal installer; auto-installs x64 / ARM64 by architecture).
+Install [Inno Setup 6](https://jrsoftware.org/isinfo.php), then run `iscc.exe build\release-<version>.iss` to produce `releases\<version>\WinIslands-Setup-<version>.exe` (universal installer; auto-installs x64 / ARM64 by architecture).
 
 ---
 
 ## 🚀 Usage
 
-1. Launch `WinIsland.exe` (startup with Windows is optional); a tray icon appears. Closing the main window does not quit the process — it just minimizes to the tray.
+1. Launch `WinIslands.exe` (startup with Windows is optional); a tray icon appears. Closing the main window does not quit the process — it just minimizes to the tray.
 2. Play any music: NetEase Cloud Music, QQ Music, Spotify, Apple Music official app, etc. appear automatically through the system media session; Cider — see below; other players fall back to window-title detection.
 3. **Click** the island to expand the full card (hovering does not expand): draggable seek, playback controls, volume, synced lyrics; click again to collapse.
 4. Tray menu: show/hide, standalone lyrics window, start with Windows, Do Not Disturb, check for updates, view logs, settings, quit.
@@ -549,14 +549,14 @@ Install [Inno Setup 6](https://jrsoftware.org/isinfo.php), then run `iscc.exe bu
 
 ### Cider integration
 1. Enable "Allow external control" in Cider settings.
-2. WinIsland Settings → Media → enable Cider (port auto-detected from `10767` with a local scan, or set manually).
+2. WinIslands Settings → Media → enable Cider (port auto-detected from `10767` with a local scan, or set manually).
 3. While playing, the island source shows `Cider`; you can display artwork/progress/lyrics and control play, seek and volume.
 
 ---
 
 ## ⚙️ Configuration
 
-Config file: `%APPDATA%\WinIsland\settings.json` (JSON; changes in the settings UI apply instantly, export/import supported).
+Config file: `%APPDATA%\WinIslands\settings.json` (JSON; changes in the settings UI apply instantly, export/import supported).
 
 | Key | Default | Description |
 | --- | --- | --- |
@@ -636,7 +636,7 @@ Full documentation: [docs/IslandAPI.md](docs/IslandAPI.md)
 
 - **No telemetry, no ads, no uploads**. The app makes no network requests except user-enabled "online lyrics" and "weather".
 - The only networked scenarios: Cider artwork download, AMLL word-by-word lyrics (api.amll.dev), user-enabled online lyrics and weather (Open-Meteo).
-- All data is stored locally in `%APPDATA%\WinIsland\`; logs only record local runtime information.
+- All data is stored locally in `%APPDATA%\WinIslands\`; logs only record local runtime information.
 
 ---
 
@@ -656,7 +656,7 @@ Full documentation: [docs/IslandAPI.md](docs/IslandAPI.md)
 Make sure media is playing; `HideWhenNoMedia` is enabled by default, so hiding without media is expected. Run `--diagnose` to see the session list.
 
 **Q: Cider shows "Not connected"?**
-Make sure "Allow external control" is enabled in Cider settings, check the port (default 10767), and confirm Cider is enabled in WinIsland settings.
+Make sure "Allow external control" is enabled in Cider settings, check the port (default 10767), and confirm Cider is enabled in WinIslands settings.
 
 **Q: The tray icon is still there after quitting?**
 Use Tray menu → Quit; closing the island window only hides it (tray-resident by design).
@@ -675,12 +675,12 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 - **🔔 Mejoras en notificaciones (1.2.2)**: las alertas plegadas muestran una sola línea (icono + título + resumen de una línea) y se truncan si son largas, sin ensanchar la isla; la isla se ensancha automáticamente para que los widgets de la derecha y el texto se vean completos.
 ## Español
 
-# WinIsland — Dynamic Island para Windows
+# WinIslands — Dynamic Island para Windows
 
 > **Lleva el Dynamic Island de iOS a Windows 11 / 10: un widget de Dynamic Island moderno y multifuncional para Windows.**
 > Desarrollado con **.NET 8 + WPF**, gratuito y de código abierto (MIT), **sin anuncios · sin telemetría · sin recopilación de datos**.
 
-🌐 Sitio web: https://WinIsland.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIsland
+🌐 Sitio web: https://WinIslands.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -698,7 +698,7 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 - **✦ Apariencia y movimiento**: 18 temas preestablecidos, color de acento personalizado, acrílico de vidrio líquido, extracción de color del fondo de pantalla, marquesina, 4 pieles de animación (muelle iOS, etc.), 4 estilos de onda de audio (que pulsan con la música); easing no lineal para expandir/contraer a 60 fps fluidos; soporte de alto DPI PerMonitorV2.
 - **🖱 Interacción e inteligencia**: desbloquear para arrastrar con ajuste a bordes, ocultar automáticamente en pantalla completa/pantalla de bloqueo, acciones rápidas de doble clic y clic central, botones de acción rápida, estación de transferencia de archivos (arrastrar archivos a la isla y arrastrarlos fuera a otras apps), No molestar inteligente durante la grabación de pantalla, cambio programado de tema claro/oscuro.
 - **⚡ Productividad y automatización**: temporizador Pomodoro, tareas pendientes, historial del portapapeles, lanzador rápido, recordatorios de agenda; asistente de silencio en reuniones, avisos de grabación/captura de pantalla, progreso de copia/descarga de archivos en la isla; atajos globales y motor de reglas.
-- **🛡 Privacidad y seguridad**: sin telemetría, sin anuncios, sin cargas de datos. Totalmente sin conexión excepto por las letras en línea y el clima habilitados por el usuario; toda la configuración y los datos permanecen locales en `%APPDATA%\WinIsland`.
+- **🛡 Privacidad y seguridad**: sin telemetría, sin anuncios, sin cargas de datos. Totalmente sin conexión excepto por las letras en línea y el clima habilitados por el usuario; toda la configuración y los datos permanecen locales en `%APPDATA%\WinIslands`.
 - **🔁 Cambio de fuente de letras con un clic**: alterna al instante entre Automática / LRC local / AMLL TTML / API de Cider / Letras en línea, y las letras de la canción actual se recargan de inmediato
 - **🛡️ Recuperación automática tras fallos**: después de un cierre anómalo, el siguiente inicio avisa de la recuperación — sin bloqueos, pantallas negras ni estados perdidos
 - **⏱️ Duración de animación ajustable**: nuevo control deslizante de duración de expandir/contraer (300–1400ms)
@@ -710,11 +710,11 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 
 | Plataforma | Descarga | Notas |
 | --- | --- | --- |
-| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | Para PCs de 64 bits convencionales; archivo único, sin instalación |
-| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Asistente Inno Setup; instala x64 / ARM64 según la arquitectura |
+| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Para PCs de 64 bits convencionales; archivo único, sin instalación |
+| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Asistente Inno Setup; instala x64 / ARM64 según la arquitectura |
 
-Todas las versiones históricas y el registro de cambios completo: [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases).
+Todas las versiones históricas y el registro de cambios completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
 ---
 
@@ -739,8 +739,8 @@ Todas las versiones históricas y el registro de cambios completo: [GitHub Relea
 
 ### Compilar y probar
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### Publicar
@@ -754,13 +754,13 @@ dotnet test  WinIsland.slnx -c Release
 La salida va a `publish\win-x64\`. Para versiones estables, coloca la compilación en `releases\<versión>\win-x64\` y renómbrala con el número de versión.
 
 ### Instalador (opcional)
-Instala [Inno Setup 6](https://jrsoftware.org/isinfo.php) y ejecuta `iscc.exe build\release-<versión>.iss` para generar `releases\<versión>\WinIsland-Setup-<versión>.exe` (instalador universal; instala x64 / ARM64 según la arquitectura).
+Instala [Inno Setup 6](https://jrsoftware.org/isinfo.php) y ejecuta `iscc.exe build\release-<versión>.iss` para generar `releases\<versión>\WinIslands-Setup-<versión>.exe` (instalador universal; instala x64 / ARM64 según la arquitectura).
 
 ---
 
 ## 🚀 Uso
 
-1. Inicia `WinIsland.exe` (opcional: iniciar con Windows); aparece un icono en la bandeja. Cerrar la ventana principal no cierra el proceso: solo minimiza a la bandeja.
+1. Inicia `WinIslands.exe` (opcional: iniciar con Windows); aparece un icono en la bandeja. Cerrar la ventana principal no cierra el proceso: solo minimiza a la bandeja.
 2. Reproduce cualquier música: NetEase Cloud Music, QQ Music, Spotify, la app oficial de Apple Music, etc., aparecen automáticamente mediante la sesión multimedia del sistema; Cider, ver más abajo; otros reproductores usan detección por título de ventana.
 3. **Haz clic** en la isla para expandir la tarjeta completa (pasar el cursor no expande): seek arrastrable, controles de reproducción, volumen, letras sincronizadas; haz clic de nuevo para contraer.
 4. Menú de la bandeja: mostrar/ocultar, ventana de letras independiente, iniciar con Windows, No molestar, buscar actualizaciones, ver registros, ajustes, salir.
@@ -769,14 +769,14 @@ Instala [Inno Setup 6](https://jrsoftware.org/isinfo.php) y ejecuta `iscc.exe bu
 
 ### Integración con Cider
 1. Activa "Allow external control" en los ajustes de Cider.
-2. Ajustes de WinIsland → Media → activa Cider (puerto autodetectado desde `10767` con escaneo local, o configúralo manualmente).
+2. Ajustes de WinIslands → Media → activa Cider (puerto autodetectado desde `10767` con escaneo local, o configúralo manualmente).
 3. Mientras se reproduce, la fuente de la isla muestra `Cider`; puedes ver portada/progreso/letras y controlar reproducción, seek y volumen.
 
 ---
 
 ## ⚙️ Configuración
 
-Archivo de configuración: `%APPDATA%\WinIsland\settings.json` (JSON; los cambios en la interfaz de ajustes se aplican al instante, con exportación/importación).
+Archivo de configuración: `%APPDATA%\WinIslands\settings.json` (JSON; los cambios en la interfaz de ajustes se aplican al instante, con exportación/importación).
 
 | Clave | Predeterminado | Descripción |
 | --- | --- | --- |
@@ -856,7 +856,7 @@ Documentación completa: [docs/IslandAPI.md](docs/IslandAPI.md)
 
 - **Sin telemetría, sin anuncios, sin cargas**. La app no hace solicitudes de red salvo las "letras en línea" y el "clima" habilitados por el usuario.
 - Las únicas situaciones con red: descarga de portadas de Cider, letras palabra por palabra AMLL (api.amll.dev), letras en línea y clima habilitados por el usuario (Open-Meteo).
-- Todos los datos se almacenan localmente en `%APPDATA%\WinIsland\`; los registros solo guardan información local de ejecución.
+- Todos los datos se almacenan localmente en `%APPDATA%\WinIslands\`; los registros solo guardan información local de ejecución.
 
 ---
 
@@ -876,7 +876,7 @@ Documentación completa: [docs/IslandAPI.md](docs/IslandAPI.md)
 Asegúrate de que haya medios reproduciéndose; `HideWhenNoMedia` está activado por defecto, así que ocultarse sin medios es lo esperado. Ejecuta `--diagnose` para ver la lista de sesiones.
 
 **P: ¿Cider muestra "No conectado"?**
-Asegúrate de que "Allow external control" esté activado en los ajustes de Cider, comprueba el puerto (por defecto 10767) y confirma que Cider esté habilitado en los ajustes de WinIsland.
+Asegúrate de que "Allow external control" esté activado en los ajustes de Cider, comprueba el puerto (por defecto 10767) y confirma que Cider esté habilitado en los ajustes de WinIslands.
 
 **P: ¿El icono de la bandeja sigue ahí después de salir?**
 Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (diseño residente en la bandeja).
@@ -895,12 +895,12 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 - **🔔 Notifications optimisées (1.2.2)** : les alertes repliées affichent une seule ligne (icône + titre + résumé sur une ligne) et sont tronquées si longues, sans élargir l'île ; l'île s'élargit automatiquement pour que les widgets à droite et le texte restent entièrement visibles.
 ## Français
 
-# WinIsland — Dynamic Island pour Windows
+# WinIslands — Dynamic Island pour Windows
 
 > **Apportez le Dynamic Island d'iOS à Windows 11 / 10 — un widget Dynamic Island moderne et multifonctionnel pour Windows.**
 > Basé sur **.NET 8 + WPF**, gratuit et open source (MIT), **sans publicité · sans télémétrie · sans collecte de données**.
 
-🌐 Site web : https://WinIsland.JudeKwong.com ｜ GitHub : https://github.com/DMP-Pig/WinIsland
+🌐 Site web : https://WinIslands.JudeKwong.com ｜ GitHub : https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -918,7 +918,7 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 - **✦ Apparence et animation** : 18 thèmes prédéfinis, couleur d'accent personnalisée, acrylique verre liquide, extraction de couleur du fond d'écran, défilement défilant, 4 peaux d'animation (ressort iOS, etc.), 4 styles d'onde audio (palpitant au rythme de la musique) ; easing non linéaire pour déplier/replier à 60 fps fluides ; prise en charge haute DPI PerMonitorV2.
 - **🖱 Interaction et intelligence** : déverrouillage pour glisser avec magnétisme aux bords, masquage automatique en plein écran / sur l'écran de verrouillage, actions rapides double-clic et clic central, boutons d'action rapide, station de transfert de fichiers (glisser des fichiers vers l'île puis vers d'autres applications), Ne pas déranger intelligent pendant l'enregistrement d'écran, bascule programmée du thème clair/sombre.
 - **⚡ Productivité et automatisation** : minuteur Pomodoro, tâches, historique du presse-papiers, lanceur rapide, rappels d'agenda ; assistant de mise en sourdine en réunion, alertes d'enregistrement d'écran / de capture, progression de copie/téléchargement de fichiers sur l'île ; raccourcis globaux et moteur de règles.
-- **🛡 Confidentialité et sécurité** : aucune télémétrie, aucune publicité, aucune remontée de données. Entièrement hors ligne sauf paroles en ligne et météo activées manuellement ; toute la configuration et les données restent locales dans `%APPDATA%\WinIsland`.
+- **🛡 Confidentialité et sécurité** : aucune télémétrie, aucune publicité, aucune remontée de données. Entièrement hors ligne sauf paroles en ligne et météo activées manuellement ; toute la configuration et les données restent locales dans `%APPDATA%\WinIslands`.
 - **🔁 Changement de source des paroles en un clic** : basculez instantanément entre Auto / LRC local / AMLL TTML / API Cider / Paroles en ligne, et les paroles de la chanson en cours sont rechargées aussitôt
 - **🛡️ Récupération automatique après un plantage** : après une fermeture anormale, le prochain lancement notifie la récupération — plus de blocages, d'écran noir ni d'état perdu
 - **⏱️ Durée d'animation réglable** : nouveau curseur de durée de déploiement/repli (300–1400ms)
@@ -930,11 +930,11 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 
 | Plateforme | Téléchargement | Notes |
 | --- | --- | --- |
-| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | Le choix recommandé pour les PC 64 bits ; fichier unique, sans installation, exécution directe |
-| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
-| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
+| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Le choix recommandé pour les PC 64 bits ; fichier unique, sans installation, exécution directe |
+| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
+| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
 
-Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases).
+Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
 ---
 
@@ -959,8 +959,8 @@ Toutes les versions historiques et le journal complet : [GitHub Releases](https:
 
 ### Compiler et tester
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### Publier
@@ -974,13 +974,13 @@ dotnet test  WinIsland.slnx -c Release
 Les artefacts se trouvent dans `publish\win-x64\`. Les versions stables sont placées dans `releases\<version>\win-x64\` et renommées selon le numéro de version.
 
 ### Installeur (facultatif)
-Installez [Inno Setup 6](https://jrsoftware.org/isinfo.php), puis exécutez `iscc.exe build\release-<version>.iss` pour générer `releases\<version>\WinIsland-Setup-<version>.exe` (installeur universel, installe x64 / ARM64 selon l'architecture).
+Installez [Inno Setup 6](https://jrsoftware.org/isinfo.php), puis exécutez `iscc.exe build\release-<version>.iss` pour générer `releases\<version>\WinIslands-Setup-<version>.exe` (installeur universel, installe x64 / ARM64 selon l'architecture).
 
 ---
 
 ## 🚀 Utilisation
 
-1. Lancez `WinIsland.exe` (démarrage automatique configurable) ; l'icône apparaît dans la barre d'état ; fermer la fenêtre principale ne quitte pas le processus (réduit dans la barre d'état).
+1. Lancez `WinIslands.exe` (démarrage automatique configurable) ; l'icône apparaît dans la barre d'état ; fermer la fenêtre principale ne quitte pas le processus (réduit dans la barre d'état).
 2. Lisez de la musique : NetEase Cloud Music, QQ Music, Spotify, Apple Music officiel, etc. s'affichent automatiquement via la session multimédia système ; pour Cider voir ci-dessous ; les autres lecteurs utilisent la détection par titre de fenêtre.
 3. **Cliquez** sur l'île pour déplier la carte complète (le survol ne déplie pas) : seek par glissement de la progression, contrôle de lecture, volume, paroles synchronisées ; recliquez pour replier.
 4. Menu de la barre d'état : afficher/masquer, fenêtre de paroles indépendante, démarrage automatique, Ne pas déranger, rechercher les mises à jour, voir les journaux, paramètres, quitter.
@@ -989,14 +989,14 @@ Installez [Inno Setup 6](https://jrsoftware.org/isinfo.php), puis exécutez `isc
 
 ### Intégration Cider
 1. Dans les paramètres de Cider, activez « Autoriser le contrôle externe » (Allow external control).
-2. Paramètres WinIsland → Média → activer Cider (port détecté automatiquement `10767` et scan local, ou saisie manuelle).
+2. Paramètres WinIslands → Média → activer Cider (port détecté automatiquement `10767` et scan local, ou saisie manuelle).
 3. Pendant la lecture, la source affichée sur l'île est `Cider` : pochette/progression/paroles, contrôle lecture, seek, volume.
 
 ---
 
 ## ⚙️ Options de configuration
 
-Fichier de configuration : `%APPDATA%\WinIsland\settings.json` (JSON ; les modifications dans l'interface prennent effet immédiatement, export/import possibles).
+Fichier de configuration : `%APPDATA%\WinIslands\settings.json` (JSON ; les modifications dans l'interface prennent effet immédiatement, export/import possibles).
 
 | Clé | Défaut | Description |
 | --- | --- | --- |
@@ -1076,7 +1076,7 @@ Documentation complète : [docs/IslandAPI.md](docs/IslandAPI.md)
 
 - **Aucune télémétrie, aucune publicité, aucune remontée**. Sauf « paroles en ligne » et « météo » activées manuellement, l'application ne fait aucune requête réseau.
 - Seules connexions réseau : téléchargement des pochettes Cider, paroles mot à mot AMLL (api.amll.dev), paroles en ligne et météo après activation (Open-Meteo).
-- Toutes les données sont stockées localement dans `%APPDATA%\WinIsland\` ; les journaux n'enregistrent que des informations d'exécution locales.
+- Toutes les données sont stockées localement dans `%APPDATA%\WinIslands\` ; les journaux n'enregistrent que des informations d'exécution locales.
 
 ---
 
@@ -1096,7 +1096,7 @@ Documentation complète : [docs/IslandAPI.md](docs/IslandAPI.md)
 Vérifiez que quelque chose est en lecture ; `HideWhenNoMedia` est activé par défaut, le masquage sans média est normal. Lancez `--diagnose` pour voir la liste des sessions.
 
 **Q : Cider affiche « non connecté » ?**
-Vérifiez que « Autoriser le contrôle externe » est activé dans les paramètres de Cider, contrôlez le port (défaut 10767) et confirmez que Cider est activé dans les paramètres de WinIsland.
+Vérifiez que « Autoriser le contrôle externe » est activé dans les paramètres de Cider, contrôlez le port (défaut 10767) et confirmez que Cider est activé dans les paramètres de WinIslands.
 
 **Q : L'icône de la barre d'état reste après la sortie ?**
 Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que la masquer (l'île reste résidente par conception).
@@ -1115,12 +1115,12 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 - **🔔 تحسين الإشعارات والتنبيهات (1.2.2)**: تعرض التنبيهات المطوية سطرًا واحدًا (أيقونة + عنوان + ملخص سطر واحد) وتُقتطع عند الطول، فلا توسّع الجزيرة؛ وتتوسع الجزيرة تلقائيًا لعرض أدوات الجانب الأيمن والنص كاملًا.
 ## العربية
 
-# WinIsland — ديناميك آيلاند لويندوز
+# WinIslands — ديناميك آيلاند لويندوز
 
 > **انقل «الديناميك آيلاند» من iOS إلى ويندوز 11 / 10 — أداة ديناميك آيلاند عصرية ومتعددة الوظائف لويندوز.**
 > مبني على **.NET 8 + WPF**، مجاني ومفتوح المصدر (MIT)، **بدون إعلانات · بدون تتبع عن بُعد · بدون جمع بيانات**.
 
-🌐 الموقع: https://WinIsland.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIsland
+🌐 الموقع: https://WinIslands.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -1138,7 +1138,7 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 - **✦ المظهر والحركة**: 18 سمة جاهزة، ولون تمييز مخصص، وزجاج سائل/أكريليك، واستخراج لون الخلفية، وشريط متحرك، و4 أساليب حركة (نابض iOS وغيرها)، و4 أنماط لموجة الصوت (تنبض مع إيقاع الموسيقى)؛ انسياب غير خطي للتمديد/الطيّ بسلاسة 60 إطارًا في الثانية؛ دعم دقة عالية PerMonitorV2.
 - **🖱 التفاعل والذكاء**: إلغاء القفل للسحب مع الالتصاق بالحواف، إخفاء تلقائي في ملء الشاشة/شاشة القفل، أفعال سريعة بنقرة مزدوجة/نقرة الوسط، أزرار أفعال سريعة، محطة نقل الملفات (سحب الملفات إلى الجزيرة وإخراجها إلى تطبيقات أخرى)، «لا تُزعج» ذكي أثناء تسجيل الشاشة، تبديل مجدول للسمة الفاتحة/الداكنة.
 - **⚡ الإنتاجية والأتمتة**: مؤقّت بومودورو، مهام، سجل الحافظة، مشغّل سريع، تذكيرات مواعيد؛ مساعد كتم الميكروفون في الاجتماعات، تنبيهات تسجيل/التقاط الشاشة، تقدّم نسخ/تنزيل الملفات على الجزيرة؛ اختصارات عامة ومحرك قواعد.
-- **🛡 الخصوصية والأمان**: لا تتبع، لا إعلانات، لا رفع بيانات. يعمل دون اتصال تمامًا ما عدا الكلمات عبر الإنترنت والطقس عند تفعيلهما يدويًا؛ جميع الإعدادات والبيانات محلية في `%APPDATA%\WinIsland`.
+- **🛡 الخصوصية والأمان**: لا تتبع، لا إعلانات، لا رفع بيانات. يعمل دون اتصال تمامًا ما عدا الكلمات عبر الإنترنت والطقس عند تفعيلهما يدويًا؛ جميع الإعدادات والبيانات محلية في `%APPDATA%\WinIslands`.
 - **🔁 التبديل السريع لمصدر الكلمات بنقرة واحدة**: بدّل فوراً بين تلقائي / LRC محلي / AMLL TTML / واجهة Cider / الكلمات عبر الإنترنت، مع إعادة تحميل كلمات الأغنية الحالية مباشرة
 - **🛡️ الاسترداد التلقائي عند الأعطال**: بعد خروج غير طبيعي، يشير التشغيل التالي إلى الاسترداد — بلا تجمّد أو شاشة سوداء أو فقدان الحالة
 - **⏱️ مدة حركة قابلة للضبط**: شريط تمرير جديد لمدة حركة الفتح/الطي (300–1400ms)
@@ -1150,11 +1150,11 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 
 | النظام | التحميل | ملاحظات |
 | --- | --- | --- |
-| Windows x64 | [نسخة محمولة x64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | الخيار الأول لأجهزة 64 بت الشائعة؛ ملف واحد بدون تثبيت، يعمل مباشرة |
-| Windows ARM64 | [نسخة محمولة ARM64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | لأجهزة Surface Pro X / أجهزة ARM Snapdragon |
-| Windows شامل | [مثبّت شامل](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | معالج Inno Setup؛ يثبّت x64 / ARM64 حسب البنية |
+| Windows x64 | [نسخة محمولة x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | الخيار الأول لأجهزة 64 بت الشائعة؛ ملف واحد بدون تثبيت، يعمل مباشرة |
+| Windows ARM64 | [نسخة محمولة ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | لأجهزة Surface Pro X / أجهزة ARM Snapdragon |
+| Windows شامل | [مثبّت شامل](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | معالج Inno Setup؛ يثبّت x64 / ARM64 حسب البنية |
 
-جميع الإصدارات السابقة وسجل التغييرات الكامل: [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases).
+جميع الإصدارات السابقة وسجل التغييرات الكامل: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
 ---
 
@@ -1179,8 +1179,8 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 
 ### البناء والاختبار
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### النشر
@@ -1194,13 +1194,13 @@ dotnet test  WinIsland.slnx -c Release
 الملفات الناتجة في `publish\win-x64\`. توضع الإصدارات المستقرة في `releases\<الإصدار>\win-x64\` وتُعاد تسميتها حسب رقم الإصدار.
 
 ### المثبّت (اختياري)
-ثبّت [Inno Setup 6](https://jrsoftware.org/isinfo.php)، ثم نفّذ `iscc.exe build\release-<الإصدار>.iss` لتوليد `releases\<الإصدار>\WinIsland-Setup-<الإصدار>.exe` (مثبّت شامل، x64 / ARM64 حسب البنية).
+ثبّت [Inno Setup 6](https://jrsoftware.org/isinfo.php)، ثم نفّذ `iscc.exe build\release-<الإصدار>.iss` لتوليد `releases\<الإصدار>\WinIslands-Setup-<الإصدار>.exe` (مثبّت شامل، x64 / ARM64 حسب البنية).
 
 ---
 
 ## 🚀 طريقة الاستخدام
 
-1. شغّل `WinIsland.exe` (يمكن ضبط التشغيل مع بدء تشغيل ويندوز)؛ يظهر رمز في علبة النظام؛ إغلاق النافذة الرئيسية لا يُنهي العملية — يُصغّر إلى العلبة فقط.
+1. شغّل `WinIslands.exe` (يمكن ضبط التشغيل مع بدء تشغيل ويندوز)؛ يظهر رمز في علبة النظام؛ إغلاق النافذة الرئيسية لا يُنهي العملية — يُصغّر إلى العلبة فقط.
 2. شغّل أي موسيقى: NetEase Cloud Music وQQ Music وSpotify وApple Music الرسمي وغيرها تظهر تلقائيًا عبر جلسة الوسائط؛ أما Cider فانظر أدناه؛ المشغّلات الأخرى تُكتشف عبر عنوان النافذة.
 3. **انقر** على الجزيرة لتمديد البطاقة الكاملة (التمرير لا يمدّد): سحب التقدّم للانتقال (seek)، التحكم في التشغيل، مستوى الصوت، كلمات متزامنة؛ انقر مجددًا للطيّ.
 4. قائمة العلبة: إظهار/إخفاء، نافذة كلمات مستقلة، التشغيل مع ويندوز، «لا تُزعج»، البحث عن التحديثات، عرض السجلات، الإعدادات، خروج.
@@ -1209,14 +1209,14 @@ dotnet test  WinIsland.slnx -c Release
 
 ### تكامل Cider
 1. في إعدادات Cider فعّل «السماح بالتحكم الخارجي» (Allow external control).
-2. إعدادات WinIsland ← الوسائط ← تفعيل Cider (المنفذ يُكتشف تلقائيًا `10767` ويُفحص محليًا، أو يُدخل يدويًا).
+2. إعدادات WinIslands ← الوسائط ← تفعيل Cider (المنفذ يُكتشف تلقائيًا `10767` ويُفحص محليًا، أو يُدخل يدويًا).
 3. أثناء التشغيل، المصدر على الجزيرة هو `Cider`: الغلاف/التقدّم/الكلمات والتحكم وseek ومستوى الصوت.
 
 ---
 
 ## ⚙️ شرح الإعدادات
 
-ملف الإعدادات: `%APPDATA%\WinIsland\settings.json` (JSON؛ التغييرات في الواجهة تُطبَّق فورًا، مع إمكانية التصدير/الاستيراد).
+ملف الإعدادات: `%APPDATA%\WinIslands\settings.json` (JSON؛ التغييرات في الواجهة تُطبَّق فورًا، مع إمكانية التصدير/الاستيراد).
 
 | المفتاح | الافتراضي | الوصف |
 | --- | --- | --- |
@@ -1296,7 +1296,7 @@ dotnet test  WinIsland.slnx -c Release
 
 - **لا تتبع، لا إعلانات، لا رفع بيانات**. باستثناء «الكلمات عبر الإنترنت» و«الطقس» المفعّلين يدويًا، لا يقوم التطبيق بأي طلبات شبكة.
 - سيناريوهات الاتصال الوحيدة: تنزيل أغلفة Cider، كلمات AMLL كلمةً كلمة (api.amll.dev)، والكلمات عبر الإنترنت والطقس بعد التفعيل (Open-Meteo).
-- جميع البيانات محلية في `%APPDATA%\WinIsland\`؛ السجلات تسجّل معلومات التشغيل المحلية فقط.
+- جميع البيانات محلية في `%APPDATA%\WinIslands\`؛ السجلات تسجّل معلومات التشغيل المحلية فقط.
 
 ---
 
@@ -1316,7 +1316,7 @@ dotnet test  WinIsland.slnx -c Release
 تأكد من وجود تشغيل؛ `HideWhenNoMedia` مفعّل افتراضيًا، والإخفاء بدون وسائط طبيعي. شغّل `--diagnose` لعرض قائمة الجلسات.
 
 **س: Cider يعرض «غير متصل»؟**
-تأكد من تفعيل «السماح بالتحكم الخارجي» في إعدادات Cider، وتحقق من المنفذ (الافتراضي 10767)، وتأكد من تفعيل Cider في إعدادات WinIsland.
+تأكد من تفعيل «السماح بالتحكم الخارجي» في إعدادات Cider، وتحقق من المنفذ (الافتراضي 10767)، وتأكد من تفعيل Cider في إعدادات WinIslands.
 
 **س: أيقونة العلبة باقية بعد الخروج؟**
 قائمة العلبة ← خروج؛ إغلاق نافذة الجزيرة يخفيها فقط (الجزيرة مقيمة بالتصميم).
@@ -1335,12 +1335,12 @@ dotnet test  WinIsland.slnx -c Release
 - **🔔 Улучшение уведомлений (1.2.2)**: свёрнутые оповещения показываются одной строкой (иконка + заголовок + однострочное резюме) и обрезаются при длине, не расширяя остров; остров автоматически расширяется, чтобы виджеты справа и текст были полностью видны.
 ## Русский
 
-# WinIsland — Dynamic Island для Windows
+# WinIslands — Dynamic Island для Windows
 
 > **Перенесите Dynamic Island из iOS на Windows 11 / 10 — современный, многофункциональный виджет Dynamic Island для Windows.**
 > На базе **.NET 8 + WPF**, бесплатно и с открытым кодом (MIT), **без рекламы · без телеметрии · без сбора данных**.
 
-🌐 Сайт: https://WinIsland.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIsland
+🌐 Сайт: https://WinIslands.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -1358,7 +1358,7 @@ dotnet test  WinIsland.slnx -c Release
 - **✦ Внешний вид и анимация**: 18 тем, настраиваемый акцентный цвет, «жидкое стекло»/акрил, извлечение цвета обоев, бегущая строка, 4 типа анимации (пружина iOS и др.), 4 стиля звуковой волны (пульсирует в такт музыке); нелинейное сглаживание разворачивания/сворачивания, плавные 60 fps; поддержка высокого DPI PerMonitorV2.
 - **🖱 Взаимодействие и интеллект**: разблокировка для перетаскивания с прилипанием к краям, автоскрытие в полноэкранном режиме и на экране блокировки, быстрые действия по двойному/среднему клику, кнопки быстрых действий, перевалочный пункт файлов (перетаскивание на остров и из него в другие приложения), умный режим «Не беспокоить» во время записи экрана, плановое переключение светлой/тёмной темы.
 - **⚡ Производительность и автоматизация**: таймер Pomodoro, задачи, история буфера обмена, быстрый запуск, напоминания расписания; помощник отключения микрофона на созвонах, подсказки записи экрана/скриншотов, прогресс копирования/загрузки файлов на острове; глобальные горячие клавиши и движок правил.
-- **🛡 Конфиденциальность и безопасность**: без телеметрии, без рекламы, без отправки данных. Полностью офлайн, кроме включённых вручную онлайн-текстов и погоды; все настройки и данные хранятся локально в `%APPDATA%\WinIsland`.
+- **🛡 Конфиденциальность и безопасность**: без телеметрии, без рекламы, без отправки данных. Полностью офлайн, кроме включённых вручную онлайн-текстов и погоды; все настройки и данные хранятся локально в `%APPDATA%\WinIslands`.
 - **🔁 Переключение источника текста одним нажатием**: мгновенно переключайтесь между «Авто / Локальный LRC / AMLL TTML / API Cider / Онлайн-тексты», текст текущей песни сразу перезагружается
 - **🛡️ Автовосстановление после сбоя**: после аварийного завершения следующий запуск уведомляет о восстановлении — без зависаний, чёрного экрана и потери состояния
 - **⏱️ Настраиваемая длительность анимации**: ползунок длительности раскрытия/сворачивания (300–1400мс)
@@ -1370,11 +1370,11 @@ dotnet test  WinIsland.slnx -c Release
 
 | Платформа | Скачать | Примечания |
 | --- | --- | --- |
-| Windows x64 | [Портативная x64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | Рекомендуется для обычных 64-битных ПК; один файл, без установки, запуск сразу |
-| Windows ARM64 | [Портативная ARM64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | Для Surface Pro X / устройств ARM Snapdragon |
-| Windows универсальная | [Универсальный установщик](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Мастер Inno Setup; устанавливает x64 / ARM64 в зависимости от архитектуры |
+| Windows x64 | [Портативная x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Рекомендуется для обычных 64-битных ПК; один файл, без установки, запуск сразу |
+| Windows ARM64 | [Портативная ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Для Surface Pro X / устройств ARM Snapdragon |
+| Windows универсальная | [Универсальный установщик](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Мастер Inno Setup; устанавливает x64 / ARM64 в зависимости от архитектуры |
 
-Все предыдущие версии и полный журнал изменений: [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases).
+Все предыдущие версии и полный журнал изменений: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
 ---
 
@@ -1399,8 +1399,8 @@ dotnet test  WinIsland.slnx -c Release
 
 ### Сборка и тестирование
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### Публикация
@@ -1414,13 +1414,13 @@ dotnet test  WinIsland.slnx -c Release
 Артефакты находятся в `publish\win-x64\`. Стабильные версии помещаются в `releases\<версия>\win-x64\` и переименовываются по номеру версии.
 
 ### Установщик (необязательно)
-Установите [Inno Setup 6](https://jrsoftware.org/isinfo.php), затем выполните `iscc.exe build\release-<версия>.iss`, чтобы получить `releases\<версия>\WinIsland-Setup-<версия>.exe` (универсальный установщик, x64 / ARM64 по архитектуре).
+Установите [Inno Setup 6](https://jrsoftware.org/isinfo.php), затем выполните `iscc.exe build\release-<версия>.iss`, чтобы получить `releases\<версия>\WinIslands-Setup-<версия>.exe` (универсальный установщик, x64 / ARM64 по архитектуре).
 
 ---
 
 ## 🚀 Использование
 
-1. Запустите `WinIsland.exe` (автозапуск настраивается); в трее появляется значок; закрытие главного окна не завершает процесс — сворачивается в трей.
+1. Запустите `WinIslands.exe` (автозапуск настраивается); в трее появляется значок; закрытие главного окна не завершает процесс — сворачивается в трей.
 2. Играйте любую музыку: NetEase Cloud Music, QQ Music, Spotify, официальный Apple Music и др. автоматически отображаются через системную мультимедийную сессию; для Cider см. ниже; другие плееры определяются по заголовку окна.
 3. **Клик** по острову разворачивает полную карточку (наведение не разворачивает): перетаскивание seek, управление воспроизведением, громкость, синхронизированные тексты; ещё один клик сворачивает.
 4. Меню трея: показать/скрыть, отдельное окно текста, автозапуск, «Не беспокоить», проверка обновлений, просмотр журналов, настройки, выход.
@@ -1429,14 +1429,14 @@ dotnet test  WinIsland.slnx -c Release
 
 ### Интеграция Cider
 1. В настройках Cider включите «Разрешить внешнее управление» (Allow external control).
-2. Настройки WinIsland → Медиа → включить Cider (порт определяется автоматически `10767` и сканируется локально, либо вводится вручную).
+2. Настройки WinIslands → Медиа → включить Cider (порт определяется автоматически `10767` и сканируется локально, либо вводится вручную).
 3. При воспроизведении источник на острове — `Cider`: обложка/прогресс/текст и управление, seek, громкость.
 
 ---
 
 ## ⚙️ Описание настроек
 
-Файл конфигурации: `%APPDATA%\WinIsland\settings.json` (JSON; изменения в интерфейсе вступают в силу сразу, экспорт/импорт возможны).
+Файл конфигурации: `%APPDATA%\WinIslands\settings.json` (JSON; изменения в интерфейсе вступают в силу сразу, экспорт/импорт возможны).
 
 | Ключ | По умолчанию | Описание |
 | --- | --- | --- |
@@ -1516,7 +1516,7 @@ dotnet test  WinIsland.slnx -c Release
 
 - **Без телеметрии, без рекламы, без отправки данных**. Кроме включённых вручную «онлайн-текстов» и «погоды», приложение не выполняет сетевых запросов.
 - Единственные сетевые сценарии: загрузка обложек Cider, пословные тексты AMLL (api.amll.dev), онлайн-тексты и погода после включения (Open-Meteo).
-- Все данные хранятся локально в `%APPDATA%\WinIsland\`; журналы записывают только локальную информацию о работе.
+- Все данные хранятся локально в `%APPDATA%\WinIslands\`; журналы записывают только локальную информацию о работе.
 
 ---
 
@@ -1536,7 +1536,7 @@ dotnet test  WinIsland.slnx -c Release
 Проверьте, что что-то воспроизводится; `HideWhenNoMedia` включён по умолчанию, скрытие без медиа — нормально. Запустите `--diagnose`, чтобы увидеть список сессий.
 
 **В: Cider показывает «не подключено»?**
-Проверьте, что в настройках Cider включено «Разрешить внешнее управление», проверьте порт (по умолчанию 10767) и убедитесь, что Cider включён в настройках WinIsland.
+Проверьте, что в настройках Cider включено «Разрешить внешнее управление», проверьте порт (по умолчанию 10767) и убедитесь, что Cider включён в настройках WinIslands.
 
 **В: После выхода значок в трее остаётся?**
 Меню трея → Выход; закрытие окна острова лишь скрывает его (остров резидентный по замыслу).
@@ -1555,12 +1555,12 @@ dotnet test  WinIsland.slnx -c Release
 - **🔔 Notificações aprimoradas (1.2.2)**: alertas recolhidos mostram uma única linha (ícone + título + resumo em uma linha) e são truncados quando longos, sem alargar a ilha; a ilha se alarga automaticamente para que os widgets à direita e o texto fiquem totalmente visíveis.
 ## Português
 
-# WinIsland — Dynamic Island para Windows
+# WinIslands — Dynamic Island para Windows
 
 > **Traga o Dynamic Island do iOS para o Windows 11 / 10 — um widget Dynamic Island moderno e multifuncional para Windows.**
 > Baseado em **.NET 8 + WPF**, gratuito e de código aberto (MIT), **sem anúncios · sem telemetria · sem coleta de dados**.
 
-🌐 Site: https://WinIsland.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIsland
+🌐 Site: https://WinIslands.JudeKwong.com ｜ GitHub: https://github.com/DMP-Pig/WinIslands
 
 ---
 
@@ -1578,7 +1578,7 @@ dotnet test  WinIsland.slnx -c Release
 - **✦ Aparência e movimento**: 18 temas predefinidos, cor de destaque personalizada, acrílico vidro líquido, extração de cor do papel de parede, letreiro, 4 tipos de animação (mola iOS etc.), 4 estilos de onda de áudio (pulsando com a música); easing não linear para expandir/recolher a 60 fps suaves; suporte a alto DPI PerMonitorV2.
 - **🖱 Interação e inteligência**: desbloquear para arrastar com ajuste às bordas, ocultar automaticamente em tela cheia/tela de bloqueio, ações rápidas de duplo clique e clique do meio, botões de ação rápida, estação de transferência de arquivos (arrastar arquivos para a ilha e arrastá-los para outros aplicativos), Não perturbe inteligente durante gravação de tela, troca programada de tema claro/escuro.
 - **⚡ Produtividade e automação**: timer Pomodoro, tarefas, histórico da área de transferência, iniciador rápido, lembretes de agenda; assistente de mudo em reuniões, avisos de gravação/captura de tela, progresso de cópia/download de arquivos na ilha; atalhos globais e mecanismo de regras.
-- **🛡 Privacidade e segurança**: sem telemetria, sem anúncios, sem envio de dados. Totalmente offline exceto pelas letras on-line e clima ativados manualmente; toda a configuração e os dados permanecem locais em `%APPDATA%\WinIsland`.
+- **🛡 Privacidade e segurança**: sem telemetria, sem anúncios, sem envio de dados. Totalmente offline exceto pelas letras on-line e clima ativados manualmente; toda a configuração e os dados permanecem locais em `%APPDATA%\WinIslands`.
 - **🔁 Troca de fonte da letra com um clique**: alterne instantaneamente entre Automática / LRC local / AMLL TTML / API do Cider / Letras online, e a letra da música atual é recarregada imediatamente
 - **🛡️ Recuperação automática após falhas**: após um encerramento anormal, a próxima inicialização avisa a recuperação — sem travamentos, telas pretas ou estado perdido
 - **⏱️ Duração de animação ajustável**: novo controle deslizante de duração da animação de expandir/recolher (300–1400ms)
@@ -1590,11 +1590,11 @@ dotnet test  WinIsland.slnx -c Release
 
 | Plataforma | Download | Observações |
 | --- | --- | --- |
-| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo único, sem instalação, execução direta |
-| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-1.2.3-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIsland/releases/download/1.2.3/WinIsland-Setup-1.2.3.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
+| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo único, sem instalação, execução direta |
+| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-1.2.3-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.3/WinIslands-Setup-1.2.3.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
 
-Todas as versões anteriores e o changelog completo: [GitHub Releases](https://github.com/DMP-Pig/WinIsland/releases).
+Todas as versões anteriores e o changelog completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
 ---
 
@@ -1619,8 +1619,8 @@ Todas as versões anteriores e o changelog completo: [GitHub Releases](https://g
 
 ### Compilar e testar
 ```powershell
-dotnet build WinIsland.slnx -c Release
-dotnet test  WinIsland.slnx -c Release
+dotnet build WinIslands.slnx -c Release
+dotnet test  WinIslands.slnx -c Release
 ```
 
 ### Publicar
@@ -1634,13 +1634,13 @@ dotnet test  WinIsland.slnx -c Release
 Os artefatos ficam em `publish\win-x64\`. As versões estáveis vão para `releases\<versão>\win-x64\` e são renomeadas conforme o número da versão.
 
 ### Instalador (opcional)
-Instale o [Inno Setup 6](https://jrsoftware.org/isinfo.php), depois execute `iscc.exe build\release-<versão>.iss` para gerar `releases\<versão>\WinIsland-Setup-<versão>.exe` (instalador universal, x64 / ARM64 conforme a arquitetura).
+Instale o [Inno Setup 6](https://jrsoftware.org/isinfo.php), depois execute `iscc.exe build\release-<versão>.iss` para gerar `releases\<versão>\WinIslands-Setup-<versão>.exe` (instalador universal, x64 / ARM64 conforme a arquitetura).
 
 ---
 
 ## 🚀 Como usar
 
-1. Inicie o `WinIsland.exe` (inicialização automática configurável); o ícone aparece na bandeja; fechar a janela principal não encerra o processo (apenas minimiza para a bandeja).
+1. Inicie o `WinIslands.exe` (inicialização automática configurável); o ícone aparece na bandeja; fechar a janela principal não encerra o processo (apenas minimiza para a bandeja).
 2. Reproduza qualquer música: NetEase Cloud Music, QQ Music, Spotify, Apple Music oficial etc. aparecem automaticamente pela sessão de mídia do sistema; para Cider, veja abaixo; outros players usam detecção por título de janela.
 3. **Clique** na ilha para expandir o cartão completo (passar o mouse não expande): arrastar para seek, controle de reprodução, volume, letras sincronizadas; clique novamente para recolher.
 4. Menu da bandeja: mostrar/ocultar, janela de letras independente, iniciar com o Windows, Não perturbe, verificar atualizações, ver logs, configurações, sair.
@@ -1649,14 +1649,14 @@ Instale o [Inno Setup 6](https://jrsoftware.org/isinfo.php), depois execute `isc
 
 ### Integração com Cider
 1. Nas configurações do Cider, ative "Permitir controle externo" (Allow external control).
-2. Configurações do WinIsland → Mídia → ativar Cider (porta detectada automaticamente `10767` e varredura local, ou digitação manual).
+2. Configurações do WinIslands → Mídia → ativar Cider (porta detectada automaticamente `10767` e varredura local, ou digitação manual).
 3. Durante a reprodução, a fonte na ilha é `Cider`: capa/progresso/letras e controle, seek, volume.
 
 ---
 
 ## ⚙️ Opções de configuração
 
-Arquivo de configuração: `%APPDATA%\WinIsland\settings.json` (JSON; alterações na interface valem imediatamente, com exportação/importação).
+Arquivo de configuração: `%APPDATA%\WinIslands\settings.json` (JSON; alterações na interface valem imediatamente, com exportação/importação).
 
 | Chave | Padrão | Descrição |
 | --- | --- | --- |
@@ -1736,7 +1736,7 @@ Documentação completa: [docs/IslandAPI.md](docs/IslandAPI.md)
 
 - **Sem telemetria, sem anúncios, sem envio de dados**. Exceto por "letras on-line" e "clima" ativados manualmente, o aplicativo não faz nenhuma solicitação de rede.
 - Únicas conexões de rede: download de capas do Cider, letras palavra por palavra AMLL (api.amll.dev), letras on-line e clima após ativação (Open-Meteo).
-- Todos os dados são armazenados localmente em `%APPDATA%\WinIsland\`; os logs registram apenas informações locais de execução.
+- Todos os dados são armazenados localmente em `%APPDATA%\WinIslands\`; os logs registram apenas informações locais de execução.
 
 ---
 
@@ -1756,7 +1756,7 @@ Documentação completa: [docs/IslandAPI.md](docs/IslandAPI.md)
 Confirme que algo está tocando; `HideWhenNoMedia` fica ativado por padrão, ocultar sem mídia é normal. Execute `--diagnose` para ver a lista de sessões.
 
 **P: O Cider mostra "não conectado"?**
-Verifique se "Permitir controle externo" está ativado nas configurações do Cider, confira a porta (padrão 10767) e confirme que o Cider está ativado nas configurações do WinIsland.
+Verifique se "Permitir controle externo" está ativado nas configurações do Cider, confira a porta (padrão 10767) e confirme que o Cider está ativado nas configurações do WinIslands.
 
 **P: O ícone da bandeja permanece após sair?**
 Menu da bandeja → Sair; fechar a janela da ilha apenas a oculta (a ilha fica residente por design).

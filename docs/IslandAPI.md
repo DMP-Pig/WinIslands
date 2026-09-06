@@ -1,14 +1,14 @@
-﻿# WinIsland 上岛 API 接入教程
+# WinIslands 上岛 API 接入教程
 
-让任何第三方软件把信息推送到 WinIsland 灵动岛（类似 iOS 第三方 App 的“灵动岛”集成）。
+让任何第三方软件把信息推送到 WinIslands 灵动岛（类似 iOS 第三方 App 的“灵动岛”集成）。
 
 ## 一、启用
 
-1. 运行 WinIsland（版本 ≥ 1.0.4-beta2）。
+1. 运行 WinIslands（版本 ≥ 1.0.4-beta2）。
 2. 打开设置 → 「上岛 API」：
    - 勾选「启用上岛 API」
    - 端口默认 `9840`（可改）
-   - 可选设置 Token（防局域网误连；设置后所有请求需带 `X-WinIsland-Token` 头）
+   - 可选设置 Token（防局域网误连；设置后所有请求需带 `X-WinIslands-Token` 头）
    - 「默认显示时长」是全局兜底值（秒），第三方可按条覆盖
 
 ## 二、接口
@@ -33,14 +33,14 @@
 | `body` | 否 | string | 正文详情（展开态显示） |
 | `icon` | 否 | string | 图标：Segoe MDL2 字形（如 `"\uE8D6"`）或 emoji/文本 |
 | `progress` | 否 | number | 进度 0~1（展开态显示进度条） |
-| `duration_seconds` | 否 | number | 显示时长（秒），**覆盖** WinIsland 全局默认 |
+| `duration_seconds` | 否 | number | 显示时长（秒），**覆盖** WinIslands 全局默认 |
 | `buttons` | 否 | array | 按钮列表 |
 | `id` | 否 | string | 自定义 ID；同 ID 重复推送会**更新**原卡片（并保持队列位置不变） |
 | `subtitle` | 否 | string | 副标题（标题下方小字，紧凑/展开均显示） |
 | `type` | 否 | string | 内容类型：`info`（默认）/ `success` / `warning` / `error`，用于提示色 |
 | `priority` | 否 | string | 优先级：`high` / `normal`（默认）/ `low`；多条并存时高优先级排前 |
 | `accent` | 否 | string | 自定义强调色 `#RRGGBB` 或 `#AARRGGBB`，覆盖类型默认色 |
-| `theme` | 否 | string | 卡片主题：`dark` / `light` / `auto`（默认 auto 跟随 WinIsland 明暗主题） |
+| `theme` | 否 | string | 卡片主题：`dark` / `light` / `auto`（默认 auto 跟随 WinIslands 明暗主题） |
 | `click` | 否 | object | 整卡点击回跳（结构同 `buttons[]` 项）：点击卡片执行该动作 |
 | `input` | 否 | object | 输入框（结构见下）：用户在上岛卡片填写文字后提交，动作默认 `notify` 回传推送方 |
 | `expires_at` | 否 | string | 服务端计算（返回用）；请求时忽略 |
@@ -82,7 +82,7 @@
 
 ## 三、WebSocket 双向通道（v3）
 
-`GET /v3/ws`（WebSocket，需带 `X-WinIsland-Token` 头（若设置了 Token））。
+`GET /v3/ws`（WebSocket，需带 `X-WinIslands-Token` 头（若设置了 Token））。
 
 ### 客户端 → 服务端消息（JSON 文本帧）
 
@@ -239,11 +239,11 @@ requests.post("http://127.0.0.1:9840/v1/island/push", json={
 ## 七、注意事项
 
 - 服务仅监听 `127.0.0.1`（本机回环），外部网络无法访问。
-- 若设置了 Token，请求需带请求头 `X-WinIsland-Token: <你的Token>`。
+- 若设置了 Token，请求需带请求头 `X-WinIslands-Token: <你的Token>`。
 - `title` 为空会返回 `400`。
 - 同一条推送可反复 `POST`（相同 `id`）更新内容并续期；也可以 `DELETE` 立即移除。
 - v3 支持 `PATCH /v3/island/push/{id}` 部分更新：只覆盖请求体里出现的字段（如只更新 `progress`），未出现的字段（含过期时间、队列位置、图片）保持不变。
 - 心跳：设置了 `heartbeat_seconds` 的推送，`POST` / `PATCH` / WebSocket `push` 都会刷新 `LastSeen`；超过 2 倍间隔未续期会被自动移除。
 - 灵动岛点击展开后显示完整卡片（正文/进度/按钮）；按钮点击后自动关闭该推送。
 
-- **不影响灵动岛宽度**：上岛推送**不会**导致灵动岛宽度变化。灵动岛宽度始终由 WinIsland 的「紧凑长度」设置（自动 / 手动）决定；推送卡片会在固定宽度内自适应显示（标题自动截断、正文换行）。第三方软件无法通过推送改变灵动岛宽度。
+- **不影响灵动岛宽度**：上岛推送**不会**导致灵动岛宽度变化。灵动岛宽度始终由 WinIslands 的「紧凑长度」设置（自动 / 手动）决定；推送卡片会在固定宽度内自适应显示（标题自动截断、正文换行）。第三方软件无法通过推送改变灵动岛宽度。

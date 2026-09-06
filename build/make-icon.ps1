@@ -1,4 +1,4 @@
-﻿Add-Type -AssemblyName System.Drawing
+Add-Type -AssemblyName System.Drawing
 
 function New-IconBitmap([int]$size) {
     $bmp = New-Object System.Drawing.Bitmap($size, $size)
@@ -42,7 +42,7 @@ function New-IconBitmap([int]$size) {
     return $bmp
 }
 
-$outDir = 'E:\MyFiles\Program\WinIsland\src\WinIsland\Assets'
+$outDir = 'E:\MyFiles\Program\WinIslands\src\WinIslands\Assets'
 New-Item -ItemType Directory -Force -Path $outDir | Out-Null
 $sizes = 16,24,32,48,64,128,256
 $icon = New-Object System.Drawing.Icon
@@ -72,6 +72,6 @@ foreach ($s in $sizes) {
 }
 foreach ($d in $datas) { $bw.Write($d) }
 $bw.Flush()
-[System.IO.File]::WriteAllBytes("$outDir\winisland.ico", $ms.ToArray())
+[System.IO.File]::WriteAllBytes("$outDir\winislands.ico", $ms.ToArray())
 $bw.Dispose(); $ms.Dispose()
-Write-Output "icon written: $((Get-Item "$outDir\winisland.ico").Length) bytes"
+Write-Output "icon written: $((Get-Item "$outDir\winislands.ico").Length) bytes"

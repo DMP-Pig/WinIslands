@@ -1,6 +1,6 @@
-﻿# THIRD_PARTY.md — 第三方组件与许可证
+# THIRD_PARTY.md — 第三方组件与许可证
 
-WinIsland 应用本体为 **MIT License**（见 [LICENSE](LICENSE)）。
+WinIslands 应用本体为 **MIT License**（见 [LICENSE](LICENSE)）。
 
 运行时（发布产物）不依赖任何第三方 NuGet 包，仅使用 .NET 平台自带组件：
 
@@ -23,7 +23,7 @@ WinIsland 应用本体为 **MIT License**（见 [LICENSE](LICENSE)）。
 | Microsoft.NET.Test.Sdk | 测试宿主 | MIT |
 
 ## 图标与资源
-- 应用图标与截图：WinIsland 原创（MIT）。
+- 应用图标与截图：WinIslands 原创（MIT）。
 
 ## 未使用
 - 无遥测 / 广告 / 商业组件。
