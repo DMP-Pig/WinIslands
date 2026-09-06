@@ -9,7 +9,7 @@ public class IcsCalendarTests : IDisposable
 
     public IcsCalendarTests()
     {
-        _dir = Path.Combine(Path.GetTempPath(), "WinIslandIcs-" + Guid.NewGuid().ToString("N"));
+        _dir = Path.Combine(Path.GetTempPath(), "WinIslandsIcs-" + Guid.NewGuid().ToString("N"));
         Directory.CreateDirectory(_dir);
     }
 

@@ -12,14 +12,14 @@ public class SettingsAndDndTests : IDisposable
     public SettingsAndDndTests()
     {
         _origAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        _dir = Path.Combine(Path.GetTempPath(), "WinIslandSettings-" + Guid.NewGuid().ToString("N"));
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", _dir);
+        _dir = Path.Combine(Path.GetTempPath(), "WinIslandsSettings-" + Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", _dir);
         Directory.CreateDirectory(_dir);
     }
 
     public void Dispose()
     {
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", null);
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", null);
         Environment.SetEnvironmentVariable("APPDATA", _origAppData);
         try { Directory.Delete(_dir, recursive: true); } catch { /* ignore */ }
     }

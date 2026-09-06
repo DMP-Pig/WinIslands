@@ -10,14 +10,14 @@ public class NotificationTests : IDisposable
     public NotificationTests()
     {
         _origAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var dir = Path.Combine(Path.GetTempPath(), "WinIslandNotifyTests-" + Guid.NewGuid().ToString("N"));
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", dir);
+        var dir = Path.Combine(Path.GetTempPath(), "WinIslandsNotifyTests-" + Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", dir);
         Directory.CreateDirectory(dir);
     }
 
     public void Dispose()
     {
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", null);
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", null);
         Environment.SetEnvironmentVariable("APPDATA", _origAppData);
     }
 

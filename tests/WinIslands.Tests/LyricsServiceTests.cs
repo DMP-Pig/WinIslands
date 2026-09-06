@@ -6,7 +6,7 @@ namespace WinIslands.Tests;
 public class LyricsServiceTests
 {
     private static string NewDir(string sub) =>
-        Path.Combine(Path.GetTempPath(), "WinIslandLyricsTests-" + Guid.NewGuid().ToString("N"), sub);
+        Path.Combine(Path.GetTempPath(), "WinIslandsLyricsTests-" + Guid.NewGuid().ToString("N"), sub);
 
     [Fact]
     public void Finds_Lrc_With_Spaces_And_Case()

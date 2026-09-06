@@ -10,7 +10,7 @@ namespace WinIslands.Services;
 /// </summary>
 public sealed class SingleInstance : IDisposable
 {
-    private const string MutexName = @"Local\WinIsland_SingleInstance";
+    private const string MutexName = @"Local\WinIslands_SingleInstance";
     private const string PipeName = "WinIslands";
 
     private Mutex? _mutex;

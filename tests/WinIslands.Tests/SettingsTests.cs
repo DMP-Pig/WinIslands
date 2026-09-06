@@ -10,14 +10,14 @@ public class SettingsTests : IDisposable
     {
         // Redirect app-data paths to a temp folder so tests don't touch the real profile.
         _origAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var dir = Path.Combine(Path.GetTempPath(), "WinIslandTests-" + Guid.NewGuid().ToString("N"));
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", dir);
+        var dir = Path.Combine(Path.GetTempPath(), "WinIslandsTests-" + Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", dir);
         Directory.CreateDirectory(dir);
     }
 
     public void Dispose()
     {
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", null);
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", null);
         Environment.SetEnvironmentVariable("APPDATA", _origAppData);
     }
 

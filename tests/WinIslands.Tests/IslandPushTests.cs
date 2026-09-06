@@ -11,14 +11,14 @@ public class IslandPushTests : IDisposable
     {
         // 重定向到临时目录，避免触碰真实配置文件
         _origAppData = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-        var dir = Path.Combine(Path.GetTempPath(), "WinIslandPushTests-" + Guid.NewGuid().ToString("N"));
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", dir);
+        var dir = Path.Combine(Path.GetTempPath(), "WinIslandsPushTests-" + Guid.NewGuid().ToString("N"));
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", dir);
         Directory.CreateDirectory(dir);
     }
 
     public void Dispose()
     {
-        Environment.SetEnvironmentVariable("WINISLAND_APPDATA", null);
+        Environment.SetEnvironmentVariable("WINISLANDS_APPDATA", null);
         Environment.SetEnvironmentVariable("APPDATA", _origAppData);
     }
 
