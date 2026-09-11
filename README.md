@@ -10,6 +10,7 @@
 
 ---
 
+- **🩹 修复展开时的白色/黑色方框（1.2.6）**：玻璃分层与卡片同步圆角并裁剪，展开时不再露出矩形边角（浅色模式白框 / 深色模式黑框），视觉更纯净。
 - **🧹 播放媒体时隐藏剪贴板组件（1.2.5）**：未展开时，歌词右侧不再显示复制图标与剪贴板历史数字，界面更干净清爽。
 - **⚡ 60fps 动画全面优化（1.2.5）**：音频波纹逐帧渲染提升至 60fps；展开/收起动画期间固定卡片内容宽度，避免每帧重复布局重排，所有动画更丝滑连贯。
 - **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推进改为 smoothstep 缓动 + 字间交叉过渡，高亮像光带一样从左到右连续流动，起笔/收笔有加减速，不再一顿一顿。
@@ -30,6 +31,7 @@
 ---
 
 ## ✨ 功能亮点
+- **🩹 修复展开时的白色/黑色方框（1.2.6）**：玻璃分层与卡片同步圆角并裁剪，展开时不再露出矩形边角（浅色模式白框 / 深色模式黑框），视觉更纯净。
 - **🧹 播放媒体时隐藏剪贴板组件（1.2.5）**：未展开时，歌词右侧不再显示复制图标与剪贴板历史数字，界面更干净清爽。
 - **⚡ 60fps 动画全面优化（1.2.5）**：音频波纹逐帧渲染提升至 60fps；展开/收起动画期间固定卡片内容宽度，避免每帧重复布局重排，所有动画更丝滑连贯。
 - **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推进改为 smoothstep 缓动 + 字间交叉过渡，高亮像光带一样从左到右连续流动，起笔/收笔有加减速，不再一顿一顿。
@@ -56,13 +58,13 @@
 
 ---
 
-## 📥 下载（最新稳定版 1.2.5）
+## 📥 下载（最新稳定版 1.2.6）
 
 | 平台 | 下载 | 说明 |
 | --- | --- | --- |
-| Windows x64 | [x64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | 主流 64 位电脑首选，单文件免安装，直接运行 |
-| Windows ARM64 | [ARM64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | Surface Pro X / 骁龙机型等 ARM 设备 |
-| Windows 通用 | [通用安装包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Inno Setup 安装向导，x64 / ARM64 自动按架构安装 |
+| Windows x64 | [x64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | 主流 64 位电脑首选，单文件免安装，直接运行 |
+| Windows ARM64 | [ARM64 便携版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | Surface Pro X / 骁龙机型等 ARM 设备 |
+| Windows 通用 | [通用安装包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Inno Setup 安装向导，x64 / ARM64 自动按架构安装 |
 
 历史版本与完整更新日志见 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)。
 
@@ -258,6 +260,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ 功能亮點
+- **🩹 修復展開時的白色/黑色方框（1.2.6）**：玻璃分層與卡片同步圓角並裁切，展開時不再露出矩形邊角（淺色模式白框 / 深色模式黑框），視覺更純淨。
 - **🧹 播放媒體時隱藏剪貼簿元件（1.2.5）**：未展開時，歌詞右側不再顯示複製圖示與剪貼簿歷史數字，介面更乾淨清爽。
 - **⚡ 60fps 動畫全面優化（1.2.5）**：音訊波紋逐幀渲染提升至 60fps；展開/收起動畫期間固定卡片內容寬度，避免每幀重複佈局重排，所有動畫更流暢連貫。
 - **🎶 卡拉OK逐字平滑重做（1.2.4）**：逐字推進改為 smoothstep 緩動 + 字間交叉過渡，高亮像光帶一樣從左到右連續流動，起筆/收筆有加減速，不再一頓一頓。
@@ -284,13 +287,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 下載（最新穩定版 1.2.5）
+## 📥 下載（最新穩定版 1.2.6）
 
 | 平台 | 下載 | 說明 |
 | --- | --- | --- |
-| Windows x64 | [x64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | 主流 64 位元電腦首選，單檔免安裝，直接執行 |
-| Windows ARM64 | [ARM64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | Surface Pro X / 驍龍機型等 ARM 裝置 |
-| Windows 通用 | [通用安裝包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Inno Setup 安裝精靈，x64 / ARM64 自動依架構安裝 |
+| Windows x64 | [x64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | 主流 64 位元電腦首選，單檔免安裝，直接執行 |
+| Windows ARM64 | [ARM64 攜帶版](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | Surface Pro X / 驍龍機型等 ARM 裝置 |
+| Windows 通用 | [通用安裝包](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Inno Setup 安裝精靈，x64 / ARM64 自動依架構安裝 |
 
 歷史版本與完整更新日誌見 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)。
 
@@ -486,6 +489,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ Highlights
+- **🩹 Fixed white/black frame when expanded (1.2.6)**: The glass layer now matches the card corner radius with clipping, so rectangular edges no longer peek out when expanding (white frame in light mode / black frame in dark mode) — a cleaner look.
 - **🧹 Hide clipboard widget while media plays (1.2.5)**: When collapsed, the copy icon and clipboard history number no longer appear beside the lyrics — a cleaner, tidier island.
 - **⚡ Full 60fps animation optimization (1.2.5)**: Audio waveform rendering raised to 60fps; card content width is fixed during expand/collapse animations to avoid per-frame re-layout — smoother, more fluid motion.
 - **🎶 Smoother karaoke highlighting (1.2.4)**: character-by-character progress now uses smoothstep easing with cross-fades between letters — the highlight flows continuously left to right like a light band, easing in and out instead of stepping abruptly.
@@ -512,13 +516,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 Download (latest stable 1.2.5)
+## 📥 Download (latest stable 1.2.6)
 
 | Platform | Download | Notes |
 | --- | --- | --- |
-| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
-| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
-| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
+| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
+| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
+| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
 
 All historical versions and the full changelog: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -714,6 +718,7 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 ---
 
 ## ✨ Características destacadas
+- **🩹 Corregido el marco blanco/negro al expandirse (1.2.6)**: La capa de cristal ahora coincide con el radio de las esquinas de la tarjeta con recorte, por lo que ya no asoman bordes rectangulares al expandir (marco blanco en modo claro / marco negro en modo oscuro): un aspecto más limpio.
 - **🧹 Ocultar el widget del portapapeles al reproducir medios (1.2.5)**: Al contraerse, el icono de copiar y el número del historial del portapapeles ya no aparecen junto a la letra: una isla más limpia y ordenada.
 - **⚡ Optimización completa de animaciones a 60 fps (1.2.5)**: El renderizado de la onda de audio sube a 60 fps; el ancho del contenido de la tarjeta se fija durante las animaciones de expandir/contraer para evitar reorganizaciones por fotograma: movimientos más suaves y fluidos.
 - **🎶 Resaltado de karaoke más fluido (1.2.4)**: el avance letra a letra ahora usa suavizado smoothstep con transiciones cruzadas entre caracteres: el resaltado fluye de izquierda a derecha como una cinta de luz, con aceleración/deceleración, sin pasos bruscos.
@@ -740,13 +745,13 @@ Use Tray menu → Quit; closing the island window only hides it (tray-resident b
 
 ---
 
-## 📥 Descargas (última estable 1.2.5)
+## 📥 Descargas (última estable 1.2.6)
 
 | Plataforma | Descarga | Notas |
 | --- | --- | --- |
-| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | Para PCs de 64 bits convencionales; archivo único, sin instalación |
-| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Asistente Inno Setup; instala x64 / ARM64 según la arquitectura |
+| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | Para PCs de 64 bits convencionales; archivo único, sin instalación |
+| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Asistente Inno Setup; instala x64 / ARM64 según la arquitectura |
 
 Todas las versiones históricas y el registro de cambios completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -942,6 +947,7 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 ---
 
 ## ✨ Points forts
+- **🩹 Correction du cadre blanc/noir lors de l’expansion (1.2.6)**: La couche de verre épouse désormais le rayon des coins de la carte avec écrêtage, les bords rectangulaires n’apparaissent plus à l’expansion (cadre blanc en mode clair / cadre noir en mode sombre) — un rendu plus net.
 - **🧹 Masquer le widget presse-papiers pendant la lecture (1.2.5)**: En mode réduit, l’icône de copie et le numéro de l’historique du presse-papiers n’apparaissent plus à côté des paroles — une île plus épurée.
 - **⚡ Optimisation complète des animations à 60 fps (1.2.5)**: Le rendu de la forme d’onde audio passe à 60 fps ; la largeur du contenu de la carte est fixée pendant les animations d’expansion/réduction pour éviter les recalculs de mise en page à chaque image — des animations plus fluides et continues.
 - **🎶 Karaoké fluide affiné (1.2.4)** : la progression mot à mot utilise désormais un lissage smoothstep avec transitions croisées entre les lettres — la surbrillance coule de gauche à droite comme un faisceau de lumière, avec accélération/décélération, sans à-coups.
@@ -968,13 +974,13 @@ Usa Menú de la bandeja → Salir; cerrar la ventana de la isla solo la oculta (
 
 ---
 
-## 📥 Téléchargement (dernière version stable 1.2.5)
+## 📥 Téléchargement (dernière version stable 1.2.6)
 
 | Plateforme | Téléchargement | Notes |
 | --- | --- | --- |
-| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | Le choix recommandé pour les PC 64 bits ; fichier unique, sans installation, exécution directe |
-| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
-| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
+| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | Le choix recommandé pour les PC 64 bits ; fichier unique, sans installation, exécution directe |
+| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
+| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
 
 Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1170,6 +1176,7 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 ---
 
 ## ✨ أبرز المزايا
+- **🩹 إصلاح الإطار الأبيض/الأسود عند التوسيع (1.2.6)**: أصبحت طبقة الزجاج مطابقة لنصف قطر زوايا البطاقة مع تفعيل القص، بحيث لا تظهر الحواف المستطيلة عند التوسيع (إطار أبيض في الوضع الفاتح / إطار أسود في الوضع الداكن) — مظهر أنظف.
 - **🧹 إخفاء أداة الحافظة أثناء تشغيل الوسائط (1.2.5)**: عند التصغير، لم يعد رمز النسخ ورقم سجل الحافظة يظهران بجانب الكلمات — جزيرة أنظف وأكثر ترتيبًا.
 - **⚡ تحسين شامل للحركات إلى 60 إطارًا في الثانية (1.2.5)**: تم رفع عرض موجة الصوت إلى 60 إطارًا في الثانية؛ ويتم تثبيت عرض محتوى البطاقة أثناء حركات التوسيع والطي لتجنب إعادة التخطيط في كل إطار — حركات أكثر سلاسة واتصالًا.
 - **🎶 تحسين انسياب كلمات الكاريوكي (1.2.4)**: أصبح تقدّم الحروف يستخدم تدرّجًا سلسًا (smoothstep) مع انتقالات متداخلة بين الأحرف — يشعّ التمييز من اليسار إلى اليمين كشريط ضوئي متواصل، مع تسارع/تباطؤ في البداية والنهاية، دون توقّفات مفاجئة.
@@ -1196,13 +1203,13 @@ Menu de la barre d'état → Quitter ; fermer la fenêtre de l'île ne fait que 
 
 ---
 
-## 📥 التحميل (آخر إصدار مستقر 1.2.5)
+## 📥 التحميل (آخر إصدار مستقر 1.2.6)
 
 | النظام | التحميل | ملاحظات |
 | --- | --- | --- |
-| Windows x64 | [نسخة محمولة x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | الخيار الأول لأجهزة 64 بت الشائعة؛ ملف واحد بدون تثبيت، يعمل مباشرة |
-| Windows ARM64 | [نسخة محمولة ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | لأجهزة Surface Pro X / أجهزة ARM Snapdragon |
-| Windows شامل | [مثبّت شامل](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | معالج Inno Setup؛ يثبّت x64 / ARM64 حسب البنية |
+| Windows x64 | [نسخة محمولة x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | الخيار الأول لأجهزة 64 بت الشائعة؛ ملف واحد بدون تثبيت، يعمل مباشرة |
+| Windows ARM64 | [نسخة محمولة ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | لأجهزة Surface Pro X / أجهزة ARM Snapdragon |
+| Windows شامل | [مثبّت شامل](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | معالج Inno Setup؛ يثبّت x64 / ARM64 حسب البنية |
 
 جميع الإصدارات السابقة وسجل التغييرات الكامل: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1398,6 +1405,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ Ключевые возможности
+- **🩹 Исправлена белая/чёрная рамка при разворачивании (1.2.6)**: Стеклянный слой теперь повторяет скругление углов карточки с обрезкой, поэтому при разворачивании больше не видны прямоугольные края (белая рамка в светлой теме / чёрная в тёмной) — вид стал чище.
 - **🧹 Скрыть виджет буфера обмена при воспроизведении (1.2.5)**: В свёрнутом виде значок копирования и номер из истории буфера обмена больше не отображаются рядом с текстом песни — остров стал чище и аккуратнее.
 - **⚡ Полная оптимизация анимаций до 60 FPS (1.2.5)**: Отрисовка аудиоволны повышена до 60 FPS; ширина контента карточки фиксируется во время анимаций разворачивания/сворачивания, чтобы избежать повторной компоновки на каждом кадре — все анимации стали плавнее и непрерывнее.
 - **🎶 Плавное караоке (1.2.4)**: продвижение по буквам теперь использует плавную интерполяцию smoothstep с кросс-переходами между буквами — подсветка течёт слева направо как световая лента, плавно разгоняясь и замедляясь, без скачков.
@@ -1424,13 +1432,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 Скачать (последняя стабильная версия 1.2.5)
+## 📥 Скачать (последняя стабильная версия 1.2.6)
 
 | Платформа | Скачать | Примечания |
 | --- | --- | --- |
-| Windows x64 | [Портативная x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | Рекомендуется для обычных 64-битных ПК; один файл, без установки, запуск сразу |
-| Windows ARM64 | [Портативная ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | Для Surface Pro X / устройств ARM Snapdragon |
-| Windows универсальная | [Универсальный установщик](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Мастер Inno Setup; устанавливает x64 / ARM64 в зависимости от архитектуры |
+| Windows x64 | [Портативная x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | Рекомендуется для обычных 64-битных ПК; один файл, без установки, запуск сразу |
+| Windows ARM64 | [Портативная ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | Для Surface Pro X / устройств ARM Snapdragon |
+| Windows универсальная | [Универсальный установщик](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Мастер Inno Setup; устанавливает x64 / ARM64 в зависимости от архитектуры |
 
 Все предыдущие версии и полный журнал изменений: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1626,6 +1634,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## ✨ Destaques
+- **🩹 Corrigida a moldura branca/preta ao expandir (1.2.6)**: A camada de vidro agora acompanha o raio dos cantos do cartão com recorte, então as bordas retangulares não aparecem mais ao expandir (moldura branca no modo claro / moldura preta no modo escuro) — visual mais limpo.
 - **🧹 Ocultar o widget da área de transferência durante a reprodução (1.2.5)**: Quando recolhido, o ícone de copiar e o número do histórico da área de transferência não aparecem mais ao lado da letra — uma ilha mais limpa e organizada.
 - **⚡ Otimização completa das animações a 60 FPS (1.2.5)**: A renderização da onda de áudio sobe para 60 FPS; a largura do conteúdo do cartão é fixada durante as animações de expandir/recolher para evitar re-layout a cada quadro — animações mais suaves e fluidas.
 - **🎶 Karaokê mais fluido (1.2.4)**: o avanço letra por letra agora usa suavização smoothstep com transições cruzadas entre caracteres — o destaque flui da esquerda para a direita como uma fita de luz, com aceleração/desaceleração, sem passos bruscos.
@@ -1652,13 +1661,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 📥 Download (última versão estável 1.2.5)
+## 📥 Download (última versão estável 1.2.6)
 
 | Plataforma | Download | Observações |
 | --- | --- | --- |
-| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo único, sem instalação, execução direta |
-| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-1.2.5-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.5/WinIslands-Setup-1.2.5.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
+| Windows x64 | [Portátil x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo único, sem instalação, execução direta |
+| Windows ARM64 | [Portátil ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-1.2.6-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.6/WinIslands-Setup-1.2.6.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
 
 Todas as versões anteriores e o changelog completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 

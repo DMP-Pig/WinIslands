@@ -182,7 +182,7 @@
             <Grid>
                 <!-- 智能透明度分层（1.2.1）：紧凑态透明、展开态更实。GlassLayer 用主题底色叠加，
                      展开时平滑升不透明度、收起时回落，配合封面取色（CoverTint）时自动归零不叠加。 -->
-                <Border x:Name="GlassLayer" IsHitTestVisible="False" Opacity="0"/>
+                <Border x:Name="GlassLayer" IsHitTestVisible="False" Opacity="0" ClipToBounds="True" CornerRadius="28"/>
                 <Grid x:Name="ContentGrid" Margin="10,6,10,6" VerticalAlignment="Center">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -821,6 +821,7 @@
 
                 <!-- ═══ 展开内容 ═══ -->
                 <ScrollViewer x:Name="ExpandedContent" Grid.Row="0" Grid.RowSpan="2" Margin="0,10,0,0"
+                              Background="Transparent"
                               Visibility="Collapsed" Opacity="0" VerticalScrollBarVisibility="Hidden"
                               PanningMode="VerticalOnly">
                     <ScrollViewer.RenderTransform>

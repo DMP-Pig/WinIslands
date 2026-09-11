@@ -12,6 +12,15 @@
 
 ## 简体中文
 
+## WinIslands 1.2.6（正式版 / Stable）
+
+一款现代化、多功能的 Windows 灵动岛组件。A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 修复展开时的白色/黑色方框**：玻璃分层与卡片同步圆角并开启裁剪，展开时不再露出矩形边角（浅色模式白框 / 深色模式黑框），视觉更纯净
+
+
 ## WinIslands 1.2.5（正式版 / Stable）
 
 一款现代化、多功能的 Windows 灵动岛组件。A modern, multi-functional Dynamic Island widget for Windows.
@@ -446,6 +455,15 @@
 ---
 
 ## 繁體中文
+
+## WinIslands 1.2.6（正式版 / Stable）
+
+一款現代化、多功能的 Windows 動態島元件。A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 修復展開時的白色/黑色方框**：玻璃分層與卡片同步圓角並開啟裁切，展開時不再露出矩形邊角（淺色模式白框 / 深色模式黑框），視覺更純淨
+
 
 ## WinIslands 1.2.5（正式版 / Stable）
 
@@ -882,6 +900,15 @@
 
 ## English
 
+## WinIslands 1.2.6（正式版 / Stable）
+
+A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 Fixed white/black frame when expanded**：The glass layer now matches the card corner radius with clipping enabled, so rectangular edges no longer peek out when expanding (white frame in light mode / black frame in dark mode) — a cleaner look
+
+
 ## WinIslands 1.2.5（正式版 / Stable）
 
 A modern, multi-functional Dynamic Island widget for Windows.
@@ -1316,6 +1343,15 @@ A modern, multi-functional Dynamic Island widget for Windows.
 ---
 
 ## Español
+
+## WinIslands 1.2.6（正式版 / Stable）
+
+Una moderna y multifuncional Dynamic Island para Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 Corregido el marco blanco/negro al expandirse**：La capa de cristal ahora coincide con el radio de las esquinas de la tarjeta con recorte activado, por lo que ya no asoman bordes rectangulares al expandir (marco blanco en modo claro / marco negro en modo oscuro): un aspecto más limpio
+
 
 ## WinIslands 1.2.5（正式版 / Stable）
 
@@ -1752,6 +1788,15 @@ Un widget Dynamic Island moderno y multifuncional para Windows.
 
 ## Français
 
+## WinIslands 1.2.6（正式版 / Stable）
+
+Une Dynamic Island moderne et polyvalente pour Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 Correction du cadre blanc/noir lors de l’expansion**：La couche de verre épouse désormais le rayon des coins de la carte avec un écrêtage activé : les bords rectangulaires n’apparaissent plus à l’expansion (cadre blanc en mode clair / cadre noir en mode sombre) — un rendu plus net
+
+
 ## WinIslands 1.2.5（正式版 / Stable）
 
 Une Dynamic Island moderne et polyvalente pour Windows. A modern, multi-functional Dynamic Island widget for Windows.
@@ -2186,6 +2231,15 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 ---
 
 ## العربية
+
+## WinIslands 1.2.6（正式版 / Stable）
+
+جزيرة ديناميكية حديثة ومتعددة الوظائف لنظام ويندوز. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 إصلاح الإطار الأبيض/الأسود عند التوسيع**：أصبحت طبقة الزجاج الآن مطابقة لنصف قطر زوايا البطاقة مع تفعيل القص، بحيث لا تظهر الحواف المستطيلة عند التوسيع (إطار أبيض في الوضع الفاتح / إطار أسود في الوضع الداكن) — مظهر أنظف
+
 
 ## WinIslands 1.2.5（正式版 / Stable）
 
@@ -2622,6 +2676,15 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 
 ## Русский
 
+## WinIslands 1.2.6（正式版 / Stable）
+
+Современный многофункциональный Dynamic Island для Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 Исправлена белая/чёрная рамка при разворачивании**：Стеклянный слой теперь повторяет скругление углов карточки с включённой обрезкой, поэтому при разворачивании больше не видны прямоугольные края (белая рамка в светлой теме / чёрная в тёмной) — вид стал чище
+
+
 ## WinIslands 1.2.5（正式版 / Stable）
 
 Современный многофункциональный Dynamic Island для Windows. A modern, multi-functional Dynamic Island widget for Windows.
@@ -3056,6 +3119,15 @@ Un widget Dynamic Island moderne et multifonctionnel pour Windows.
 ---
 
 ## Português
+
+## WinIslands 1.2.6（正式版 / Stable）
+
+Um Dynamic Island moderno e multifuncional para Windows. A modern, multi-functional Dynamic Island widget for Windows.
+
+### 更新内容
+
+- **🩹 Corrigida a moldura branca/preta ao expandir**：A camada de vidro agora acompanha o raio dos cantos do cartão com recorte ativado, então as bordas retangulares não aparecem mais ao expandir (moldura branca no modo claro / moldura preta no modo escuro) — visual mais limpo
+
 
 ## WinIslands 1.2.5（正式版 / Stable）
 

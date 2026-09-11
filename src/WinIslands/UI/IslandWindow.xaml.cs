@@ -1147,7 +1147,10 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
     private void ApplyAppearance()
     {
         try { System.Windows.Documents.TextElement.SetFontFamily(Card, new System.Windows.Media.FontFamily(_settings.Current.FontFamily)); } catch { /* 非法字体名忽略 */ }
-        Card.CornerRadius = new CornerRadius(Math.Clamp(_settings.Current.CornerRadius, 16, 40));
+        var rounded = new CornerRadius(Math.Clamp(_settings.Current.CornerRadius, 16, 40));
+        Card.CornerRadius = rounded;
+        // 玻璃分层与卡片同步圆角，避免展开时矩形四角露出（深浅色方框的根因）
+        if (GlassLayer is not null) GlassLayer.CornerRadius = rounded;
         // 字体缩放 = 1 时清空 LayoutTransform（走普通布局路径，动画期间布局更轻、更快）；
         // 只有用户设置缩放时才使用 ScaleTransform，避免无谓的变换开销。
         Card.LayoutTransform = Math.Abs(FontScale - 1.0) < 0.001 ? null : new ScaleTransform(FontScale, FontScale);
