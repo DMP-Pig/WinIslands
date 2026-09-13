@@ -19,6 +19,7 @@
 ---
 
 ## 鉁?鍔熻兘浜偣
+- **⚡ 性能与内存优化 (1.2.8)**：修复 8 处事件订阅泄漏；UpdateVisibility 仅在值实际变化时触发通知（减少 ~25 次无效通知）；画刷属性缓存（消除每帧分配）；封面取色缓存（避免展开/收起时重复采样）；歌词画刷缓存；低功耗波纹真正降帧至 30fps；GPU 采样缓存；时钟文本去重。
 - **🔧 修复展开时的白色/黑色方框 (1.2.7)**: 玻璃层现与卡片圆角同步裁剪，展开时不再露出直角边缘（浅色模式白框 / 深色模式黑框），视觉更干净。
 - **馃┕ 淇灞曞紑鏃剁殑鐧借壊/榛戣壊鏂规锛?.2.6锛?*锛氱幓鐠冨垎灞備笌鍗＄墖鍚屾鍦嗚骞惰鍓紝灞曞紑鏃朵笉鍐嶉湶鍑虹煩褰㈣竟瑙掞紙娴呰壊妯″紡鐧芥 / 娣辫壊妯″紡榛戞锛夛紝瑙嗚鏇寸函鍑€銆?- **馃Ч 鎾斁濯掍綋鏃堕殣钘忓壀璐存澘缁勪欢锛?.2.5锛?*锛氭湭灞曞紑鏃讹紝姝岃瘝鍙充晶涓嶅啀鏄剧ず澶嶅埗鍥炬爣涓庡壀璐存澘鍘嗗彶鏁板瓧锛岀晫闈㈡洿骞插噣娓呯埥銆?- **鈿?60fps 鍔ㄧ敾鍏ㄩ潰浼樺寲锛?.2.5锛?*锛氶煶棰戞尝绾归€愬抚娓叉煋鎻愬崌鑷?60fps锛涘睍寮€/鏀惰捣鍔ㄧ敾鏈熼棿鍥哄畾鍗＄墖鍐呭瀹藉害锛岄伩鍏嶆瘡甯ч噸澶嶅竷灞€閲嶆帓锛屾墍鏈夊姩鐢绘洿涓濇粦杩炶疮銆?- **馃幎 鍗℃媺OK閫愬瓧骞虫粦閲嶅仛锛?.2.4锛?*锛氶€愬瓧鎺ㄨ繘鏀逛负 smoothstep 缂撳姩 + 瀛楅棿浜ゅ弶杩囨浮锛岄珮浜儚鍏夊甫涓€鏍蜂粠宸﹀埌鍙宠繛缁祦鍔紝璧风瑪/鏀剁瑪鏈夊姞鍑忛€燂紝涓嶅啀涓€椤夸竴椤裤€?- **馃攱 浣庣數閲忓父椹绘寚绀猴紙1.2.4锛?*锛氱數閲忎綆浜庨槇鍊间笖鏈帴鐢垫簮鏃讹紝鐏靛姩宀涘彸涓婅甯搁┗鏄剧ず鐢甸噺鑳跺泭锛堚墹10% 绾㈣壊 / 鍏朵綑姗欒壊锛夛紝闅忕數閲忓疄鏃跺埛鏂帮紱鎺ヤ笂鐢垫簮鎴栫數閲忓洖鍗囧悗鑷姩娑堝け锛岃缃腑鍙紑鍏炽€?- **馃帶 璁惧杩炴帴鍔ㄧ敾锛?.2.4锛?*锛氳摑鐗欒澶囪繛鎺?鏂紑鏃跺睍绀?iOS 椋庢牸鍔ㄧ敾鍗＄墖锛涜繛鎺ユ椂鑷姩璇诲彇璁惧鐢甸噺骞舵樉绀恒€岃澶囧悕 路 鐢甸噺 xx%銆嶏紝璇讳笉鍒扮數閲忔椂鍙樉绀鸿澶囧悕锛屼笉闃诲鐣岄潰銆?- **馃帳 姝岃瘝鏍峰紡鍙皟锛?.2.3锛?*锛氭櫘閫氭瓕璇?褰撳墠琛屽瓧鍙枫€佽闂磋窛銆佸崱鎷塐K鎺ㄨ繘閫熷害銆侀珮浜壊涓庡熀纭€鑹插潎鍙嚜瀹氫箟锛岃缃〉鍗虫椂鐢熸晥锛岀嫭绔嬫瓕璇嶅皬绐楀悓姝ヨ窡闅忋€?- **馃搵 閫氱煡鍘嗗彶锛?.2.3锛?*锛氬睍寮€鐏靛姩宀涘悗鍦ㄥ簳閮ㄦ煡鐪嬪巻鍙查€氱煡锛岀偣鍑诲彲閲嶆柊寮瑰嚭锛屽彲璁剧疆淇濈暀鏉℃暟骞朵竴閿竻绌恒€?
 - **馃寠 涓濇粦鍔ㄦ晥锛?.2.1锛?*锛氬睍寮€/鏀惰捣鏀逛负 iOS 闃诲凹寮圭哀 + 鍐呭浜ら敊杩囨浮锛涢煶閲忚皟鑺傝仈鍔ㄥ姩鐢伙紱绱у噾/灞曞紑鏅鸿兘閫忔槑搴﹀垎灞傦紱鍒囨瓕灏侀潰浜ゅ弶娣″叆锛涙祬鑹?娣辫壊涓婚骞虫粦鍒囨崲锛涢€愬抚鍔ㄧ敾鎬ц兘浼樺寲锛孋PU 鍗犵敤鏇翠綆銆?
@@ -31,9 +32,9 @@
 ## 馃摜 涓嬭浇锛堟渶鏂扮ǔ瀹氱増 1.2.7锛?
 | 骞冲彴 | 涓嬭浇 | 璇存槑 |
 | --- | --- | --- |
-| Windows x64 | [x64 渚挎惡鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | 涓绘祦 64 浣嶇數鑴戦閫夛紝鍗曟枃浠跺厤瀹夎锛岀洿鎺ヨ繍琛?|
-| Windows ARM64 | [ARM64 渚挎惡鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | Surface Pro X / 楠侀緳鏈哄瀷绛?ARM 璁惧 |
-| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | Inno Setup 瀹夎鍚戝锛寈64 / ARM64 鑷姩鎸夋灦鏋勫畨瑁?|
+| Windows x64 | [x64 渚挎惡鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 涓绘祦 64 浣嶇數鑴戦閫夛紝鍗曟枃浠跺厤瀹夎锛岀洿鎺ヨ繍琛?|
+| Windows ARM64 | [ARM64 渚挎惡鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Surface Pro X / 楠侀緳鏈哄瀷绛?ARM 璁惧 |
+| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Inno Setup 瀹夎鍚戝锛寈64 / ARM64 鑷姩鎸夋灦鏋勫畨瑁?|
 
 鍘嗗彶鐗堟湰涓庡畬鏁存洿鏂版棩蹇楄 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)銆?
 ---
@@ -188,6 +189,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## 鉁?鍔熻兘浜粸
+- **⚡ 效能與記憶體最佳化 (1.2.8)**：修復 8 處事件訂閱洩漏；UpdateVisibility 僅在值實際變化時觸發通知（減少 ~25 次無效通知）；畫刷屬性快取（消除每幀分配）；封面取色快取（避免展開/收起時重複取樣）；歌詞畫刷快取；低功耗波形真正降幀至 30fps；GPU 取樣快取；時鐘文字去重。
 - **🔧 修復展開時的白色/黑色方框 (1.2.7)**: 玻璃層現與卡片圓角同步裁剪，展開時不再露出直角邊緣（淺色模式白框 / 深色模式黑框），視覺更乾淨。
 - **馃┕ 淇京灞曢枊鏅傜殑鐧借壊/榛戣壊鏂规锛?.2.6锛?*锛氱幓鐠冨垎灞よ垏鍗＄墖鍚屾鍦撹涓﹁鍒囷紝灞曢枊鏅備笉鍐嶉湶鍑虹煩褰㈤倞瑙掞紙娣鸿壊妯″紡鐧芥 / 娣辫壊妯″紡榛戞锛夛紝瑕栬鏇寸磾娣ㄣ€?- **馃Ч 鎾斁濯掗珨鏅傞毐钘忓壀璨肩翱鍏冧欢锛?.2.5锛?*锛氭湭灞曢枊鏅傦紝姝岃鍙冲伌涓嶅啀椤ず瑜囪＝鍦栫ず鑸囧壀璨肩翱姝峰彶鏁稿瓧锛屼粙闈㈡洿涔炬法娓呯埥銆?- **鈿?60fps 鍕曠暙鍏ㄩ潰鍎寲锛?.2.5锛?*锛氶煶瑷婃尝绱嬮€愬箑娓叉煋鎻愬崌鑷?60fps锛涘睍闁?鏀惰捣鍕曠暙鏈熼枔鍥哄畾鍗＄墖鍏у瀵害锛岄伩鍏嶆瘡骞€閲嶈浣堝眬閲嶆帓锛屾墍鏈夊嫊鐣洿娴佹殺閫ｈ搏銆?- **馃幎 鍗℃媺OK閫愬瓧骞虫粦閲嶅仛锛?.2.4锛?*锛氶€愬瓧鎺ㄩ€叉敼鐐?smoothstep 绶╁嫊 + 瀛楅枔浜ゅ弶閬庢浮锛岄珮浜儚鍏夊付涓€妯ｅ緸宸﹀埌鍙抽€ｇ簩娴佸嫊锛岃捣绛?鏀剁瓎鏈夊姞娓涢€燂紝涓嶅啀涓€闋撲竴闋撱€?- **馃攱 浣庨浕閲忓父椐愭寚绀猴紙1.2.4锛?*锛氶浕閲忎綆鏂奸柧鍊间笖鏈帴闆绘簮鏅傦紝鍕曟厠宄跺彸涓婅甯搁椤ず闆婚噺鑶犲泭锛堚墹10% 绱呰壊 / 鍏堕姗欒壊锛夛紝闅ㄩ浕閲忓嵆鏅傚埛鏂帮紱鎺ヤ笂闆绘簮鎴栭浕閲忓洖鍗囧緦鑷嫊娑堝け锛岃ō瀹氫腑鍙枊闂溿€?- **馃帶 瑁濈疆閫ｇ窔鍕曠暙锛?.2.4锛?*锛氳棈鐗欒缃€ｇ窔/涓柗鏅傚睍绀?iOS 棰ㄦ牸鍕曠暙鍗＄墖锛涢€ｇ窔鏅傝嚜鍕曡畝鍙栬缃浕閲忎甫椤ず銆岃缃悕绋?路 闆婚噺 xx%銆嶏紝璁€涓嶅埌闆婚噺鏅傚彧椤ず瑁濈疆鍚嶇ū锛屼笉闃诲浠嬮潰銆?- **馃帳 姝岃妯ｅ紡鍙锛?.2.3锛?*锛氭櫘閫氭瓕瑭?鐩墠琛屽瓧铏熴€佽璺濄€佸崱鎷塐K鎺ㄩ€查€熷害銆侀珮浜壊鑸囧熀绀庤壊鐨嗗彲鑷▊锛岃ō瀹氶爜鍗虫檪鐢熸晥锛岀崹绔嬫瓕瑭炲皬绐楀悓姝ヨ窡闅ㄣ€?- **馃搵 閫氱煡姝峰彶锛?.2.3锛?*锛氬睍闁嬪嫊鎱嬪扯寰屽湪搴曢儴妾㈣姝峰彶閫氱煡锛岄粸鎿婂彲閲嶆柊褰堝嚭锛屽彲瑷畾淇濈暀绛嗘暩涓︿竴閸垫竻绌恒€?
 - **馃寠 绲叉粦鍕曟晥锛?.2.1锛?*锛氬睍闁?鏀惰捣鏀圭偤 iOS 闃诲凹褰堢哀 + 鍏у浜ら尟閬庢浮锛涢煶閲忚绡€閫ｅ嫊鍕曠暙锛涚穵婵?灞曢枊鏅烘収閫忔槑搴﹀垎灞わ紱鍒囨瓕灏侀潰浜ゅ弶娣″叆锛涙泛鑹?娣辫壊涓婚骞虫粦鍒囨彌锛涢€愬抚鍕曠暙鏁堣兘鏈€浣冲寲銆?
@@ -200,9 +202,9 @@ dotnet test  WinIslands.slnx -c Release
 ## 馃摜 涓嬭級锛堟渶鏂扮┅瀹氱増 1.2.7锛?
 | 骞冲彴 | 涓嬭級 | 瑾槑 |
 | --- | --- | --- |
-| Windows x64 | [x64 鏀滃付鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | 涓绘祦 64 浣嶅厓闆昏叇棣栭伕锛屽柈妾斿厤瀹夎锛岀洿鎺ュ煼琛?|
-| Windows ARM64 | [ARM64 鏀滃付鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | Surface Pro X / 椹嶉緧姗熷瀷绛?ARM 瑁濈疆 |
-| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | Inno Setup 瀹夎绮鹃潏锛寈64 / ARM64 鑷嫊渚濇灦妲嬪畨瑁?|
+| Windows x64 | [x64 鏀滃付鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 涓绘祦 64 浣嶅厓闆昏叇棣栭伕锛屽柈妾斿厤瀹夎锛岀洿鎺ュ煼琛?|
+| Windows ARM64 | [ARM64 鏀滃付鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Surface Pro X / 椹嶉緧姗熷瀷绛?ARM 瑁濈疆 |
+| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Inno Setup 瀹夎绮鹃潏锛寈64 / ARM64 鑷嫊渚濇灦妲嬪畨瑁?|
 
 姝峰彶鐗堟湰鑸囧畬鏁存洿鏂版棩瑾岃 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)銆?
 ---
@@ -363,6 +365,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## 鉁?Highlights
+- **⚡ Performance & memory optimization (1.2.8)**: Fixed 8 event handler leaks; UpdateVisibility only fires PropertyChanged when values actually change (~25 fewer unnecessary notifications); cached brush properties (eliminates per-access allocations); cached cover color sampling (skips redundant render-to-bitmap on expand/collapse); cached lyric brushes; low-power wave timer truly reduces to 30fps; cached GPU PerformanceCounterCategory; clock text deduplication.
 - **馃┕ Fixed white/black frame when expanded (1.2.7)**: The glass layer now matches the card corner radius with clipping, so rectangular edges no longer peek out when expanding (white frame in light mode / black frame in dark mode) 鈥?a cleaner look.
 - **馃Ч Hide clipboard widget while media plays (1.2.5)**: When collapsed, the copy icon and clipboard history number no longer appear beside the lyrics 鈥?a cleaner, tidier island.
 - **鈿?Full 60fps animation optimization (1.2.5)**: Audio waveform rendering raised to 60fps; card content width is fixed during expand/collapse animations to avoid per-frame re-layout 鈥?smoother, more fluid motion.
@@ -390,13 +393,13 @@ dotnet test  WinIslands.slnx -c Release
 
 ---
 
-## 馃摜 Download (latest stable 1.2.7)
+## 馃摜 Download (latest stable 1.2.8)
 
 | Platform | Download | Notes |
 | --- | --- | --- |
-| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
-| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
-| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
+| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
+| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
+| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
 
 All historical versions and the full changelog: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -592,6 +595,7 @@ Use Tray menu 鈫?Quit; closing the island window only hides it (tray-resident b
 ---
 
 ## 鉁?Caracter铆sticas destacadas
+- **⚡ Optimización de rendimiento y memoria (1.2.8)**: Corregidas 8 fugas de manejadores de eventos; UpdateVisibility solo dispara notificaciones cuando los valores cambian realmente (~25 menos notificaciones innecesarias); propiedades de pincel en caché; muestreo de color de portada en caché; pinceles de letras en caché; temporizador de onda de bajo consumo ahora reduce a 30fps; contador de GPU en caché; deduplicación de texto de reloj.
 - **馃┕ Corregido el marco blanco/negro al expandirse (1.2.7)**: La capa de cristal ahora coincide con el radio de las esquinas de la tarjeta con recorte, por lo que ya no asoman bordes rectangulares al expandir (marco blanco en modo claro / marco negro en modo oscuro): un aspecto m谩s limpio.
 - **馃Ч Ocultar el widget del portapapeles al reproducir medios (1.2.5)**: Al contraerse, el icono de copiar y el n煤mero del historial del portapapeles ya no aparecen junto a la letra: una isla m谩s limpia y ordenada.
 - **鈿?Optimizaci贸n completa de animaciones a 60 fps (1.2.5)**: El renderizado de la onda de audio sube a 60 fps; el ancho del contenido de la tarjeta se fija durante las animaciones de expandir/contraer para evitar reorganizaciones por fotograma: movimientos m谩s suaves y fluidos.
@@ -623,9 +627,9 @@ Use Tray menu 鈫?Quit; closing the island window only hides it (tray-resident b
 
 | Plataforma | Descarga | Notas |
 | --- | --- | --- |
-| Windows x64 | [Port谩til x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | Para PCs de 64 bits convencionales; archivo 煤nico, sin instalaci贸n |
-| Windows ARM64 | [Port谩til ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | Asistente Inno Setup; instala x64 / ARM64 seg煤n la arquitectura |
+| Windows x64 | [Port谩til x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | Para PCs de 64 bits convencionales; archivo 煤nico, sin instalaci贸n |
+| Windows ARM64 | [Port谩til ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Asistente Inno Setup; instala x64 / ARM64 seg煤n la arquitectura |
 
 Todas las versiones hist贸ricas y el registro de cambios completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -821,6 +825,7 @@ Usa Men煤 de la bandeja 鈫?Salir; cerrar la ventana de la isla solo la oculta 
 ---
 
 ## 鉁?Points forts
+- **⚡ Optimisation des performances et de la mémoire (1.2.8)**: Correction de 8 fuites de gestionnaires d'événements ; UpdateVisibility ne déclenche des notifications que lorsque les valeurs changent réellement (~25 notifications inutiles en moins) ; propriétés de pinceau mises en cache ; échantillonnage de couleur de pochette mis en cache ; pinceaux de paroles mis en cache ; minuteur d'onde basse consommation réduit à 30fps ; compteur GPU mis en cache ; déduplication du texte de l'horloge.
 - **馃┕ Correction du cadre blanc/noir lors de l鈥檈xpansion (1.2.7)**: La couche de verre 茅pouse d茅sormais le rayon des coins de la carte avec 茅cr锚tage, les bords rectangulaires n鈥檃pparaissent plus 脿 l鈥檈xpansion (cadre blanc en mode clair / cadre noir en mode sombre) 鈥?un rendu plus net.
 - **馃Ч Masquer le widget presse-papiers pendant la lecture (1.2.5)**: En mode r茅duit, l鈥檌c么ne de copie et le num茅ro de l鈥檋istorique du presse-papiers n鈥檃pparaissent plus 脿 c么t茅 des paroles 鈥?une 卯le plus 茅pur茅e.
 - **鈿?Optimisation compl猫te des animations 脿 60 fps (1.2.5)**: Le rendu de la forme d鈥檕nde audio passe 脿 60 fps ; la largeur du contenu de la carte est fix茅e pendant les animations d鈥檈xpansion/r茅duction pour 茅viter les recalculs de mise en page 脿 chaque image 鈥?des animations plus fluides et continues.
@@ -852,9 +857,9 @@ Usa Men煤 de la bandeja 鈫?Salir; cerrar la ventana de la isla solo la oculta 
 
 | Plateforme | T茅l茅chargement | Notes |
 | --- | --- | --- |
-| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | Le choix recommand茅 pour les PC 64 bits ; fichier unique, sans installation, ex茅cution directe |
-| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
-| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
+| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | Le choix recommand茅 pour les PC 64 bits ; fichier unique, sans installation, ex茅cution directe |
+| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
+| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
 
 Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1050,6 +1055,7 @@ Menu de la barre d'茅tat 鈫?Quitter ; fermer la fen锚tre de l'卯le ne fait q
 ---
 
 ## 鉁?兀亘乇夭 丕賱賲夭丕賷丕
+- **⚡ تحسين الأداء والذاكرة (1.2.8)**: إصلاح 8 تسريبات في معالجات الأحداث؛ UpdateVisibility يطلق الإشعارات فقط عند تغيير القيم فعليًا (~25 إشعارًا أقل) ؛ تخزين خصائص الفرشاة ؛ تخزين عينات لون الغلاف ؛ تخزين فرشاي الكلمات ؛ مؤقت الموجة المنخفض الطاقة يخفض إلى 30fps ؛ تخزين عداد GPU ؛ إزالة تكرار نص الساعة؛
 - **馃┕ 廿氐賱丕丨 丕賱廿胤丕乇 丕賱兀亘賷囟/丕賱兀爻賵丿 毓賳丿 丕賱鬲賵爻賷毓 (1.2.7)**: 兀氐亘丨鬲 胤亘賯丞 丕賱夭噩丕噩 賲胤丕亘賯丞 賱賳氐賮 賯胤乇 夭賵丕賷丕 丕賱亘胤丕賯丞 賲毓 鬲賮毓賷賱 丕賱賯氐貙 亘丨賷孬 賱丕 鬲馗賴乇 丕賱丨賵丕賮 丕賱賲爻鬲胤賷賱丞 毓賳丿 丕賱鬲賵爻賷毓 (廿胤丕乇 兀亘賷囟 賮賷 丕賱賵囟毓 丕賱賮丕鬲丨 / 廿胤丕乇 兀爻賵丿 賮賷 丕賱賵囟毓 丕賱丿丕賰賳) 鈥?賲馗賴乇 兀賳馗賮.
 - **馃Ч 廿禺賮丕亍 兀丿丕丞 丕賱丨丕賮馗丞 兀孬賳丕亍 鬲卮睾賷賱 丕賱賵爻丕卅胤 (1.2.5)**: 毓賳丿 丕賱鬲氐睾賷乇貙 賱賲 賷毓丿 乇賲夭 丕賱賳爻禺 賵乇賯賲 爻噩賱 丕賱丨丕賮馗丞 賷馗賴乇丕賳 亘噩丕賳亘 丕賱賰賱賲丕鬲 鈥?噩夭賷乇丞 兀賳馗賮 賵兀賰孬乇 鬲乇鬲賷亘賸丕.
 - **鈿?鬲丨爻賷賳 卮丕賲賱 賱賱丨乇賰丕鬲 廿賱賶 60 廿胤丕乇賸丕 賮賷 丕賱孬丕賳賷丞 (1.2.5)**: 鬲賲 乇賮毓 毓乇囟 賲賵噩丞 丕賱氐賵鬲 廿賱賶 60 廿胤丕乇賸丕 賮賷 丕賱孬丕賳賷丞貨 賵賷鬲賲 鬲孬亘賷鬲 毓乇囟 賲丨鬲賵賶 丕賱亘胤丕賯丞 兀孬賳丕亍 丨乇賰丕鬲 丕賱鬲賵爻賷毓 賵丕賱胤賷 賱鬲噩賳亘 廿毓丕丿丞 丕賱鬲禺胤賷胤 賮賷 賰賱 廿胤丕乇 鈥?丨乇賰丕鬲 兀賰孬乇 爻賱丕爻丞 賵丕鬲氐丕賱賸丕.
@@ -1081,9 +1087,9 @@ Menu de la barre d'茅tat 鈫?Quitter ; fermer la fen锚tre de l'卯le ne fait q
 
 | 丕賱賳馗丕賲 | 丕賱鬲丨賲賷賱 | 賲賱丕丨馗丕鬲 |
 | --- | --- | --- |
-| Windows x64 | [賳爻禺丞 賲丨賲賵賱丞 x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | 丕賱禺賷丕乇 丕賱兀賵賱 賱兀噩賴夭丞 64 亘鬲 丕賱卮丕卅毓丞貨 賲賱賮 賵丕丨丿 亘丿賵賳 鬲孬亘賷鬲貙 賷毓賲賱 賲亘丕卮乇丞 |
-| Windows ARM64 | [賳爻禺丞 賲丨賲賵賱丞 ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | 賱兀噩賴夭丞 Surface Pro X / 兀噩賴夭丞 ARM Snapdragon |
-| Windows 卮丕賲賱 | [賲孬亘賾鬲 卮丕賲賱](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | 賲毓丕賱噩 Inno Setup貨 賷孬亘賾鬲 x64 / ARM64 丨爻亘 丕賱亘賳賷丞 |
+| Windows x64 | [賳爻禺丞 賲丨賲賵賱丞 x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 丕賱禺賷丕乇 丕賱兀賵賱 賱兀噩賴夭丞 64 亘鬲 丕賱卮丕卅毓丞貨 賲賱賮 賵丕丨丿 亘丿賵賳 鬲孬亘賷鬲貙 賷毓賲賱 賲亘丕卮乇丞 |
+| Windows ARM64 | [賳爻禺丞 賲丨賲賵賱丞 ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | 賱兀噩賴夭丞 Surface Pro X / 兀噩賴夭丞 ARM Snapdragon |
+| Windows 卮丕賲賱 | [賲孬亘賾鬲 卮丕賲賱](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | 賲毓丕賱噩 Inno Setup貨 賷孬亘賾鬲 x64 / ARM64 丨爻亘 丕賱亘賳賷丞 |
 
 噩賲賷毓 丕賱廿氐丿丕乇丕鬲 丕賱爻丕亘賯丞 賵爻噩賱 丕賱鬲睾賷賷乇丕鬲 丕賱賰丕賲賱: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1279,6 +1285,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## 鉁?袣谢褞褔械胁褘械 胁芯蟹屑芯卸薪芯褋褌懈
+- **⚡ Оптимизация производительности и памяти (1.2.8)**: Исправлено 8 утечек обработчиков событий; UpdateVisibility запускает уведомления только при фактическом изменении значений (~25 меньше ненужных уведомлений); кэширование свойств кистей; кэширование выборки цвета обложки; кэширование кистей текста; таймер волны в режиме энергосбережения снижен до 30fps; кэширдование счётчика GPU; дедупликация текста часов.
 - **馃┕ 袠褋锌褉邪胁谢械薪邪 斜械谢邪褟/褔褢褉薪邪褟 褉邪屑泻邪 锌褉懈 褉邪蟹胁芯褉邪褔懈胁邪薪懈懈 (1.2.7)**: 小褌械泻谢褟薪薪褘泄 褋谢芯泄 褌械锌械褉褜 锌芯胁褌芯褉褟械褌 褋泻褉褍谐谢械薪懈械 褍谐谢芯胁 泻邪褉褌芯褔泻懈 褋 芯斜褉械蟹泻芯泄, 锌芯褝褌芯屑褍 锌褉懈 褉邪蟹胁芯褉邪褔懈胁邪薪懈懈 斜芯谢褜褕械 薪械 胁懈写薪褘 锌褉褟屑芯褍谐芯谢褜薪褘械 泻褉邪褟 (斜械谢邪褟 褉邪屑泻邪 胁 褋胁械褌谢芯泄 褌械屑械 / 褔褢褉薪邪褟 胁 褌褢屑薪芯泄) 鈥?胁懈写 褋褌邪谢 褔懈褖械.
 - **馃Ч 小泻褉褘褌褜 胁懈写卸械褌 斜褍褎械褉邪 芯斜屑械薪邪 锌褉懈 胁芯褋锌褉芯懈蟹胁械写械薪懈懈 (1.2.5)**: 袙 褋胁褢褉薪褍褌芯屑 胁懈写械 蟹薪邪褔芯泻 泻芯锌懈褉芯胁邪薪懈褟 懈 薪芯屑械褉 懈蟹 懈褋褌芯褉懈懈 斜褍褎械褉邪 芯斜屑械薪邪 斜芯谢褜褕械 薪械 芯褌芯斜褉邪卸邪褞褌褋褟 褉褟写芯屑 褋 褌械泻褋褌芯屑 锌械褋薪懈 鈥?芯褋褌褉芯胁 褋褌邪谢 褔懈褖械 懈 邪泻泻褍褉邪褌薪械械.
 - **鈿?袩芯谢薪邪褟 芯锌褌懈屑懈蟹邪褑懈褟 邪薪懈屑邪褑懈泄 写芯 60 FPS (1.2.5)**: 袨褌褉懈褋芯胁泻邪 邪褍写懈芯胁芯谢薪褘 锌芯胁褘褕械薪邪 写芯 60 FPS; 褕懈褉懈薪邪 泻芯薪褌械薪褌邪 泻邪褉褌芯褔泻懈 褎懈泻褋懈褉褍械褌褋褟 胁芯 胁褉械屑褟 邪薪懈屑邪褑懈泄 褉邪蟹胁芯褉邪褔懈胁邪薪懈褟/褋胁芯褉邪褔懈胁邪薪懈褟, 褔褌芯斜褘 懈蟹斜械卸邪褌褜 锌芯胁褌芯褉薪芯泄 泻芯屑锌芯薪芯胁泻懈 薪邪 泻邪卸写芯屑 泻邪写褉械 鈥?胁褋械 邪薪懈屑邪褑懈懈 褋褌邪谢懈 锌谢邪胁薪械械 懈 薪械锌褉械褉褘胁薪械械.
@@ -1310,9 +1317,9 @@ dotnet test  WinIslands.slnx -c Release
 
 | 袩谢邪褌褎芯褉屑邪 | 小泻邪褔邪褌褜 | 袩褉懈屑械褔邪薪懈褟 |
 | --- | --- | --- |
-| Windows x64 | [袩芯褉褌邪褌懈胁薪邪褟 x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | 袪械泻芯屑械薪写褍械褌褋褟 写谢褟 芯斜褘褔薪褘褏 64-斜懈褌薪褘褏 袩袣; 芯写懈薪 褎邪泄谢, 斜械蟹 褍褋褌邪薪芯胁泻懈, 蟹邪锌褍褋泻 褋褉邪蟹褍 |
-| Windows ARM64 | [袩芯褉褌邪褌懈胁薪邪褟 ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | 袛谢褟 Surface Pro X / 褍褋褌褉芯泄褋褌胁 ARM Snapdragon |
-| Windows 褍薪懈胁械褉褋邪谢褜薪邪褟 | [校薪懈胁械褉褋邪谢褜薪褘泄 褍褋褌邪薪芯胁褖懈泻](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | 袦邪褋褌械褉 Inno Setup; 褍褋褌邪薪邪胁谢懈胁邪械褌 x64 / ARM64 胁 蟹邪胁懈褋懈屑芯褋褌懈 芯褌 邪褉褏懈褌械泻褌褍褉褘 |
+| Windows x64 | [袩芯褉褌邪褌懈胁薪邪褟 x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 袪械泻芯屑械薪写褍械褌褋褟 写谢褟 芯斜褘褔薪褘褏 64-斜懈褌薪褘褏 袩袣; 芯写懈薪 褎邪泄谢, 斜械蟹 褍褋褌邪薪芯胁泻懈, 蟹邪锌褍褋泻 褋褉邪蟹褍 |
+| Windows ARM64 | [袩芯褉褌邪褌懈胁薪邪褟 ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | 袛谢褟 Surface Pro X / 褍褋褌褉芯泄褋褌胁 ARM Snapdragon |
+| Windows 褍薪懈胁械褉褋邪谢褜薪邪褟 | [校薪懈胁械褉褋邪谢褜薪褘泄 褍褋褌邪薪芯胁褖懈泻](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | 袦邪褋褌械褉 Inno Setup; 褍褋褌邪薪邪胁谢懈胁邪械褌 x64 / ARM64 胁 蟹邪胁懈褋懈屑芯褋褌懈 芯褌 邪褉褏懈褌械泻褌褍褉褘 |
 
 袙褋械 锌褉械写褘写褍褖懈械 胁械褉褋懈懈 懈 锌芯谢薪褘泄 卸褍褉薪邪谢 懈蟹屑械薪械薪懈泄: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 
@@ -1508,6 +1515,7 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## 鉁?Destaques
+- **⚡ Otimização de desempenho e memória (1.2.8)**: Corrigidos 8 vazamentos de manipuladores de eventos; UpdateVisibility só dispara notificações quando os valores mudam realmente (~25 menos notificações desnecessárias); propriedades de pincel em cache; amostragem de cor da capa em cache; pincéis de letras em cache; temporizador de onda de baixo consumo agora reduz para 30fps; contador de GPU em cache; deduplicação de texto do relógio.
 - **馃┕ Corrigida a moldura branca/preta ao expandir (1.2.7)**: A camada de vidro agora acompanha o raio dos cantos do cart茫o com recorte, ent茫o as bordas retangulares n茫o aparecem mais ao expandir (moldura branca no modo claro / moldura preta no modo escuro) 鈥?visual mais limpo.
 - **馃Ч Ocultar o widget da 谩rea de transfer锚ncia durante a reprodu莽茫o (1.2.5)**: Quando recolhido, o 铆cone de copiar e o n煤mero do hist贸rico da 谩rea de transfer锚ncia n茫o aparecem mais ao lado da letra 鈥?uma ilha mais limpa e organizada.
 - **鈿?Otimiza莽茫o completa das anima莽玫es a 60 FPS (1.2.5)**: A renderiza莽茫o da onda de 谩udio sobe para 60 FPS; a largura do conte煤do do cart茫o 茅 fixada durante as anima莽玫es de expandir/recolher para evitar re-layout a cada quadro 鈥?anima莽玫es mais suaves e fluidas.
@@ -1539,9 +1547,9 @@ dotnet test  WinIslands.slnx -c Release
 
 | Plataforma | Download | Observa莽玫es |
 | --- | --- | --- |
-| Windows x64 | [Port谩til x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo 煤nico, sem instala莽茫o, execu莽茫o direta |
-| Windows ARM64 | [Port谩til ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-1.2.7-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.7/WinIslands-Setup-1.2.7.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
+| Windows x64 | [Port谩til x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo 煤nico, sem instala莽茫o, execu莽茫o direta |
+| Windows ARM64 | [Port谩til ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
 
 Todas as vers玫es anteriores e o changelog completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
 

@@ -130,9 +130,9 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
 
         _coordinator.SnapshotChanged += OnSnapshotChanged;
         _coordinator.MediaEnded += OnMediaEnded;
-        _coordinator.SessionsChanged += (_, _) => RefreshMediaSessions();
+        _coordinator.SessionsChanged += OnSessionsChanged;
         RefreshMediaSessions();
-        Localization.LanguageChanged += (_, _) => RaiseAllText();
+        Localization.LanguageChanged += OnLanguageChanged;
         _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) }; // 进度插值 5Hz：进度条按秒显示足够，逐字卡拉OK由控件内部按墙钟连续推进（60fps），降低播放时 CPU 占用
         _progressTimer.Tick += (_, _) => AdvanceProgress();
         // 不立即启动：有媒体快照时（OnSnapshotChanged）才启动，空闲/无媒体时停用，降低后台占用
@@ -147,8 +147,10 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
             PollDownloadProgress();
             UpdateScreenshotCountdown();
             if (!IsVisible) return;
-            ClockText = DateTime.Now.ToString("HH:mm");
-            DateText = FormatDateText(DateTime.Now);
+            var nowClock = DateTime.Now.ToString("HH:mm");
+            if (ClockText != nowClock) ClockText = nowClock;
+            var nowDate = FormatDateText(DateTime.Now);
+            if (DateText != nowDate) DateText = nowDate;
             CheckPushExpiry();
             if (_activePush is not null) OnPropertyChanged(nameof(ActivePushProgress)); // v3 动态进度按秒推进
             UpdateSystemStats();
@@ -332,6 +334,9 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
     }
 
     /// <summary>刷新媒体会话列表并保持当前选中（不会触发切换）。</summary>
+    private void OnSessionsChanged(object? s, EventArgs e) => RefreshMediaSessions();
+    private void OnLanguageChanged(object? s, EventArgs e) => RaiseAllText();
+
     public void RefreshMediaSessions()
     {
         try
@@ -887,6 +892,7 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
     private readonly Dictionary<string, System.Diagnostics.PerformanceCounter> _gpuCounters = new();
     private bool _gpuProbed;
     private bool _gpuAvailable;
+    private System.Diagnostics.PerformanceCounterCategory? _gpuCategory;
 
     private System.Diagnostics.PerformanceCounter? CreateCounter(string cat, string name, string? inst)
     {
@@ -903,11 +909,12 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
             {
                 _gpuProbed = true;
                 _gpuAvailable = System.Diagnostics.PerformanceCounterCategory.Exists("GPU Engine");
+                if (_gpuAvailable) _gpuCategory = new System.Diagnostics.PerformanceCounterCategory("GPU Engine");
                 if (!_gpuAvailable) return null;
             }
             if (!_gpuAvailable) return null;
 
-            var names = new System.Diagnostics.PerformanceCounterCategory("GPU Engine").GetInstanceNames()
+            var names = _gpuCategory!.GetInstanceNames()
                 .Where(n => n.IndexOf("engtype_3D", StringComparison.OrdinalIgnoreCase) >= 0).ToArray();
 
             // 清理已退出进程的引擎实例
@@ -2480,6 +2487,17 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
         }
     }
     // ── Visibility ─────────────────────────────────────────────
+    private readonly Dictionary<string, bool> _visCache = new();
+    private bool _visFirst = true;
+    private void RaiseVisIfChanged(string name, bool current)
+    {
+        if (_visFirst || !_visCache.TryGetValue(name, out var prev) || prev != current)
+        {
+            _visCache[name] = current;
+            OnPropertyChanged(name);
+        }
+    }
+
     public void UpdateVisibility()
     {
         var hasMedia = _snapshot is not null && Status is PlaybackStatus.Playing or PlaybackStatus.Paused;
@@ -2512,37 +2530,38 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
         if (!ShowIdleMic) MicText = string.Empty;    // 麦克风/摄像头组件不勾选时清空
         if (!ShowIdleCam) CamText = string.Empty;
 
-        // 通知界面组件可见性变化
-        OnPropertyChanged(nameof(ShowCover));
-        OnPropertyChanged(nameof(ShowTitle));
-        OnPropertyChanged(nameof(ShowArtist));
-        OnPropertyChanged(nameof(ShowLyrics));
-        OnPropertyChanged(nameof(ShowCompactProgress));
-        OnPropertyChanged(nameof(ShowIdleTime));
-        OnPropertyChanged(nameof(ShowIdleWeather));
-        OnPropertyChanged(nameof(ShowAnyWidget));
+        // 通知界面组件可见性变化（仅在值实际改变时触发，减少 GC 抖动）
+        RaiseVisIfChanged(nameof(ShowCover), ShowCover);
+        RaiseVisIfChanged(nameof(ShowTitle), ShowTitle);
+        RaiseVisIfChanged(nameof(ShowArtist), ShowArtist);
+        RaiseVisIfChanged(nameof(ShowLyrics), ShowLyrics);
+        RaiseVisIfChanged(nameof(ShowCompactProgress), ShowCompactProgress);
+        RaiseVisIfChanged(nameof(ShowIdleTime), ShowIdleTime);
+        RaiseVisIfChanged(nameof(ShowIdleWeather), ShowIdleWeather);
+        RaiseVisIfChanged(nameof(ShowAnyWidget), ShowAnyWidget);
         RebuildCompactItems();
-        OnPropertyChanged(nameof(WidgetTimeFontSize));
-        OnPropertyChanged(nameof(ShowIdleDate));
-        OnPropertyChanged(nameof(ShowIdleCpu));
-        OnPropertyChanged(nameof(ShowIdleMic));
-        OnPropertyChanged(nameof(ShowIdleCam));
-        OnPropertyChanged(nameof(ShowIdleRam));
-        OnPropertyChanged(nameof(ShowIdleNet));
-        OnPropertyChanged(nameof(ShowIdleBattery));
-        OnPropertyChanged(nameof(ShowIdleVolume));
-        OnPropertyChanged(nameof(ShowIdleCapsLock));
-        OnPropertyChanged(nameof(ShowIdleClipboard));
-        OnPropertyChanged(nameof(ShowIdleTodo));
-        OnPropertyChanged(nameof(ShowIdleTimer));
-        OnPropertyChanged(nameof(ShowIdleSchedule));
-        OnPropertyChanged(nameof(ShowIdleHoliday));
-        OnPropertyChanged(nameof(ShowIdleMeeting));
-        OnPropertyChanged(nameof(ShowIdleDisk));
-        OnPropertyChanged(nameof(ShowIdleInputMethod));
-        OnPropertyChanged(nameof(ShowIdleQuickToggles));
-        OnPropertyChanged(nameof(HolidayText));
-        OnPropertyChanged(nameof(VolumeText));
+        RaiseVisIfChanged(nameof(WidgetTimeFontSize), WidgetTimeFontSize > 0);
+        RaiseVisIfChanged(nameof(ShowIdleDate), ShowIdleDate);
+        RaiseVisIfChanged(nameof(ShowIdleCpu), ShowIdleCpu);
+        RaiseVisIfChanged(nameof(ShowIdleMic), ShowIdleMic);
+        RaiseVisIfChanged(nameof(ShowIdleCam), ShowIdleCam);
+        RaiseVisIfChanged(nameof(ShowIdleRam), ShowIdleRam);
+        RaiseVisIfChanged(nameof(ShowIdleNet), ShowIdleNet);
+        RaiseVisIfChanged(nameof(ShowIdleBattery), ShowIdleBattery);
+        RaiseVisIfChanged(nameof(ShowIdleVolume), ShowIdleVolume);
+        RaiseVisIfChanged(nameof(ShowIdleCapsLock), ShowIdleCapsLock);
+        RaiseVisIfChanged(nameof(ShowIdleClipboard), ShowIdleClipboard);
+        RaiseVisIfChanged(nameof(ShowIdleTodo), ShowIdleTodo);
+        RaiseVisIfChanged(nameof(ShowIdleTimer), ShowIdleTimer);
+        RaiseVisIfChanged(nameof(ShowIdleSchedule), ShowIdleSchedule);
+        RaiseVisIfChanged(nameof(ShowIdleHoliday), ShowIdleHoliday);
+        RaiseVisIfChanged(nameof(ShowIdleMeeting), ShowIdleMeeting);
+        RaiseVisIfChanged(nameof(ShowIdleDisk), ShowIdleDisk);
+        RaiseVisIfChanged(nameof(ShowIdleInputMethod), ShowIdleInputMethod);
+        RaiseVisIfChanged(nameof(ShowIdleQuickToggles), ShowIdleQuickToggles);
+        RaiseVisIfChanged(nameof(HolidayText), HolidayText.Length > 0);
+        RaiseVisIfChanged(nameof(VolumeText), VolumeText.Length > 0);
+        _visFirst = false;
 
         IsVisible = show;
     }
@@ -2841,6 +2860,14 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
         _widgetTimer.Stop();
         _coordinator.SnapshotChanged -= OnSnapshotChanged;
         _coordinator.MediaEnded -= OnMediaEnded;
+        _coordinator.SessionsChanged -= OnSessionsChanged;
+        _keyboard.StateChanged -= OnKeyboardStateChanged;
+        _clipboard.Changed -= RefreshClipboardSummary;
+        _todo.Changed -= RefreshTodoSummary;
+        _schedule.Changed -= RefreshScheduleSummary;
+        _pomodoro.Tick -= RefreshTimerText;
+        _pomodoro.Completed -= OnPomodoroCompleted;
+        Localization.LanguageChanged -= OnLanguageChanged;
         // 释放效率工具服务（Stop/Dispose 幂等，App 退出时再次调用安全）
         _keyboard.Dispose();
         _clipboard.Dispose();

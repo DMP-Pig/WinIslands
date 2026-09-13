@@ -245,8 +245,19 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
     private LinearGradientBrush? _tintBrush;               // 封面取色渐变（缓存，避免每帧重建 GC）
     private GradientStop? _tintStop0;
     private GradientStop? _tintStop1;
-    private DateTime _tintPhaseUtc;                        // 呼吸相位起点
+    private DateTime _tintPhaseUtc;
+    // 封面取色缓存：避免展开/收起时重复采样同一封面
+    private ImageSource? _lastSampledArtwork;
+    private System.Windows.Media.Color? _lastSampledColor;                        // 呼吸相位起点
     private bool _tintRenderingSubscribed;
+    // 缓存上岛推送画刷（避免每次属性访问都 new SolidColorBrush）
+    private Brush? _cachedPushBg, _cachedPushBorder, _cachedPushFg, _cachedPushSecondary;
+    private bool _pushDarkCache;
+    // 缓存歌词画刷（避免每次访问都 new SolidColorBrush）
+    private Brush? _cachedExpLyricBase, _cachedExpLyricHL, _cachedCmpLyricBase, _cachedCmpLyricHL;
+    private string? _cachedLyricBaseHex, _cachedLyricHLHex;
+    private bool _lyricBrushDark;
+
 
     public System.Windows.Forms.Screen Screen { get; }
 
@@ -430,17 +441,58 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         }
         return fallback;
     }
-    public Brush ExpandedLyricBaseBrush => FreezeBrush(ParseHexColor(_settings.Current.LyricBaseColor, BrushColor(_theme.TextSecondary)));
-    public Brush ExpandedLyricHighlightBrush => FreezeBrush(ParseHexColor(_settings.Current.LyricHighlightColor, BrushColor(_theme.TextPrimary)));
+    public Brush ExpandedLyricBaseBrush
+    {
+        get
+        {
+            var dark = _theme.IsDark;
+            var hex = _settings.Current.LyricBaseColor ?? "";
+            if (_cachedExpLyricBase is null || _lyricBrushDark != dark || _cachedLyricBaseHex != hex)
+            {
+                _lyricBrushDark = dark;
+                _cachedLyricBaseHex = hex;
+                _cachedExpLyricBase = FreezeBrush(ParseHexColor(hex, BrushColor(_theme.TextSecondary)));
+            }
+            return _cachedExpLyricBase;
+        }
+    }
+    public Brush ExpandedLyricHighlightBrush
+    {
+        get
+        {
+            var dark = _theme.IsDark;
+            var hex = _settings.Current.LyricHighlightColor ?? "";
+            if (_cachedExpLyricHL is null || _lyricBrushDark != dark || _cachedLyricHLHex != hex)
+            {
+                _cachedLyricHLHex = hex;
+                _cachedExpLyricHL = FreezeBrush(ParseHexColor(hex, BrushColor(_theme.TextPrimary)));
+            }
+            return _cachedExpLyricHL;
+        }
+    }
     public Brush CompactLyricBaseBrush
     {
         get
         {
-            var c = BrushColor(_theme.TextSecondary);
-            return FreezeBrush(System.Windows.Media.Color.FromArgb(96, c.R, c.G, c.B));
+            var dark = _theme.IsDark;
+            if (_cachedCmpLyricBase is null || _lyricBrushDark != dark)
+            {
+                var bc = BrushColor(_theme.TextSecondary);
+                _cachedCmpLyricBase = FreezeBrush(System.Windows.Media.Color.FromArgb(96, bc.R, bc.G, bc.B));
+            }
+            return _cachedCmpLyricBase;
         }
     }
-    public Brush CompactLyricHighlightBrush => FreezeBrush(BrushColor(_theme.TextPrimary));
+    public Brush CompactLyricHighlightBrush
+    {
+        get
+        {
+            var dark = _theme.IsDark;
+            if (_cachedCmpLyricHL is null || _lyricBrushDark != dark)
+                _cachedCmpLyricHL = FreezeBrush(BrushColor(_theme.TextPrimary));
+            return _cachedCmpLyricHL;
+        }
+    }
 
     public bool NotificationHistoryVisible => _settings.Current.NotificationHistoryEnabled && _vm.NotificationHistory.Count > 0;
     public string NotificationHistoryTitle => Localization.Get("Notifications_History");
@@ -460,44 +512,49 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
     {
         get
         {
-            var b = PushDark()
-                ? new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xE6, 0x1B, 0x1B, 0x26))
-                : new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xE6, 0xFF, 0xFF, 0xFF));
-            b.Freeze();
-            return b;
+            var dark = PushDark();
+            if (_cachedPushBg is null || _pushDarkCache != dark)
+            {
+                _pushDarkCache = dark;
+                _cachedPushBg = FreezeBrush(dark ? System.Windows.Media.Color.FromArgb(0xE6, 0x1B, 0x1B, 0x26) : System.Windows.Media.Color.FromArgb(0xE6, 0xFF, 0xFF, 0xFF));
+            }
+            return _cachedPushBg;
         }
     }
     public Brush PushCardBorder
     {
         get
         {
-            var b = PushDark()
-                ? new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x59, 0xFF, 0xFF, 0xFF))
-                : new SolidColorBrush(System.Windows.Media.Color.FromArgb(0x40, 0x00, 0x00, 0x00));
-            b.Freeze();
-            return b;
+            var dark = PushDark();
+            if (_cachedPushBorder is null || _pushDarkCache != dark)
+            {
+                _cachedPushBorder = FreezeBrush(dark ? System.Windows.Media.Color.FromArgb(0x59, 0xFF, 0xFF, 0xFF) : System.Windows.Media.Color.FromArgb(0x40, 0x00, 0x00, 0x00));
+            }
+            return _cachedPushBorder;
         }
     }
     public Brush PushCardForeground
     {
         get
         {
-            var b = PushDark()
-                ? new SolidColorBrush(System.Windows.Media.Color.FromRgb(0xF2, 0xF2, 0xF7))
-                : new SolidColorBrush(System.Windows.Media.Color.FromRgb(0x22, 0x22, 0x2A));
-            b.Freeze();
-            return b;
+            var dark = PushDark();
+            if (_cachedPushFg is null || _pushDarkCache != dark)
+            {
+                _cachedPushFg = FreezeBrush(dark ? System.Windows.Media.Color.FromRgb(0xF2, 0xF2, 0xF7) : System.Windows.Media.Color.FromRgb(0x22, 0x22, 0x2A));
+            }
+            return _cachedPushFg;
         }
     }
     public Brush PushCardSecondary
     {
         get
         {
-            var b = PushDark()
-                ? new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xCC, 0xC8, 0xC8, 0xD4))
-                : new SolidColorBrush(System.Windows.Media.Color.FromArgb(0xCC, 0x55, 0x55, 0x60));
-            b.Freeze();
-            return b;
+            var dark = PushDark();
+            if (_cachedPushSecondary is null || _pushDarkCache != dark)
+            {
+                _cachedPushSecondary = FreezeBrush(dark ? System.Windows.Media.Color.FromArgb(0xCC, 0xC8, 0xC8, 0xD4) : System.Windows.Media.Color.FromArgb(0xCC, 0x55, 0x55, 0x60));
+            }
+            return _cachedPushSecondary;
         }
     }
 
@@ -1379,7 +1436,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             if (wantTimer)
             {
                 _waveRendering = true;
-                _waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };     // 60fps（1.2.5 性能优化）
+                _waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };     // 60fps（1.2.5 性能优化）
                 _waveTimer.Tick += (_, _) => OnWaveFrame(null, EventArgs.Empty);
                 _waveTimer.Start();
             }
@@ -1626,7 +1683,13 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
                 SubscribeTintRendering(false);
                 return;
             }
-            var color = SampleCoverColor(src);
+            // 缓存封面取色结果：同封面不重复采样（避免展开/收起时重新 RenderTargetBitmap）
+            if (!ReferenceEquals(src, _lastSampledArtwork))
+            {
+                _lastSampledColor = SampleCoverColor(src);
+                _lastSampledArtwork = src;
+            }
+            var color = _lastSampledColor;
             if (color is null)
             {
                 ClearCoverTint();
