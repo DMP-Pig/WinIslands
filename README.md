@@ -14,11 +14,17 @@
 # WinIslands 鈥?Windows 鐏靛姩宀?
 > **鎶?iOS 鐨勭伒鍔ㄥ矝甯﹀埌 Windows 11 / 10 鈥斺€?涓€娆剧幇浠ｅ寲銆佸鍔熻兘鐨?Windows 鐏靛姩宀涚粍浠躲€?*
 > 鍩轰簬 **.NET 8 + WPF**锛屽厤璐瑰紑婧愶紙MIT锛夛紝**鏃犲箍鍛?路 鏃犻仴娴?路 涓嶄笂鎶ユ暟鎹?*銆?
-馃寪 瀹樼綉锛歨ttps://WinIslands.JudeKwong.com 锝?GitHub锛歨ttps://github.com/DMP-Pig/WinIslands
+馃寪 瀹樼綉锛歨ttps://WinIslands.JudeKwong.com 锝?GitHub锛歨ttps://github.com/JudeKwong/WinIslands
 
 ---
 
 ## 鉁?鍔熻兘浜偣
+- **🐛 修复点击桌面触发自动隐藏 (1.2.9)**：全屏检测现在排除 Windows 桌面窗口（Progman/WorkerW），点击桌面不再误触发灵动岛自动隐藏。
+- **🎨 修复自动隐藏后重新显示边缘被裁切 (1.2.9)**：显示前先恢复窗口尺寸与外观，再在 Loaded 优先级重新定位，确保两侧圆角完整不再被截断。
+- **🐛 修复点击桌面触发自动隐藏 (1.2.9)**：全屏检测现在排除 Windows 桌面窗口（Progman/WorkerW），点击桌面不再误触发灵动岛自动隐藏。
+- **🎨 修复自动隐藏后重新显示边缘被裁切 (1.2.9)**：显示前先恢复窗口尺寸与外观，再在 Loaded 优先级重新定位，确保两侧圆角完整不再被截断。
+- **🐛 修复点击桌面触发自动隐藏 (1.2.9)**：全屏检测现在排除 Windows 桌面窗口（Progman/WorkerW），点击桌面不再误触发灵动岛自动隐藏。
+- **🎨 修复自动隐藏后重新显示边缘被裁切 (1.2.9)**：显示前先恢复窗口尺寸与外观，再在 Loaded 优先级重新定位，确保两侧圆角完整不再被截断。
 - **⚡ 性能与内存优化 (1.2.8)**：修复 8 处事件订阅泄漏；UpdateVisibility 仅在值实际变化时触发通知（减少 ~25 次无效通知）；画刷属性缓存（消除每帧分配）；封面取色缓存（避免展开/收起时重复采样）；歌词画刷缓存；低功耗波纹真正降帧至 30fps；GPU 采样缓存；时钟文本去重。
 - **🔧 修复展开时的白色/黑色方框 (1.2.7)**: 玻璃层现与卡片圆角同步裁剪，展开时不再露出直角边缘（浅色模式白框 / 深色模式黑框），视觉更干净。
 - **馃┕ 淇灞曞紑鏃剁殑鐧借壊/榛戣壊鏂规锛?.2.6锛?*锛氱幓鐠冨垎灞備笌鍗＄墖鍚屾鍦嗚骞惰鍓紝灞曞紑鏃朵笉鍐嶉湶鍑虹煩褰㈣竟瑙掞紙娴呰壊妯″紡鐧芥 / 娣辫壊妯″紡榛戞锛夛紝瑙嗚鏇寸函鍑€銆?- **馃Ч 鎾斁濯掍綋鏃堕殣钘忓壀璐存澘缁勪欢锛?.2.5锛?*锛氭湭灞曞紑鏃讹紝姝岃瘝鍙充晶涓嶅啀鏄剧ず澶嶅埗鍥炬爣涓庡壀璐存澘鍘嗗彶鏁板瓧锛岀晫闈㈡洿骞插噣娓呯埥銆?- **鈿?60fps 鍔ㄧ敾鍏ㄩ潰浼樺寲锛?.2.5锛?*锛氶煶棰戞尝绾归€愬抚娓叉煋鎻愬崌鑷?60fps锛涘睍寮€/鏀惰捣鍔ㄧ敾鏈熼棿鍥哄畾鍗＄墖鍐呭瀹藉害锛岄伩鍏嶆瘡甯ч噸澶嶅竷灞€閲嶆帓锛屾墍鏈夊姩鐢绘洿涓濇粦杩炶疮銆?- **馃幎 鍗℃媺OK閫愬瓧骞虫粦閲嶅仛锛?.2.4锛?*锛氶€愬瓧鎺ㄨ繘鏀逛负 smoothstep 缂撳姩 + 瀛楅棿浜ゅ弶杩囨浮锛岄珮浜儚鍏夊甫涓€鏍蜂粠宸﹀埌鍙宠繛缁祦鍔紝璧风瑪/鏀剁瑪鏈夊姞鍑忛€燂紝涓嶅啀涓€椤夸竴椤裤€?- **馃攱 浣庣數閲忓父椹绘寚绀猴紙1.2.4锛?*锛氱數閲忎綆浜庨槇鍊间笖鏈帴鐢垫簮鏃讹紝鐏靛姩宀涘彸涓婅甯搁┗鏄剧ず鐢甸噺鑳跺泭锛堚墹10% 绾㈣壊 / 鍏朵綑姗欒壊锛夛紝闅忕數閲忓疄鏃跺埛鏂帮紱鎺ヤ笂鐢垫簮鎴栫數閲忓洖鍗囧悗鑷姩娑堝け锛岃缃腑鍙紑鍏炽€?- **馃帶 璁惧杩炴帴鍔ㄧ敾锛?.2.4锛?*锛氳摑鐗欒澶囪繛鎺?鏂紑鏃跺睍绀?iOS 椋庢牸鍔ㄧ敾鍗＄墖锛涜繛鎺ユ椂鑷姩璇诲彇璁惧鐢甸噺骞舵樉绀恒€岃澶囧悕 路 鐢甸噺 xx%銆嶏紝璇讳笉鍒扮數閲忔椂鍙樉绀鸿澶囧悕锛屼笉闃诲鐣岄潰銆?- **馃帳 姝岃瘝鏍峰紡鍙皟锛?.2.3锛?*锛氭櫘閫氭瓕璇?褰撳墠琛屽瓧鍙枫€佽闂磋窛銆佸崱鎷塐K鎺ㄨ繘閫熷害銆侀珮浜壊涓庡熀纭€鑹插潎鍙嚜瀹氫箟锛岃缃〉鍗虫椂鐢熸晥锛岀嫭绔嬫瓕璇嶅皬绐楀悓姝ヨ窡闅忋€?- **馃搵 閫氱煡鍘嗗彶锛?.2.3锛?*锛氬睍寮€鐏靛姩宀涘悗鍦ㄥ簳閮ㄦ煡鐪嬪巻鍙查€氱煡锛岀偣鍑诲彲閲嶆柊寮瑰嚭锛屽彲璁剧疆淇濈暀鏉℃暟骞朵竴閿竻绌恒€?
@@ -32,11 +38,11 @@
 ## 馃摜 涓嬭浇锛堟渶鏂扮ǔ瀹氱増 1.2.7锛?
 | 骞冲彴 | 涓嬭浇 | 璇存槑 |
 | --- | --- | --- |
-| Windows x64 | [x64 渚挎惡鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 涓绘祦 64 浣嶇數鑴戦閫夛紝鍗曟枃浠跺厤瀹夎锛岀洿鎺ヨ繍琛?|
-| Windows ARM64 | [ARM64 渚挎惡鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Surface Pro X / 楠侀緳鏈哄瀷绛?ARM 璁惧 |
-| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Inno Setup 瀹夎鍚戝锛寈64 / ARM64 鑷姩鎸夋灦鏋勫畨瑁?|
+| Windows x64 | [x64 渚挎惡鐗圿(https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | 涓绘祦 64 浣嶇數鑴戦閫夛紝鍗曟枃浠跺厤瀹夎锛岀洿鎺ヨ繍琛?|
+| Windows ARM64 | [ARM64 渚挎惡鐗圿(https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | Surface Pro X / 楠侀緳鏈哄瀷绛?ARM 璁惧 |
+| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | Inno Setup 瀹夎鍚戝锛寈64 / ARM64 鑷姩鎸夋灦鏋勫畨瑁?|
 
-鍘嗗彶鐗堟湰涓庡畬鏁存洿鏂版棩蹇楄 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)銆?
+鍘嗗彶鐗堟湰涓庡畬鏁存洿鏂版棩蹇楄 [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases)銆?
 ---
 
 ## 馃搳 鎬ц兘鎸囨爣
@@ -184,11 +190,17 @@ dotnet test  WinIslands.slnx -c Release
 # WinIslands 鈥?Windows 鍕曟厠宄?
 > **鎶?iOS 鐨勫嫊鎱嬪扯甯跺埌 Windows 11 / 10 鈥斺€?涓€娆剧従浠ｅ寲銆佸鍔熻兘鐨?Windows 鍕曟厠宄跺厓浠躲€?*
 > 鍩烘柤 **.NET 8 + WPF**锛屽厤璨婚枊婧愶紙MIT锛夛紝**鐒″唬鍛?路 鐒￠仚娓?路 涓嶄笂鍫辫硣鏂?*銆?
-馃寪 瀹樼恫锛歨ttps://WinIslands.JudeKwong.com 锝?GitHub锛歨ttps://github.com/DMP-Pig/WinIslands
+馃寪 瀹樼恫锛歨ttps://WinIslands.JudeKwong.com 锝?GitHub锛歨ttps://github.com/JudeKwong/WinIslands
+- **🐛 修復點擊桌面觸發自動隱藏 (1.2.9)**：全螢幕偵測現在排除 Windows 桌面視窗（Progman/WorkerW），點擊桌面不再誤觸發靈動島自動隱藏。
+- **🎨 修復自動隱藏後重新顯示邊緣被裁切 (1.2.9)**：顯示前先恢復視窗尺寸與外觀，再在 Loaded 優先級重新定位，確保兩側圓角完整不再被截斷。
 
 ---
+- **🐛 修復點擊桌面觸發自動隱藏 (1.2.9)**：全螢幕偵測現在排除 Windows 桌面視窗（Progman/WorkerW），點擊桌面不再誤觸發靈動島自動隱藏。
+- **🎨 修復自動隱藏後重新顯示邊緣被裁切 (1.2.9)**：顯示前先恢復視窗尺寸與外觀，再在 Loaded 優先級重新定位，確保兩側圓角完整不再被截斷。
 
 ## 鉁?鍔熻兘浜粸
+- **🐛 修復點擊桌面觸發自動隱藏 (1.2.9)**：全螢幕偵測現在排除 Windows 桌面視窗（Progman/WorkerW），點擊桌面不再誤觸發靈動島自動隱藏。
+- **🎨 修復自動隱藏後重新顯示邊緣被裁切 (1.2.9)**：顯示前先恢復視窗尺寸與外觀，再在 Loaded 優先級重新定位，確保兩側圓角完整不再被截斷。
 - **⚡ 效能與記憶體最佳化 (1.2.8)**：修復 8 處事件訂閱洩漏；UpdateVisibility 僅在值實際變化時觸發通知（減少 ~25 次無效通知）；畫刷屬性快取（消除每幀分配）；封面取色快取（避免展開/收起時重複取樣）；歌詞畫刷快取；低功耗波形真正降幀至 30fps；GPU 取樣快取；時鐘文字去重。
 - **🔧 修復展開時的白色/黑色方框 (1.2.7)**: 玻璃層現與卡片圓角同步裁剪，展開時不再露出直角邊緣（淺色模式白框 / 深色模式黑框），視覺更乾淨。
 - **馃┕ 淇京灞曢枊鏅傜殑鐧借壊/榛戣壊鏂规锛?.2.6锛?*锛氱幓鐠冨垎灞よ垏鍗＄墖鍚屾鍦撹涓﹁鍒囷紝灞曢枊鏅備笉鍐嶉湶鍑虹煩褰㈤倞瑙掞紙娣鸿壊妯″紡鐧芥 / 娣辫壊妯″紡榛戞锛夛紝瑕栬鏇寸磾娣ㄣ€?- **馃Ч 鎾斁濯掗珨鏅傞毐钘忓壀璨肩翱鍏冧欢锛?.2.5锛?*锛氭湭灞曢枊鏅傦紝姝岃鍙冲伌涓嶅啀椤ず瑜囪＝鍦栫ず鑸囧壀璨肩翱姝峰彶鏁稿瓧锛屼粙闈㈡洿涔炬法娓呯埥銆?- **鈿?60fps 鍕曠暙鍏ㄩ潰鍎寲锛?.2.5锛?*锛氶煶瑷婃尝绱嬮€愬箑娓叉煋鎻愬崌鑷?60fps锛涘睍闁?鏀惰捣鍕曠暙鏈熼枔鍥哄畾鍗＄墖鍏у瀵害锛岄伩鍏嶆瘡骞€閲嶈浣堝眬閲嶆帓锛屾墍鏈夊嫊鐣洿娴佹殺閫ｈ搏銆?- **馃幎 鍗℃媺OK閫愬瓧骞虫粦閲嶅仛锛?.2.4锛?*锛氶€愬瓧鎺ㄩ€叉敼鐐?smoothstep 绶╁嫊 + 瀛楅枔浜ゅ弶閬庢浮锛岄珮浜儚鍏夊付涓€妯ｅ緸宸﹀埌鍙抽€ｇ簩娴佸嫊锛岃捣绛?鏀剁瓎鏈夊姞娓涢€燂紝涓嶅啀涓€闋撲竴闋撱€?- **馃攱 浣庨浕閲忓父椐愭寚绀猴紙1.2.4锛?*锛氶浕閲忎綆鏂奸柧鍊间笖鏈帴闆绘簮鏅傦紝鍕曟厠宄跺彸涓婅甯搁椤ず闆婚噺鑶犲泭锛堚墹10% 绱呰壊 / 鍏堕姗欒壊锛夛紝闅ㄩ浕閲忓嵆鏅傚埛鏂帮紱鎺ヤ笂闆绘簮鎴栭浕閲忓洖鍗囧緦鑷嫊娑堝け锛岃ō瀹氫腑鍙枊闂溿€?- **馃帶 瑁濈疆閫ｇ窔鍕曠暙锛?.2.4锛?*锛氳棈鐗欒缃€ｇ窔/涓柗鏅傚睍绀?iOS 棰ㄦ牸鍕曠暙鍗＄墖锛涢€ｇ窔鏅傝嚜鍕曡畝鍙栬缃浕閲忎甫椤ず銆岃缃悕绋?路 闆婚噺 xx%銆嶏紝璁€涓嶅埌闆婚噺鏅傚彧椤ず瑁濈疆鍚嶇ū锛屼笉闃诲浠嬮潰銆?- **馃帳 姝岃妯ｅ紡鍙锛?.2.3锛?*锛氭櫘閫氭瓕瑭?鐩墠琛屽瓧铏熴€佽璺濄€佸崱鎷塐K鎺ㄩ€查€熷害銆侀珮浜壊鑸囧熀绀庤壊鐨嗗彲鑷▊锛岃ō瀹氶爜鍗虫檪鐢熸晥锛岀崹绔嬫瓕瑭炲皬绐楀悓姝ヨ窡闅ㄣ€?- **馃搵 閫氱煡姝峰彶锛?.2.3锛?*锛氬睍闁嬪嫊鎱嬪扯寰屽湪搴曢儴妾㈣姝峰彶閫氱煡锛岄粸鎿婂彲閲嶆柊褰堝嚭锛屽彲瑷畾淇濈暀绛嗘暩涓︿竴閸垫竻绌恒€?
@@ -202,11 +214,11 @@ dotnet test  WinIslands.slnx -c Release
 ## 馃摜 涓嬭級锛堟渶鏂扮┅瀹氱増 1.2.7锛?
 | 骞冲彴 | 涓嬭級 | 瑾槑 |
 | --- | --- | --- |
-| Windows x64 | [x64 鏀滃付鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 涓绘祦 64 浣嶅厓闆昏叇棣栭伕锛屽柈妾斿厤瀹夎锛岀洿鎺ュ煼琛?|
-| Windows ARM64 | [ARM64 鏀滃付鐗圿(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Surface Pro X / 椹嶉緧姗熷瀷绛?ARM 瑁濈疆 |
-| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Inno Setup 瀹夎绮鹃潏锛寈64 / ARM64 鑷嫊渚濇灦妲嬪畨瑁?|
+| Windows x64 | [x64 鏀滃付鐗圿(https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | 涓绘祦 64 浣嶅厓闆昏叇棣栭伕锛屽柈妾斿厤瀹夎锛岀洿鎺ュ煼琛?|
+| Windows ARM64 | [ARM64 鏀滃付鐗圿(https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | Surface Pro X / 椹嶉緧姗熷瀷绛?ARM 瑁濈疆 |
+| Windows 閫氱敤 | [閫氱敤瀹夎鍖匽(https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | Inno Setup 瀹夎绮鹃潏锛寈64 / ARM64 鑷嫊渚濇灦妲嬪畨瑁?|
 
-姝峰彶鐗堟湰鑸囧畬鏁存洿鏂版棩瑾岃 [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases)銆?
+姝峰彶鐗堟湰鑸囧畬鏁存洿鏂版棩瑾岃 [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases)銆?
 ---
 
 ## 馃搳 鏁堣兘鎸囨
@@ -357,14 +369,20 @@ dotnet test  WinIslands.slnx -c Release
 
 # WinIslands 鈥?Dynamic Island for Windows
 
+- **🐛 Fixed desktop click triggering auto-hide (1.2.9)**: Full-screen detection now excludes Windows desktop windows (Progman/WorkerW); clicking the desktop no longer falsely triggers island auto-hide.
+- **🎨 Fixed edge clipping after auto-hide re-show (1.2.9)**: ShowIsland now restores window size and appearance before showing, then repositions at Loaded priority, ensuring rounded corners are fully intact.
 > **Bring the iOS Dynamic Island to Windows 11 / 10 鈥?a modern, multi-functional Dynamic Island widget for Windows.**
 > Built with **.NET 8 + WPF**, free and open source (MIT), **no ads 路 no telemetry 路 no data collection**.
 
-馃寪 Website: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/DMP-Pig/WinIslands
+馃寪 Website: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/JudeKwong/WinIslands
+- **🐛 Fixed desktop click triggering auto-hide (1.2.9)**: Full-screen detection now excludes Windows desktop windows (Progman/WorkerW); clicking the desktop no longer falsely triggers island auto-hide.
+- **🎨 Fixed edge clipping after auto-hide re-show (1.2.9)**: ShowIsland now restores window size and appearance before showing, then repositions at Loaded priority, ensuring rounded corners are fully intact.
 
 ---
 
 ## 鉁?Highlights
+- **🐛 Fixed desktop click triggering auto-hide (1.2.9)**: Full-screen detection now excludes Windows desktop windows (Progman/WorkerW); clicking the desktop no longer falsely triggers island auto-hide.
+- **🎨 Fixed edge clipping after auto-hide re-show (1.2.9)**: ShowIsland now restores window size and appearance before showing, then repositions at Loaded priority, ensuring rounded corners are fully intact.
 - **⚡ Performance & memory optimization (1.2.8)**: Fixed 8 event handler leaks; UpdateVisibility only fires PropertyChanged when values actually change (~25 fewer unnecessary notifications); cached brush properties (eliminates per-access allocations); cached cover color sampling (skips redundant render-to-bitmap on expand/collapse); cached lyric brushes; low-power wave timer truly reduces to 30fps; cached GPU PerformanceCounterCategory; clock text deduplication.
 - **馃┕ Fixed white/black frame when expanded (1.2.7)**: The glass layer now matches the card corner radius with clipping, so rectangular edges no longer peek out when expanding (white frame in light mode / black frame in dark mode) 鈥?a cleaner look.
 - **馃Ч Hide clipboard widget while media plays (1.2.5)**: When collapsed, the copy icon and clipboard history number no longer appear beside the lyrics 鈥?a cleaner, tidier island.
@@ -397,11 +415,11 @@ dotnet test  WinIslands.slnx -c Release
 
 | Platform | Download | Notes |
 | --- | --- | --- |
-| Windows x64 | [x64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
-| Windows ARM64 | [ARM64 portable](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
-| Windows Universal | [Universal installer](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
+| Windows x64 | [x64 portable](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | For mainstream 64-bit PCs; single file, no install needed |
+| Windows ARM64 | [ARM64 portable](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | For Surface Pro X / Snapdragon ARM devices |
+| Windows Universal | [Universal installer](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | Inno Setup wizard; auto-installs x64 / ARM64 by architecture |
 
-All historical versions and the full changelog: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
+All historical versions and the full changelog: [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases).
 
 ---
 
@@ -583,18 +601,24 @@ Use Tray menu 鈫?Quit; closing the island window only hides it (tray-resident b
 - **馃帳 Estilo de letras ajustable (1.2.3)**: personaliza el tama帽o de fuente de las l铆neas normales/actual, el interlineado, la velocidad del karaoke y los colores de resaltado/base; los cambios se aplican al instante y la ventana de letras independiente los sigue.
 - **馃搵 Historial de notificaciones (1.2.3)**: revisa las notificaciones recientes en la parte inferior de la isla expandida, haz clic para reproducirlas, configura el l铆mite y l铆mpialo con un clic.
 - **馃敂 Mejoras en notificaciones (1.2.2)**: las alertas plegadas muestran una sola l铆nea (icono + t铆tulo + resumen de una l铆nea) y se truncan si son largas, sin ensanchar la isla; la isla se ensancha autom谩ticamente para que los widgets de la derecha y el texto se vean completos.
+- **🐛 Corregido: clic en el escritorio activa la ocultación automática (1.2.9)**: La detección de pantalla completa ahora excluye las ventanas del escritorio de Windows (Progman/WorkerW); hacer clic en el escritorio ya no activa la ocultación automática de la isla.
+- **🎨 Corregido: recorte de bordes tras mostrar de nuevo tras ocultar (1.2.9)**: ShowIsland ahora restaura el tamaño y la apariencia de la ventana antes de mostrarla y luego reposiciona con prioridad Loaded, garantizando que las esquinas redondeadas estén completas.
 ## Espa帽ol
 
 # WinIslands 鈥?Dynamic Island para Windows
 
 > **Lleva el Dynamic Island de iOS a Windows 11 / 10: un widget de Dynamic Island moderno y multifuncional para Windows.**
 > Desarrollado con **.NET 8 + WPF**, gratuito y de c贸digo abierto (MIT), **sin anuncios 路 sin telemetr铆a 路 sin recopilaci贸n de datos**.
+- **🐛 Corregido: clic en el escritorio activa la ocultación automática (1.2.9)**: La detección de pantalla completa ahora excluye las ventanas del escritorio de Windows (Progman/WorkerW); hacer clic en el escritorio ya no activa la ocultación automática de la isla.
+- **🎨 Corregido: recorte de bordes tras mostrar de nuevo tras ocultar (1.2.9)**: ShowIsland ahora restaura el tamaño y la apariencia de la ventana antes de mostrarla y luego reposiciona con prioridad Loaded, garantizando que las esquinas redondeadas estén completas.
 
-馃寪 Sitio web: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/DMP-Pig/WinIslands
+馃寪 Sitio web: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/JudeKwong/WinIslands
 
 ---
 
 ## 鉁?Caracter铆sticas destacadas
+- **🐛 Corregido: clic en el escritorio activa la ocultación automática (1.2.9)**: La detección de pantalla completa ahora excluye las ventanas del escritorio de Windows (Progman/WorkerW); hacer clic en el escritorio ya no activa la ocultación automática de la isla.
+- **🎨 Corregido: recorte de bordes tras mostrar de nuevo tras ocultar (1.2.9)**: ShowIsland ahora restaura el tamaño y la apariencia de la ventana antes de mostrarla y luego reposiciona con prioridad Loaded, garantizando que las esquinas redondeadas estén completas.
 - **⚡ Optimización de rendimiento y memoria (1.2.8)**: Corregidas 8 fugas de manejadores de eventos; UpdateVisibility solo dispara notificaciones cuando los valores cambian realmente (~25 menos notificaciones innecesarias); propiedades de pincel en caché; muestreo de color de portada en caché; pinceles de letras en caché; temporizador de onda de bajo consumo ahora reduce a 30fps; contador de GPU en caché; deduplicación de texto de reloj.
 - **馃┕ Corregido el marco blanco/negro al expandirse (1.2.7)**: La capa de cristal ahora coincide con el radio de las esquinas de la tarjeta con recorte, por lo que ya no asoman bordes rectangulares al expandir (marco blanco en modo claro / marco negro en modo oscuro): un aspecto m谩s limpio.
 - **馃Ч Ocultar el widget del portapapeles al reproducir medios (1.2.5)**: Al contraerse, el icono de copiar y el n煤mero del historial del portapapeles ya no aparecen junto a la letra: una isla m谩s limpia y ordenada.
@@ -627,11 +651,11 @@ Use Tray menu 鈫?Quit; closing the island window only hides it (tray-resident b
 
 | Plataforma | Descarga | Notas |
 | --- | --- | --- |
-| Windows x64 | [Port谩til x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | Para PCs de 64 bits convencionales; archivo 煤nico, sin instalaci贸n |
-| Windows ARM64 | [Port谩til ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows Universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Asistente Inno Setup; instala x64 / ARM64 seg煤n la arquitectura |
+| Windows x64 | [Port谩til x64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | Para PCs de 64 bits convencionales; archivo 煤nico, sin instalaci贸n |
+| Windows ARM64 | [Port谩til ARM64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows Universal | [Instalador universal](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | Asistente Inno Setup; instala x64 / ARM64 seg煤n la arquitectura |
 
-Todas las versiones hist贸ricas y el registro de cambios completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
+Todas las versiones hist贸ricas y el registro de cambios completo: [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases).
 
 ---
 
@@ -809,6 +833,8 @@ Usa Men煤 de la bandeja 鈫?Salir; cerrar la ventana de la isla solo la oculta 
 
 - **馃幎 Karaok茅 fluide affin茅 (1.2.4)** : la progression mot 脿 mot utilise d茅sormais un lissage smoothstep avec transitions crois茅es entre les lettres 鈥?la surbrillance coule de gauche 脿 droite comme un faisceau de lumi猫re, avec acc茅l茅ration/d茅c茅l茅ration, sans 脿-coups.
 - **馃攱 Indicateur de batterie faible persistant (1.2.4)** : lorsque la batterie descend sous le seuil sans charge, une petite pilule de batterie reste affich茅e en haut 脿 droite de l鈥櫭甽e (rouge 鈮?0 % / orange sinon), mise 脿 jour en temps r茅el ; elle dispara卯t automatiquement une fois branch茅 ou recharg茅, et peut 锚tre activ茅e dans les r茅glages.
+- **🐛 Correction : le clic sur le bureau déclenchait la masquage automatique (1.2.9)** : La détection plein écran exclut désormais les fenêtres du bureau Windows (Progman/WorkerW) ; cliquer sur le bureau ne déclenche plus la masquage automatique de l'île.
+- **🎨 Correction : rognage des bords après réaffichage post-masquage (1.2.9)** : ShowIsland restaure désormais la taille et l'apparence de la fenêtre avant l'affichage, puis repositionne avec la priorité Loaded, garantissant des coins arrondis intacts.
 - **馃帶 Animation de connexion d鈥檃ppareils (1.2.4)** : la connexion/d茅connexion Bluetooth affiche d茅sormais une carte anim茅e style iOS ; 脿 la connexion, le niveau de batterie de l鈥檃ppareil est lu automatiquement et affich茅 comme 芦 Nom de l鈥檃ppareil 路 Batterie xx % 禄 (nom seul si la batterie n鈥檈st pas lisible), sans bloquer l鈥檌nterface.
 - **馃帳 Style des paroles r茅glable (1.2.3)** : personnalisez la taille de police des lignes normales/actuelle, l鈥檌nterligne, la vitesse du karaok茅 et les couleurs de surbrillance/base ; les changements s鈥檃ppliquent instantan茅ment et la fen锚tre de paroles ind茅pendante suit.
 - **馃搵 Historique des notifications (1.2.3)** : consultez les notifications r茅centes en bas de l鈥櫭甽e d茅ploy茅e, cliquez pour les rejouer, configurez le nombre maximum et effacez en un clic.
@@ -817,14 +843,18 @@ Usa Men煤 de la bandeja 鈫?Salir; cerrar la ventana de la isla solo la oculta 
 
 # WinIslands 鈥?Dynamic Island pour Windows
 
+- **🐛 Correction : le clic sur le bureau déclenchait la masquage automatique (1.2.9)** : La détection plein écran exclut désormais les fenêtres du bureau Windows (Progman/WorkerW) ; cliquer sur le bureau ne déclenche plus la masquage automatique de l'île.
+- **🎨 Correction : rognage des bords après réaffichage post-masquage (1.2.9)** : ShowIsland restaure désormais la taille et l'apparence de la fenêtre avant l'affichage, puis repositionne avec la priorité Loaded, garantissant des coins arrondis intacts.
 > **Apportez le Dynamic Island d'iOS 脿 Windows 11 / 10 鈥?un widget Dynamic Island moderne et multifonctionnel pour Windows.**
 > Bas茅 sur **.NET 8 + WPF**, gratuit et open source (MIT), **sans publicit茅 路 sans t茅l茅m茅trie 路 sans collecte de donn茅es**.
 
-馃寪 Site web : https://WinIslands.JudeKwong.com 锝?GitHub : https://github.com/DMP-Pig/WinIslands
+馃寪 Site web : https://WinIslands.JudeKwong.com 锝?GitHub : https://github.com/JudeKwong/WinIslands
 
 ---
 
 ## 鉁?Points forts
+- **🐛 Correction : le clic sur le bureau déclenchait la masquage automatique (1.2.9)** : La détection plein écran exclut désormais les fenêtres du bureau Windows (Progman/WorkerW) ; cliquer sur le bureau ne déclenche plus la masquage automatique de l'île.
+- **🎨 Correction : rognage des bords après réaffichage post-masquage (1.2.9)** : ShowIsland restaure désormais la taille et l'apparence de la fenêtre avant l'affichage, puis repositionne avec la priorité Loaded, garantissant des coins arrondis intacts.
 - **⚡ Optimisation des performances et de la mémoire (1.2.8)**: Correction de 8 fuites de gestionnaires d'événements ; UpdateVisibility ne déclenche des notifications que lorsque les valeurs changent réellement (~25 notifications inutiles en moins) ; propriétés de pinceau mises en cache ; échantillonnage de couleur de pochette mis en cache ; pinceaux de paroles mis en cache ; minuteur d'onde basse consommation réduit à 30fps ; compteur GPU mis en cache ; déduplication du texte de l'horloge.
 - **馃┕ Correction du cadre blanc/noir lors de l鈥檈xpansion (1.2.7)**: La couche de verre 茅pouse d茅sormais le rayon des coins de la carte avec 茅cr锚tage, les bords rectangulaires n鈥檃pparaissent plus 脿 l鈥檈xpansion (cadre blanc en mode clair / cadre noir en mode sombre) 鈥?un rendu plus net.
 - **馃Ч Masquer le widget presse-papiers pendant la lecture (1.2.5)**: En mode r茅duit, l鈥檌c么ne de copie et le num茅ro de l鈥檋istorique du presse-papiers n鈥檃pparaissent plus 脿 c么t茅 des paroles 鈥?une 卯le plus 茅pur茅e.
@@ -857,11 +887,11 @@ Usa Men煤 de la bandeja 鈫?Salir; cerrar la ventana de la isla solo la oculta 
 
 | Plateforme | T茅l茅chargement | Notes |
 | --- | --- | --- |
-| Windows x64 | [Portable x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | Le choix recommand茅 pour les PC 64 bits ; fichier unique, sans installation, ex茅cution directe |
-| Windows ARM64 | [Portable ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
-| Windows universel | [Installeur universel](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
+| Windows x64 | [Portable x64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | Le choix recommand茅 pour les PC 64 bits ; fichier unique, sans installation, ex茅cution directe |
+| Windows ARM64 | [Portable ARM64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | Pour Surface Pro X / appareils ARM Snapdragon |
+| Windows universel | [Installeur universel](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | Assistant Inno Setup ; installe x64 / ARM64 selon l'architecture |
 
-Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
+Toutes les versions historiques et le journal complet : [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases).
 
 ---
 
@@ -1035,6 +1065,8 @@ Menu de la barre d'茅tat 鈫?Quitter ; fermer la fen锚tre de l'卯le ne fait q
 - Application : MIT (voir [LICENSE](LICENSE))
 - Composants tiers : voir [THIRD_PARTY.md](THIRD_PARTY.md)
 
+- **🐛 إصلاح: النقر على سطح المكتب كان يشغل الإخفاء التلقائي (1.2.9)**: اكتشاف ملء الشاشة الآن يستبعد نوافذ سطح المكتب في Windows (Progman/WorkerW)؛ النقر على سطح المكتب لم يعد يشغل الإخفاء التلقائي للجزيرة.
+- **🎨 إصلاح: اقتصاص الحواف بعد إعادة العرض بعد الإخفاء (1.2.9)**: ShowIsland الآن يستعيد حجم النافذة ومظهرها قبل العرض، ثم يعيد التموضع بأولوية Loaded، مما يضمن بقاء الزوايا المستديرة سليمة.
 ---
 
 - **馃幎 鬲丨爻賷賳 丕賳爻賷丕亘 賰賱賲丕鬲 丕賱賰丕乇賷賵賰賷 (1.2.4)**: 兀氐亘丨 鬲賯丿賾賲 丕賱丨乇賵賮 賷爻鬲禺丿賲 鬲丿乇賾噩賸丕 爻賱爻賸丕 (smoothstep) 賲毓 丕賳鬲賯丕賱丕鬲 賲鬲丿丕禺賱丞 亘賷賳 丕賱兀丨乇賮 鈥?賷卮毓賾 丕賱鬲賲賷賷夭 賲賳 丕賱賷爻丕乇 廿賱賶 丕賱賷賲賷賳 賰卮乇賷胤 囟賵卅賷 賲鬲賵丕氐賱貙 賲毓 鬲爻丕乇毓/鬲亘丕胤丐 賮賷 丕賱亘丿丕賷丞 賵丕賱賳賴丕賷丞貙 丿賵賳 鬲賵賯賾賮丕鬲 賲賮丕噩卅丞.
@@ -1045,16 +1077,20 @@ Menu de la barre d'茅tat 鈫?Quitter ; fermer la fen锚tre de l'卯le ne fait q
 - **馃敂 鬲丨爻賷賳 丕賱廿卮毓丕乇丕鬲 賵丕賱鬲賳亘賷賴丕鬲 (1.2.2)**: 鬲毓乇囟 丕賱鬲賳亘賷賴丕鬲 丕賱賲胤賵賷丞 爻胤乇賸丕 賵丕丨丿賸丕 (兀賷賯賵賳丞 + 毓賳賵丕賳 + 賲賱禺氐 爻胤乇 賵丕丨丿) 賵鬲購賯鬲胤毓 毓賳丿 丕賱胤賵賱貙 賮賱丕 鬲賵爻賾毓 丕賱噩夭賷乇丞貨 賵鬲鬲賵爻毓 丕賱噩夭賷乇丞 鬲賱賯丕卅賷賸丕 賱毓乇囟 兀丿賵丕鬲 丕賱噩丕賳亘 丕賱兀賷賲賳 賵丕賱賳氐 賰丕賲賱賸丕.
 ## 丕賱毓乇亘賷丞
 
+- **🐛 إصلاح: النقر على سطح المكتب كان يشغل الإخفاء التلقائي (1.2.9)**: اكتشاف ملء الشاشة الآن يستبعد نوافذ سطح المكتب في Windows (Progman/WorkerW)؛ النقر على سطح المكتب لم يعد يشغل الإخفاء التلقائي للجزيرة.
+- **🎨 إصلاح: اقتصاص الحواف بعد إعادة العرض بعد الإخفاء (1.2.9)**: ShowIsland الآن يستعيد حجم النافذة ومظهرها قبل العرض، ثم يعيد التموضع بأولوية Loaded، مما يضمن بقاء الزوايا المستديرة سليمة.
 # WinIslands 鈥?丿賷賳丕賲賷賰 丌賷賱丕賳丿 賱賵賷賳丿賵夭
 
 > **丕賳賯賱 芦丕賱丿賷賳丕賲賷賰 丌賷賱丕賳丿禄 賲賳 iOS 廿賱賶 賵賷賳丿賵夭 11 / 10 鈥?兀丿丕丞 丿賷賳丕賲賷賰 丌賷賱丕賳丿 毓氐乇賷丞 賵賲鬲毓丿丿丞 丕賱賵馗丕卅賮 賱賵賷賳丿賵夭.**
 > 賲亘賳賷 毓賱賶 **.NET 8 + WPF**貙 賲噩丕賳賷 賵賲賮鬲賵丨 丕賱賲氐丿乇 (MIT)貙 **亘丿賵賳 廿毓賱丕賳丕鬲 路 亘丿賵賳 鬲鬲亘毓 毓賳 亘購毓丿 路 亘丿賵賳 噩賲毓 亘賷丕賳丕鬲**.
 
-馃寪 丕賱賲賵賯毓: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/DMP-Pig/WinIslands
+馃寪 丕賱賲賵賯毓: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/JudeKwong/WinIslands
 
 ---
 
 ## 鉁?兀亘乇夭 丕賱賲夭丕賷丕
+- **🐛 إصلاح: النقر على سطح المكتب كان يشغل الإخفاء التلقائي (1.2.9)**: اكتشاف ملء الشاشة الآن يستبعد نوافذ سطح المكتب في Windows (Progman/WorkerW)؛ النقر على سطح المكتب لم يعد يشغل الإخفاء التلقائي للجزيرة.
+- **🎨 إصلاح: اقتصاص الحواف بعد إعادة العرض بعد الإخفاء (1.2.9)**: ShowIsland الآن يستعيد حجم النافذة ومظهرها قبل العرض، ثم يعيد التموضع بأولوية Loaded، مما يضمن بقاء الزوايا المستديرة سليمة.
 - **⚡ تحسين الأداء والذاكرة (1.2.8)**: إصلاح 8 تسريبات في معالجات الأحداث؛ UpdateVisibility يطلق الإشعارات فقط عند تغيير القيم فعليًا (~25 إشعارًا أقل) ؛ تخزين خصائص الفرشاة ؛ تخزين عينات لون الغلاف ؛ تخزين فرشاي الكلمات ؛ مؤقت الموجة المنخفض الطاقة يخفض إلى 30fps ؛ تخزين عداد GPU ؛ إزالة تكرار نص الساعة؛
 - **馃┕ 廿氐賱丕丨 丕賱廿胤丕乇 丕賱兀亘賷囟/丕賱兀爻賵丿 毓賳丿 丕賱鬲賵爻賷毓 (1.2.7)**: 兀氐亘丨鬲 胤亘賯丞 丕賱夭噩丕噩 賲胤丕亘賯丞 賱賳氐賮 賯胤乇 夭賵丕賷丕 丕賱亘胤丕賯丞 賲毓 鬲賮毓賷賱 丕賱賯氐貙 亘丨賷孬 賱丕 鬲馗賴乇 丕賱丨賵丕賮 丕賱賲爻鬲胤賷賱丞 毓賳丿 丕賱鬲賵爻賷毓 (廿胤丕乇 兀亘賷囟 賮賷 丕賱賵囟毓 丕賱賮丕鬲丨 / 廿胤丕乇 兀爻賵丿 賮賷 丕賱賵囟毓 丕賱丿丕賰賳) 鈥?賲馗賴乇 兀賳馗賮.
 - **馃Ч 廿禺賮丕亍 兀丿丕丞 丕賱丨丕賮馗丞 兀孬賳丕亍 鬲卮睾賷賱 丕賱賵爻丕卅胤 (1.2.5)**: 毓賳丿 丕賱鬲氐睾賷乇貙 賱賲 賷毓丿 乇賲夭 丕賱賳爻禺 賵乇賯賲 爻噩賱 丕賱丨丕賮馗丞 賷馗賴乇丕賳 亘噩丕賳亘 丕賱賰賱賲丕鬲 鈥?噩夭賷乇丞 兀賳馗賮 賵兀賰孬乇 鬲乇鬲賷亘賸丕.
@@ -1087,11 +1123,11 @@ Menu de la barre d'茅tat 鈫?Quitter ; fermer la fen锚tre de l'卯le ne fait q
 
 | 丕賱賳馗丕賲 | 丕賱鬲丨賲賷賱 | 賲賱丕丨馗丕鬲 |
 | --- | --- | --- |
-| Windows x64 | [賳爻禺丞 賲丨賲賵賱丞 x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 丕賱禺賷丕乇 丕賱兀賵賱 賱兀噩賴夭丞 64 亘鬲 丕賱卮丕卅毓丞貨 賲賱賮 賵丕丨丿 亘丿賵賳 鬲孬亘賷鬲貙 賷毓賲賱 賲亘丕卮乇丞 |
-| Windows ARM64 | [賳爻禺丞 賲丨賲賵賱丞 ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | 賱兀噩賴夭丞 Surface Pro X / 兀噩賴夭丞 ARM Snapdragon |
-| Windows 卮丕賲賱 | [賲孬亘賾鬲 卮丕賲賱](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | 賲毓丕賱噩 Inno Setup貨 賷孬亘賾鬲 x64 / ARM64 丨爻亘 丕賱亘賳賷丞 |
+| Windows x64 | [賳爻禺丞 賲丨賲賵賱丞 x64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | 丕賱禺賷丕乇 丕賱兀賵賱 賱兀噩賴夭丞 64 亘鬲 丕賱卮丕卅毓丞貨 賲賱賮 賵丕丨丿 亘丿賵賳 鬲孬亘賷鬲貙 賷毓賲賱 賲亘丕卮乇丞 |
+| Windows ARM64 | [賳爻禺丞 賲丨賲賵賱丞 ARM64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | 賱兀噩賴夭丞 Surface Pro X / 兀噩賴夭丞 ARM Snapdragon |
+| Windows 卮丕賲賱 | [賲孬亘賾鬲 卮丕賲賱](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | 賲毓丕賱噩 Inno Setup貨 賷孬亘賾鬲 x64 / ARM64 丨爻亘 丕賱亘賳賷丞 |
 
-噩賲賷毓 丕賱廿氐丿丕乇丕鬲 丕賱爻丕亘賯丞 賵爻噩賱 丕賱鬲睾賷賷乇丕鬲 丕賱賰丕賲賱: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
+噩賲賷毓 丕賱廿氐丿丕乇丕鬲 丕賱爻丕亘賯丞 賵爻噩賱 丕賱鬲睾賷賷乇丕鬲 丕賱賰丕賲賱: [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases).
 
 ---
 
@@ -1261,6 +1297,8 @@ dotnet test  WinIslands.slnx -c Release
 ---
 
 ## 馃搫 鬲乇禺賷氐 丕賱賲氐丿乇 丕賱賲賮鬲賵丨
+- **🐛 Исправлено: клик по рабочему столу вызывал автоскрытие (1.2.9)**: Обнаружение полноэкранного режима теперь исключает окна рабочего стола Windows (Progman/WorkerW); клик по рабочему столу больше не вызывает автоскрытие острова.
+- **🎨 Исправлено: обрезка краёв после повторного показа после скрытия (1.2.9)**: ShowIsland теперь восстанавливает размер и внешний вид окна перед показом, затем репозиционирует с приоритетом Loaded, обеспечивая целостность закруглённых углов.
 
 - 丕賱鬲胤亘賷賯: MIT (丕賳馗乇 [LICENSE](LICENSE))
 - 丕賱賲賰賵賳丕鬲 丕賱禺丕乇噩賷丞: 丕賳馗乇 [THIRD_PARTY.md](THIRD_PARTY.md)
@@ -1273,6 +1311,8 @@ dotnet test  WinIslands.slnx -c Release
 - **馃帳 袧邪褋褌褉邪懈胁邪械屑褘泄 褋褌懈谢褜 褌械泻褋褌邪 (1.2.3)**: 薪邪褋褌褉芯泄褌械 褉邪蟹屑械褉 褕褉懈褎褌邪 芯斜褘褔薪褘褏/褌械泻褍褖懈褏 褋褌褉芯泻, 屑械卸褋褌褉芯褔薪褘泄 懈薪褌械褉胁邪谢, 褋泻芯褉芯褋褌褜 泻邪褉邪芯泻械 懈 褑胁械褌邪 锌芯写褋胁械褌泻懈/芯褋薪芯胁褘; 懈蟹屑械薪械薪懈褟 锌褉懈屑械薪褟褞褌褋褟 屑谐薪芯胁械薪薪芯, 芯褌写械谢褜薪芯械 芯泻薪芯 褌械泻褋褌邪 褋懈薪褏褉芯薪懈蟹懈褉褍械褌褋褟.
 - **馃搵 袠褋褌芯褉懈褟 褍胁械写芯屑谢械薪懈泄 (1.2.3)**: 锌褉芯褋屑邪褌褉懈胁邪泄褌械 锌芯褋谢械写薪懈械 褍胁械写芯屑谢械薪懈褟 胁薪懈蟹褍 褉邪蟹胁褢褉薪褍褌芯谐芯 芯褋褌褉芯胁邪, 薪邪卸屑懈褌械, 褔褌芯斜褘 胁芯褋锌褉芯懈蟹胁械褋褌懈 褋薪芯胁邪, 蟹邪写邪泄褌械 谢懈屑懈褌 懈 芯褔懈褋褌懈褌械 芯写薪懈屑 泻谢懈泻芯屑.
 - **馃敂 校谢褍褔褕械薪懈械 褍胁械写芯屑谢械薪懈泄 (1.2.2)**: 褋胁褢褉薪褍褌褘械 芯锌芯胁械褖械薪懈褟 锌芯泻邪蟹褘胁邪褞褌褋褟 芯写薪芯泄 褋褌褉芯泻芯泄 (懈泻芯薪泻邪 + 蟹邪谐芯谢芯胁芯泻 + 芯写薪芯褋褌褉芯褔薪芯械 褉械蟹褞屑械) 懈 芯斜褉械蟹邪褞褌褋褟 锌褉懈 写谢懈薪械, 薪械 褉邪褋褕懈褉褟褟 芯褋褌褉芯胁; 芯褋褌褉芯胁 邪胁褌芯屑邪褌懈褔械褋泻懈 褉邪褋褕懈褉褟械褌褋褟, 褔褌芯斜褘 胁懈写卸械褌褘 褋锌褉邪胁邪 懈 褌械泻褋褌 斜褘谢懈 锌芯谢薪芯褋褌褜褞 胁懈写薪褘.
+- **🐛 Исправлено: клик по рабочему столу вызывал автоскрытие (1.2.9)**: Обнаружение полноэкранного режима теперь исключает окна рабочего стола Windows (Progman/WorkerW); клик по рабочему столу больше не вызывает автоскрытие острова.
+- **🎨 Исправлено: обрезка краёв после повторного показа после скрытия (1.2.9)**: ShowIsland теперь восстанавливает размер и внешний вид окна перед показом, затем репозиционирует с приоритетом Loaded, обеспечивая целостность закруглённых углов.
 ## 袪褍褋褋泻懈泄
 
 # WinIslands 鈥?Dynamic Island 写谢褟 Windows
@@ -1280,11 +1320,13 @@ dotnet test  WinIslands.slnx -c Release
 > **袩械褉械薪械褋懈褌械 Dynamic Island 懈蟹 iOS 薪邪 Windows 11 / 10 鈥?褋芯胁褉械屑械薪薪褘泄, 屑薪芯谐芯褎褍薪泻褑懈芯薪邪谢褜薪褘泄 胁懈写卸械褌 Dynamic Island 写谢褟 Windows.**
 > 袧邪 斜邪蟹械 **.NET 8 + WPF**, 斜械褋锌谢邪褌薪芯 懈 褋 芯褌泻褉褘褌褘屑 泻芯写芯屑 (MIT), **斜械蟹 褉械泻谢邪屑褘 路 斜械蟹 褌械谢械屑械褌褉懈懈 路 斜械蟹 褋斜芯褉邪 写邪薪薪褘褏**.
 
-馃寪 小邪泄褌: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/DMP-Pig/WinIslands
+馃寪 小邪泄褌: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/JudeKwong/WinIslands
 
 ---
 
 ## 鉁?袣谢褞褔械胁褘械 胁芯蟹屑芯卸薪芯褋褌懈
+- **🐛 Исправлено: клик по рабочему столу вызывал автоскрытие (1.2.9)**: Обнаружение полноэкранного режима теперь исключает окна рабочего стола Windows (Progman/WorkerW); клик по рабочему столу больше не вызывает автоскрытие острова.
+- **🎨 Исправлено: обрезка краёв после повторного показа после скрытия (1.2.9)**: ShowIsland теперь восстанавливает размер и внешний вид окна перед показом, затем репозиционирует с приоритетом Loaded, обеспечивая целостность закруглённых углов.
 - **⚡ Оптимизация производительности и памяти (1.2.8)**: Исправлено 8 утечек обработчиков событий; UpdateVisibility запускает уведомления только при фактическом изменении значений (~25 меньше ненужных уведомлений); кэширование свойств кистей; кэширование выборки цвета обложки; кэширование кистей текста; таймер волны в режиме энергосбережения снижен до 30fps; кэширдование счётчика GPU; дедупликация текста часов.
 - **馃┕ 袠褋锌褉邪胁谢械薪邪 斜械谢邪褟/褔褢褉薪邪褟 褉邪屑泻邪 锌褉懈 褉邪蟹胁芯褉邪褔懈胁邪薪懈懈 (1.2.7)**: 小褌械泻谢褟薪薪褘泄 褋谢芯泄 褌械锌械褉褜 锌芯胁褌芯褉褟械褌 褋泻褉褍谐谢械薪懈械 褍谐谢芯胁 泻邪褉褌芯褔泻懈 褋 芯斜褉械蟹泻芯泄, 锌芯褝褌芯屑褍 锌褉懈 褉邪蟹胁芯褉邪褔懈胁邪薪懈懈 斜芯谢褜褕械 薪械 胁懈写薪褘 锌褉褟屑芯褍谐芯谢褜薪褘械 泻褉邪褟 (斜械谢邪褟 褉邪屑泻邪 胁 褋胁械褌谢芯泄 褌械屑械 / 褔褢褉薪邪褟 胁 褌褢屑薪芯泄) 鈥?胁懈写 褋褌邪谢 褔懈褖械.
 - **馃Ч 小泻褉褘褌褜 胁懈写卸械褌 斜褍褎械褉邪 芯斜屑械薪邪 锌褉懈 胁芯褋锌褉芯懈蟹胁械写械薪懈懈 (1.2.5)**: 袙 褋胁褢褉薪褍褌芯屑 胁懈写械 蟹薪邪褔芯泻 泻芯锌懈褉芯胁邪薪懈褟 懈 薪芯屑械褉 懈蟹 懈褋褌芯褉懈懈 斜褍褎械褉邪 芯斜屑械薪邪 斜芯谢褜褕械 薪械 芯褌芯斜褉邪卸邪褞褌褋褟 褉褟写芯屑 褋 褌械泻褋褌芯屑 锌械褋薪懈 鈥?芯褋褌褉芯胁 褋褌邪谢 褔懈褖械 懈 邪泻泻褍褉邪褌薪械械.
@@ -1317,11 +1359,11 @@ dotnet test  WinIslands.slnx -c Release
 
 | 袩谢邪褌褎芯褉屑邪 | 小泻邪褔邪褌褜 | 袩褉懈屑械褔邪薪懈褟 |
 | --- | --- | --- |
-| Windows x64 | [袩芯褉褌邪褌懈胁薪邪褟 x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | 袪械泻芯屑械薪写褍械褌褋褟 写谢褟 芯斜褘褔薪褘褏 64-斜懈褌薪褘褏 袩袣; 芯写懈薪 褎邪泄谢, 斜械蟹 褍褋褌邪薪芯胁泻懈, 蟹邪锌褍褋泻 褋褉邪蟹褍 |
-| Windows ARM64 | [袩芯褉褌邪褌懈胁薪邪褟 ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | 袛谢褟 Surface Pro X / 褍褋褌褉芯泄褋褌胁 ARM Snapdragon |
-| Windows 褍薪懈胁械褉褋邪谢褜薪邪褟 | [校薪懈胁械褉褋邪谢褜薪褘泄 褍褋褌邪薪芯胁褖懈泻](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | 袦邪褋褌械褉 Inno Setup; 褍褋褌邪薪邪胁谢懈胁邪械褌 x64 / ARM64 胁 蟹邪胁懈褋懈屑芯褋褌懈 芯褌 邪褉褏懈褌械泻褌褍褉褘 |
+| Windows x64 | [袩芯褉褌邪褌懈胁薪邪褟 x64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | 袪械泻芯屑械薪写褍械褌褋褟 写谢褟 芯斜褘褔薪褘褏 64-斜懈褌薪褘褏 袩袣; 芯写懈薪 褎邪泄谢, 斜械蟹 褍褋褌邪薪芯胁泻懈, 蟹邪锌褍褋泻 褋褉邪蟹褍 |
+| Windows ARM64 | [袩芯褉褌邪褌懈胁薪邪褟 ARM64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | 袛谢褟 Surface Pro X / 褍褋褌褉芯泄褋褌胁 ARM Snapdragon |
+| Windows 褍薪懈胁械褉褋邪谢褜薪邪褟 | [校薪懈胁械褉褋邪谢褜薪褘泄 褍褋褌邪薪芯胁褖懈泻](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | 袦邪褋褌械褉 Inno Setup; 褍褋褌邪薪邪胁谢懈胁邪械褌 x64 / ARM64 胁 蟹邪胁懈褋懈屑芯褋褌懈 芯褌 邪褉褏懈褌械泻褌褍褉褘 |
 
-袙褋械 锌褉械写褘写褍褖懈械 胁械褉褋懈懈 懈 锌芯谢薪褘泄 卸褍褉薪邪谢 懈蟹屑械薪械薪懈泄: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
+袙褋械 锌褉械写褘写褍褖懈械 胁械褉褋懈懈 懈 锌芯谢薪褘泄 卸褍褉薪邪谢 懈蟹屑械薪械薪懈泄: [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases).
 
 ---
 
@@ -1487,6 +1529,8 @@ dotnet test  WinIslands.slnx -c Release
 
 **袙: 袩芯褋谢械 胁褘褏芯写邪 蟹薪邪褔芯泻 胁 褌褉械械 芯褋褌邪褢褌褋褟?**
 袦械薪褞 褌褉械褟 鈫?袙褘褏芯写; 蟹邪泻褉褘褌懈械 芯泻薪邪 芯褋褌褉芯胁邪 谢懈褕褜 褋泻褉褘胁邪械褌 械谐芯 (芯褋褌褉芯胁 褉械蟹懈写械薪褌薪褘泄 锌芯 蟹邪屑褘褋谢褍).
+- **🐛 Corrigido: clique na área de trabalho acionava a ocultação automática (1.2.9)**: A detecção de tela cheia agora exclui as janelas da área de trabalho do Windows (Progman/WorkerW); clicar na área de trabalho não aciona mais a ocultação automática da ilha.
+- **🎨 Corrigido: corte de bordas após reexibição pós-ocultação (1.2.9)**: ShowIsland agora restaura o tamanho e a aparência da janela antes de exibi-la e, em seguida, reposiciona com prioridade Loaded, garantindo que os cantos arredondados fiquem intactos.
 
 ---
 
@@ -1501,6 +1545,8 @@ dotnet test  WinIslands.slnx -c Release
 - **馃攱 Indicador persistente de bateria fraca (1.2.4)**: quando a bateria fica abaixo do limite e n茫o est谩 carregando, uma pequena p铆lula de bateria permanece no canto superior direito da ilha (vermelha 鈮?0% / laranja caso contr谩rio), atualizando em tempo real; desaparece ao conectar o carregador ou recuperar, e pode ser ativada nas configura莽玫es.
 - **馃帶 Anima莽茫o de conex茫o de dispositivos (1.2.4)**: ao conectar/desconectar um dispositivo Bluetooth, um cart茫o animado estilo iOS 茅 exibido; ao conectar, a bateria do dispositivo 茅 lida automaticamente e mostrada como 芦Nome do dispositivo 路 Bateria xx%禄 (somente o nome se n茫o for poss铆vel ler), sem bloquear a interface.
 - **馃帳 Estilo de letra ajust谩vel (1.2.3)**: personalize o tamanho da fonte das linhas normais/atual, o espa莽amento, a velocidade do karaok锚 e as cores de destaque/base; as mudan莽as se aplicam na hora e a janela de letras independente acompanha.
+- **🐛 Corrigido: clique na área de trabalho acionava a ocultação automática (1.2.9)**: A detecção de tela cheia agora exclui as janelas da área de trabalho do Windows (Progman/WorkerW); clicar na área de trabalho não aciona mais a ocultação automática da ilha.
+- **🎨 Corrigido: corte de bordas após reexibição pós-ocultação (1.2.9)**: ShowIsland agora restaura o tamanho e a aparência da janela antes de exibi-la e, em seguida, reposiciona com prioridade Loaded, garantindo que os cantos arredondados fiquem intactos.
 - **馃搵 Hist贸rico de notifica莽玫es (1.2.3)**: veja as notifica莽玫es recentes na parte inferior da ilha expandida, clique para reproduzi-las, defina o limite e limpe com um clique.
 - **馃敂 Notifica莽玫es aprimoradas (1.2.2)**: alertas recolhidos mostram uma 煤nica linha (铆cone + t铆tulo + resumo em uma linha) e s茫o truncados quando longos, sem alargar a ilha; a ilha se alarga automaticamente para que os widgets 脿 direita e o texto fiquem totalmente vis铆veis.
 ## Portugu锚s
@@ -1510,11 +1556,13 @@ dotnet test  WinIslands.slnx -c Release
 > **Traga o Dynamic Island do iOS para o Windows 11 / 10 鈥?um widget Dynamic Island moderno e multifuncional para Windows.**
 > Baseado em **.NET 8 + WPF**, gratuito e de c贸digo aberto (MIT), **sem an煤ncios 路 sem telemetria 路 sem coleta de dados**.
 
-馃寪 Site: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/DMP-Pig/WinIslands
+馃寪 Site: https://WinIslands.JudeKwong.com 锝?GitHub: https://github.com/JudeKwong/WinIslands
 
 ---
 
 ## 鉁?Destaques
+- **🐛 Corrigido: clique na área de trabalho acionava a ocultação automática (1.2.9)**: A detecção de tela cheia agora exclui as janelas da área de trabalho do Windows (Progman/WorkerW); clicar na área de trabalho não aciona mais a ocultação automática da ilha.
+- **🎨 Corrigido: corte de bordas após reexibição pós-ocultação (1.2.9)**: ShowIsland agora restaura o tamanho e a aparência da janela antes de exibi-la e, em seguida, reposiciona com prioridade Loaded, garantindo que os cantos arredondados fiquem intactos.
 - **⚡ Otimização de desempenho e memória (1.2.8)**: Corrigidos 8 vazamentos de manipuladores de eventos; UpdateVisibility só dispara notificações quando os valores mudam realmente (~25 menos notificações desnecessárias); propriedades de pincel em cache; amostragem de cor da capa em cache; pincéis de letras em cache; temporizador de onda de baixo consumo agora reduz para 30fps; contador de GPU em cache; deduplicação de texto do relógio.
 - **馃┕ Corrigida a moldura branca/preta ao expandir (1.2.7)**: A camada de vidro agora acompanha o raio dos cantos do cart茫o com recorte, ent茫o as bordas retangulares n茫o aparecem mais ao expandir (moldura branca no modo claro / moldura preta no modo escuro) 鈥?visual mais limpo.
 - **馃Ч Ocultar o widget da 谩rea de transfer锚ncia durante a reprodu莽茫o (1.2.5)**: Quando recolhido, o 铆cone de copiar e o n煤mero do hist贸rico da 谩rea de transfer锚ncia n茫o aparecem mais ao lado da letra 鈥?uma ilha mais limpa e organizada.
@@ -1547,11 +1595,11 @@ dotnet test  WinIslands.slnx -c Release
 
 | Plataforma | Download | Observa莽玫es |
 | --- | --- | --- |
-| Windows x64 | [Port谩til x64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo 煤nico, sem instala莽茫o, execu莽茫o direta |
-| Windows ARM64 | [Port谩til ARM64](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-1.2.7-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
-| Windows universal | [Instalador universal](https://github.com/DMP-Pig/WinIslands/releases/download/1.2.8/WinIslands-Setup-1.2.7.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
+| Windows x64 | [Port谩til x64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-x64.exe) | Recomendado para PCs 64 bits comuns; arquivo 煤nico, sem instala莽茫o, execu莽茫o direta |
+| Windows ARM64 | [Port谩til ARM64](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-1.2.9-win-arm64.exe) | Para Surface Pro X / dispositivos ARM Snapdragon |
+| Windows universal | [Instalador universal](https://github.com/JudeKwong/WinIslands/releases/download/1.2.9/WinIslands-Setup-1.2.9.exe) | Assistente Inno Setup; instala x64 / ARM64 conforme a arquitetura |
 
-Todas as vers玫es anteriores e o changelog completo: [GitHub Releases](https://github.com/DMP-Pig/WinIslands/releases).
+Todas as vers玫es anteriores e o changelog completo: [GitHub Releases](https://github.com/JudeKwong/WinIslands/releases).
 
 ---
 
