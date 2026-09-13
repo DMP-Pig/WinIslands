@@ -64,6 +64,7 @@ public sealed class IslandApiServer : IDisposable
             _listener.Prefixes.Add(prefix);
             _listener.Start();
             IsRunning = true;
+            _cts?.Dispose();
             _cts = new CancellationTokenSource();
             _loop = Task.Run(() => AcceptLoopAsync(_cts.Token));
             // 心跳保活：每 5 秒检查一次，超过 2 倍心跳间隔未续期的推送自动移除
@@ -88,7 +89,6 @@ public sealed class IslandApiServer : IDisposable
             _heartbeatTimer?.Dispose();
             _heartbeatTimer = null;
             _listener.Stop();
-            _listener.Close();
             IsRunning = false;
         }
         catch (Exception ex)
@@ -222,10 +222,10 @@ public sealed class IslandApiServer : IDisposable
             push.ProgressAnchorUtc = null;
         }
 
-        if (_active.ContainsKey(push.Id))
+        if (_active.TryGetValue(push.Id, out var existingPush))
         {
             // 同 id 更新：刷新内容、保留原过期时间与队列位置（位置不变）
-            if (_active[push.Id].ExpiresAt is DateTime oldExp) push.ExpiresAt = oldExp;
+            if (existingPush.ExpiresAt is DateTime oldExp) push.ExpiresAt = oldExp;
         }
         else
         {
@@ -248,7 +248,7 @@ public sealed class IslandApiServer : IDisposable
         if (_active.TryRemove(id, out _))
         {
             _order.TryRemove(id, out _);
-            PushRemoved?.Invoke(id);
+            _ = Task.Run(() => PushRemoved?.Invoke(id));
             BroadcastEvent("push_removed", id);
         }
     }
@@ -277,7 +277,13 @@ public sealed class IslandApiServer : IDisposable
         using var doc = JsonDocument.Parse(body);
         foreach (var prop in doc.RootElement.EnumerateObject())
             obj[prop.Name] = JsonNode.Parse(prop.Value.GetRawText());
-        return obj.Deserialize<IslandPush>(JsonOpts);
+        var result = obj.Deserialize<IslandPush>(JsonOpts);
+        if (result is null) return null;
+        // Preserve server-side state that is [JsonIgnore] and therefore lost in serialization,
+        // so a PATCH that only changes e.g. the title does not restart the progress anchor.
+        result.ProgressAnchorUtc = existing.ProgressAnchorUtc;
+        result.LastSeenUtc = existing.LastSeenUtc;
+        return result;
     }
 
     /// <summary>WebSocket 端点：双向通道，客户端发 JSON 消息（push/update/remove/ping），服务端回 ok/error 并广播事件。</summary>
@@ -307,7 +313,16 @@ public sealed class IslandApiServer : IDisposable
                     break;
                 }
                 if (result.MessageType != WebSocketMessageType.Text) continue;
-                var text = Encoding.UTF8.GetString(buffer, 0, result.Count);
+                // Handle fragmented WebSocket messages: accumulate until EndOfMessage
+                var sb = new StringBuilder();
+                sb.Append(Encoding.UTF8.GetString(buffer, 0, result.Count));
+                while (!result.EndOfMessage)
+                {
+                    result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), ct);
+                    if (result.MessageType != WebSocketMessageType.Text) break;
+                    sb.Append(Encoding.UTF8.GetString(buffer, 0, result.Count));
+                }
+                var text = sb.ToString();
                 _ = Task.Run(() => HandleWsMessageAsync(ws, text));
             }
         }
@@ -429,6 +444,9 @@ public sealed class IslandApiServer : IDisposable
     public void Dispose()
     {
         Stop();
+        // HttpListener.Close() permanently disposes the listener; only do it here,
+        // never in Stop(), so the server can be restarted (e.g. port change).
+        try { _listener.Close(); } catch { /* ignore */ }
         _cts.Dispose();
         _heartbeatTimer?.Dispose();
     }

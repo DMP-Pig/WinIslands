@@ -47,7 +47,12 @@ public sealed class LyricsService
         var result = await LoadAsync(snapshot, ct);
         lock (_cacheLock)
         {
-            if (_cache.Count > 8) _cache.Clear(); // tiny LRU-ish cache
+            // LRU: over capacity, remove the first (oldest) entry rather than clearing all
+            if (_cache.Count > 8)
+            {
+                var oldest = _cache.Keys.First();
+                _cache.Remove(oldest);
+            }
             _cache[key] = result;
         }
 
@@ -257,4 +262,3 @@ public sealed class LyricsService
         return sb.ToString();
     }
 }
-

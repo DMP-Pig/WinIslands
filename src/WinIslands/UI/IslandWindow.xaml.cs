@@ -371,6 +371,12 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             CancelPendingClick();
             StopWaveRender();
             SubscribeTintRendering(false); // 显式退订封面取色合成帧，防窗口销毁后事件泄漏
+            // 关闭可能存在的全屏封面预览窗口，避免孤儿窗口
+            if (_coverFullWindow is { } cfw)
+            {
+                try { cfw.Close(); } catch { /* ignore */ }
+                _coverFullWindow = null;
+            }
         }
         catch (Exception ex)
         {
@@ -1167,10 +1173,13 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         var (styleEase, styleMs) = GetSizeAnimationStyle(expand: false);
         var lm = _settings.Current.LowPowerMode ? 0.6 : 1.0;
         var dur = (int)Math.Clamp(360 * (styleMs / 680.0), 220, 460) * lm;
+        // 停止前一个动画（AnimateCard 或 AnimateCompactSize），避免两个 Storyboard 同时写 Card 尺寸
+        _currentStoryboard?.Stop();
         var sb = new Storyboard();
         AddAnim(sb, Card, FrameworkElement.WidthProperty, CompactWidth, (int)dur, styleEase);
         AddAnim(sb, Card, FrameworkElement.HeightProperty, CompactHeight, (int)dur, styleEase);
         Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
+        _currentStoryboard = sb; // 更新引用：防止 AnimateCard 完成回调覆盖新尺寸
         sb.Begin();
     }
 
@@ -1645,7 +1654,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             // 封面取色生效时玻璃层归零，避免叠加
             _glassAnimSb?.Stop();
             _glassAnimSb = null;
-            GlassLayer.Opacity = 0;
+            if (GlassLayer is not null) GlassLayer.Opacity = 0;
             _tintPhaseUtc = DateTime.UtcNow;
             SubscribeTintRendering(true);
         }
@@ -2085,17 +2094,22 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             var accent = (_theme.AccentBorderBrush as SolidColorBrush)?.Color ?? System.Windows.Media.Color.FromArgb(160, 108, 92, 231);
             var card = (_theme.CardBorder as SolidColorBrush)?.Color ?? System.Windows.Media.Color.FromArgb(60, 255, 255, 255);
             var brush = new SolidColorBrush(on ? card : accent);
-            brush.BeginAnimation(SolidColorBrush.ColorProperty,
-                new ColorAnimation(on ? accent : card, TimeSpan.FromMilliseconds(200)));
-            Card.BorderBrush = brush;
+            var anim = new ColorAnimation(on ? accent : card, TimeSpan.FromMilliseconds(200));
             if (!on)
             {
-                // 还原主题绑定，保证换肤后边框颜色与主题一致
-                Card.SetBinding(Border.BorderBrushProperty, new System.Windows.Data.Binding(nameof(CardBorder))
+                // 还原主题绑定必须等颜色动画播完再执行：SetBinding 会立刻替换 BorderBrush 的本地值，
+                // 若在此处直接调用会把刚起步的 200ms 过渡动画截断，边框颜色会瞬间跳变。
+                anim.Completed += (_, _) => Dispatcher.BeginInvoke(new Action(() =>
                 {
-                    RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Window), 1),
-                });
+                    if (!_dragHintOn) // 期间又被拖入（on=true）则不恢复，交由下一次动画处理
+                        Card.SetBinding(Border.BorderBrushProperty, new System.Windows.Data.Binding(nameof(CardBorder))
+                        {
+                            RelativeSource = new RelativeSource(RelativeSourceMode.FindAncestor, typeof(Window), 1),
+                        });
+                }));
             }
+            brush.BeginAnimation(SolidColorBrush.ColorProperty, anim);
+            Card.BorderBrush = brush;
         }
         catch { /* 动画失败忽略 */ }
     }

@@ -83,6 +83,9 @@ public sealed class CiderMediaProvider : IDisposable
     public Task<bool> SetVolumeAsync(double v) => Client.SetVolumeAsync(v, _cts.Token);
     public Task<string?> GetLyricsAsync() => Client.GetLyricsAsync(null, _cts.Token);
 
-    public void Dispose() => _cts.Cancel();
+    public void Dispose()
+    {
+        _cts.Cancel();
+        _cts.Dispose();
+    }
 }
-

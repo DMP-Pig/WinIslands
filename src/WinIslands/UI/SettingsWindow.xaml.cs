@@ -39,6 +39,9 @@ public partial class SettingsWindow : Window
     private bool _sizeSlidersInitialized; // 初始化期间不触发"手动调整关闭自动"
     private bool _audioOutputLoading;     // 音频输出下拉初始化期间不触发切换
 
+    /// <summary>具名语言切换处理器：Closed 时退订，避免静态事件反复持有已关闭的设置窗口。</summary>
+    private readonly EventHandler _onLanguageChanged;
+
     public SettingsWindow(SettingsViewModel vm, SettingsService service, CiderMediaProvider? cider,
         TodoService? todo = null,
         ScheduleService? schedule = null,
@@ -92,11 +95,17 @@ public partial class SettingsWindow : Window
         _autoApply.Tick += (_, _) => AutoApply();
         _autoApply.Start();
 
-        // 语言切换后立即刷新界面文案
-        Localization.LanguageChanged += (_, _) => ApplyLocalization();
+        // 语言切换后立即刷新界面文案（具名处理器，关闭时退订，避免静态事件持有窗口导致泄漏）
+        _onLanguageChanged = (_, _) => ApplyLocalization();
+        Localization.LanguageChanged += _onLanguageChanged;
 
-        // 关闭时兜底保存最后一次改动
-        Closed += (_, _) => { try { _vm.Save(); } catch { } };
+        // 关闭时兜底保存最后一次改动，并释放定时器/事件订阅（设置窗每次打开都会新建）
+        Closed += (_, _) =>
+        {
+            try { _vm.Save(); } catch { }
+            try { _autoApply.Stop(); } catch { }
+            try { Localization.LanguageChanged -= _onLanguageChanged; } catch { }
+        };
 
         // 初始化完成后才允许"手动调整关闭自动"
         Loaded += (_, _) =>
@@ -942,5 +951,3 @@ internal static class NativeUser32
     [System.Runtime.InteropServices.DllImport("user32.dll")]
     internal static extern bool SetForegroundWindow(IntPtr hWnd);
 }
-
-

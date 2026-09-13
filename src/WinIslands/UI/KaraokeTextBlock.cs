@@ -240,7 +240,10 @@ public class KaraokeTextBlock : TextBlock
             if (IsPlaying)
             {
                 // 两次 ViewModel 位置更新之间按墙钟连续推进 → 60fps 丝滑，不“一动一停”
-                var pos = _posBase + (DateTime.UtcNow - _posBaseTimeUtc).TotalSeconds * KaraokeSpeed;
+                // 按真实时间插值（不乘速度倍率）：ViewModel 每 200ms 用真实播放位置校正一次，
+                // 若在此处乘倍率会产生「先超前、再被拉回」的每 200ms 回跳，看起来卡顿。
+                // 「高亮更快」改为在 RenderWords 内缩放每个字的进度（见 speedScale），效果相同但不回跳。
+                var pos = _posBase + (DateTime.UtcNow - _posBaseTimeUtc).TotalSeconds;
                 RenderWords(pos);
                 // 该行已全部点亮/尚未开始：静态即可，停止动画（避免列表里多行同时空转）
                 if (!NeedsAnimation(pos)) _animTimer.Stop();
@@ -288,14 +291,20 @@ public class KaraokeTextBlock : TextBlock
         // 两段缓动曲线首尾重叠 → 高亮像光带一样从左到右“流动”，不会在字边界停一下再动一下；
         // 句首第一个字不提前，保证换句时第一个字保持未点亮。
         const double leadSeconds = 0.045;
+        // 卡拉OK速度倍率：作用在每个字的填充进度上（而非时间轴），因此不会与位置校正互相拉扯。
+        var speedScale = Math.Clamp(KaraokeSpeed <= 0 ? 1.0 : KaraokeSpeed, 0.2, 3.0);
         for (var i = 0; i < _wordRuns.Count && i < _words.Count; i++)
         {
             var w = _words[i];
             var dur = Math.Max(w.DurationSec, 0.001);
             var lead = i > 0 ? Math.Min(leadSeconds, dur * 0.5) : 0.0;
-            var raw = (pos - (w.BeginSec - lead)) / (dur + lead);
+            var raw = (pos - (w.BeginSec - lead)) / (dur + lead) * speedScale;
             var frac = SmoothStep(raw); // ease-in-out：起笔/收笔有加减速，匀速的机械感消失
-            _wordRuns[i].Foreground = Frozen(new System.Windows.Media.SolidColorBrush(Lerp(bs, hl, frac)));
+            var c = Lerp(bs, hl, frac);
+            // 只在颜色字节值真正变化时才新建画刷（60fps 下多数帧的色差不足 1 字节），
+            // 避免每帧分配 SolidColorBrush 造成 GC 抖动而掉帧。
+            if (_wordRuns[i].Foreground is not System.Windows.Media.SolidColorBrush prev || !ColorEqual(prev.Color, c))
+                _wordRuns[i].Foreground = Frozen(new System.Windows.Media.SolidColorBrush(c));
         }
     }
 
@@ -351,9 +360,11 @@ public class KaraokeTextBlock : TextBlock
     /// <summary>播放位置是否落在本句某个字的起止区间内（该行是否处于正在点亮的状态）。</summary>
     private bool NeedsAnimation(double pos)
     {
+        var speed = Math.Clamp(KaraokeSpeed <= 0 ? 1.0 : KaraokeSpeed, 0.2, 3.0);
         foreach (var w in _words)
         {
-            if (pos >= w.BeginSec && pos < w.EndSec) return true;
+            if (pos < w.BeginSec) continue;                    // 尚未开始：静态即可
+            if ((pos - w.BeginSec) / w.DurationSec * speed < 1) return true; // 仍在点亮：需要动画
         }
         return false;
     }
@@ -376,4 +387,8 @@ public class KaraokeTextBlock : TextBlock
 
     private static System.Windows.Media.Color? ToColor(Brush? brush)
         => (brush as SolidColorBrush)?.Color;
+
+    /// <summary>比较两个颜色是否完全一致（避免为不足 1 字节的色差重复分配画刷）。</summary>
+    private static bool ColorEqual(System.Windows.Media.Color a, System.Windows.Media.Color b)
+        => a.A == b.A && a.R == b.R && a.G == b.G && a.B == b.B;
 }

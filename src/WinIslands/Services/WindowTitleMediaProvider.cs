@@ -21,45 +21,66 @@ public sealed class WindowTitleMediaProvider
 
     public MediaSnapshot? GetSnapshot()
     {
+        Process[] procs;
+        try { procs = Process.GetProcesses(); }
+        catch (Exception ex) { AppLogger.Warn($"WindowTitle enumerate failed: {ex.Message}"); return null; }
+
         try
         {
-            foreach (var proc in Process.GetProcesses())
+            foreach (var proc in procs)
             {
-                string procName;
-                try { procName = proc.ProcessName; }
-                catch { continue; }
-
-                if (!IsKnownPlayer(procName)) continue;
-                if (proc.MainWindowHandle == IntPtr.Zero) continue;
-
-                string title;
-                try { title = proc.MainWindowTitle; }
-                catch { continue; }
-
-                if (string.IsNullOrWhiteSpace(title) || title.Length > 120) continue;
-
-                var (artist, track) = ParseTitle(title);
-                if (track.Length == 0) continue;
-
-                var trackInfo = new TrackInfo(track, artist, string.Empty, string.Empty,
-                    FriendlyName(procName), procName, string.Empty, string.Empty, TimeSpan.Zero);
-                return new MediaSnapshot
+                // Process 对象持有进程句柄：每 5 秒扫描一次且数量可达数百，
+                // 必须逐个 Dispose，否则长期运行会累积句柄导致不稳定。
+                try
                 {
-                    Track = trackInfo,
-                    Source = MediaSourceKind.WindowTitle,
-                    Status = PlaybackStatus.Playing,
-                    CanPlayPause = false,
-                    CanNext = false,
-                    CanPrevious = false,
-                    CanSeek = false,
-                    HasVolumeControl = false,
-                    HasLyrics = false,
-                };
+                    string procName;
+                    try { procName = proc.ProcessName; }
+                    catch { continue; }
+
+                    if (!IsKnownPlayer(procName)) continue;
+
+                    IntPtr hwnd;
+                    try { hwnd = proc.MainWindowHandle; }
+                    catch { continue; }
+                    if (hwnd == IntPtr.Zero) continue;
+
+                    string title;
+                    try { title = proc.MainWindowTitle; }
+                    catch { continue; }
+
+                    if (string.IsNullOrWhiteSpace(title) || title.Length > 120) continue;
+
+                    var (artist, track) = ParseTitle(title);
+                    if (track.Length == 0) continue;
+
+                    var trackInfo = new TrackInfo(track, artist, string.Empty, string.Empty,
+                        FriendlyName(procName), procName, string.Empty, string.Empty, TimeSpan.Zero);
+                    return new MediaSnapshot
+                    {
+                        Track = trackInfo,
+                        Source = MediaSourceKind.WindowTitle,
+                        Status = PlaybackStatus.Playing,
+                        CanPlayPause = false,
+                        CanNext = false,
+                        CanPrevious = false,
+                        CanSeek = false,
+                        HasVolumeControl = false,
+                        HasLyrics = false,
+                    };
+                }
+                finally
+                {
+                    proc.Dispose();
+                }
             }
         }
         catch (Exception ex)
         {
             AppLogger.Warn($"WindowTitle scan failed: {ex.Message}");
+        }
+        finally
+        {
+            foreach (var p in procs) { try { p.Dispose(); } catch { /* ignore */ } }
         }
 
         return null;
@@ -123,6 +144,3 @@ public sealed class WindowTitleMediaProvider
         return (string.Empty, t);
     }
 }
-
-
-
