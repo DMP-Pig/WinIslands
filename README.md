@@ -8,6 +8,13 @@
 
 > **说明 / Note**: 以简体中文为标准 · Simplified Chinese is the standard reference.
 
+- **🚀 全面升级 120FPS 动画（1.3.0）**：所有动画从 60FPS 升级至 120FPS，展开/收起、卡拉OK歌词逐字高亮、弹簧动画等均以显示刷新率渲染（CompositionTarget.Rendering），帧率独立插值，丝滑无卡顿。
+- **🎵 卡拉OK歌词渲染重构（1.3.0）**：使用 CompositionTarget.Rendering 替代固定 16ms 定时器，帧率独立插值（ - exp(-dt × 42)），无论屏幕刷新率如何均保持流畅。
+- **⚙️ 弹簧动画 GC 压力消除（1.3.0）**：SpringEase / SoftSpringEase 改用预计算缓存，避免每次调用创建新对象。
+- **🖼️ 高质量位图缩放（1.3.0）**：添加 RenderOptions.BitmapScalingMode=HighQuality，封面图片渲染更清晰。
+- **📊 波形与歌词定时器优化（1.3.0）**：波形低功耗定时器 33ms→8ms，歌词滚动定时器 16ms→8ms，响应更及时。
+- **🌐 官网「一眼看懂」模块修复（1.3.0）**：紧凑态灵动岛宽度增加，添加溢出控制，文字不再超出范围。
+
 ---
 
 

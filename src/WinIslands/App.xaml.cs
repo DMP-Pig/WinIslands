@@ -83,7 +83,8 @@ public partial class App : Application
             args.SetObserved();
         };
 
-        AppPaths.EnsureDirectories();
+
+AppPaths.EnsureDirectories();
         AppLogger.Info($"WinIslands starting. PID={Environment.ProcessId}");
 
         // ── Single instance ──

@@ -133,7 +133,7 @@ public sealed class IslandViewModel : ObservableObject, IDisposable
         _coordinator.SessionsChanged += OnSessionsChanged;
         RefreshMediaSessions();
         Localization.LanguageChanged += OnLanguageChanged;
-        _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) }; // 进度插值 5Hz：进度条按秒显示足够，逐字卡拉OK由控件内部按墙钟连续推进（60fps），降低播放时 CPU 占用
+        _progressTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(200) }; // 进度插值 5Hz：进度条按秒显示足够，逐字卡拉OK由控件内部按 CompositionTarget.Rendering 连续推进，降低播放时 CPU 占用
         _progressTimer.Tick += (_, _) => AdvanceProgress();
         // 不立即启动：有媒体快照时（OnSnapshotChanged）才启动，空闲/无媒体时停用，降低后台占用
 

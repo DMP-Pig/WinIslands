@@ -12,7 +12,9 @@
         ResizeMode="NoResize"
         Width="400" Height="400"
         UseLayoutRounding="True"
-        SnapsToDevicePixels="True">
+        SnapsToDevicePixels="True"
+        RenderOptions.BitmapScalingMode="HighQuality"
+        RenderOptions.EdgeMode="Uninitialized">
 
     <Window.Resources>
         <ResourceDictionary>

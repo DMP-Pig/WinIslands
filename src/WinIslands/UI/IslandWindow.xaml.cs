@@ -179,7 +179,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
     private readonly EventHandler<AppSettings> _onSettingsChanged;
     private NotifyCollectionChangedEventHandler? _historyChangedHandler;
     private bool _waveRendering;                  // 波纹渲染中（已挂接合成帧事件）
-    private DispatcherTimer? _waveTimer;                  // 低功耗模式：波纹降帧定时器（~30fps）
+    private DispatcherTimer? _waveTimer;                  // 低功耗模式：波纹定时器（~120fps）
     private double _lastWaveTime;                 // 上一帧时间（秒），用于帧率无关平滑
     private readonly System.Diagnostics.Stopwatch _waveClock = System.Diagnostics.Stopwatch.StartNew();
     private readonly List<ScaleTransform> _waveBarsExpanded = new();
@@ -299,10 +299,10 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             }
         };
 
-        _lyricsScrollTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) };
+        _lyricsScrollTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(8) }; // 120fps
         _lyricsScrollTimer.Tick += (_, _) => SmoothScrollStep();
 
-        // 声音波纹：挂接合成帧事件，按显示器刷新率（~60fps）驱动，空闲时摘除不占 CPU
+        // 声音波纹：挂接合成帧事件，按显示器刷新率驱动，空闲时摘除不占 CPU
         if (WaveBar1 is not null)
         {
             _waveBarsExpanded.AddRange(new[] { WaveBar1, WaveBar2, WaveBar3, WaveBar4, WaveBar5, WaveBar6, WaveBar7 });
@@ -995,7 +995,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         var dur = (int)Math.Clamp(styleMs * 0.72, 200, 900);
         var sb = new Storyboard();
         AddAnim(sb, GlassLayer, UIElement.OpacityProperty, target, dur, styleEase);
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps
+        Timeline.SetDesiredFrameRate(sb, 120); // 120fps（跟随显示器刷新率）
         _glassAnimSb = sb;
         sb.Begin();
     }
@@ -1235,7 +1235,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         var sb = new Storyboard();
         AddAnim(sb, Card, FrameworkElement.WidthProperty, CompactWidth, (int)dur, styleEase);
         AddAnim(sb, Card, FrameworkElement.HeightProperty, CompactHeight, (int)dur, styleEase);
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
+        Timeline.SetDesiredFrameRate(sb, 120); // 120fps（跟随显示器刷新率）
         _currentStoryboard = sb; // 更新引用：防止 AnimateCard 完成回调覆盖新尺寸
         sb.Begin();
     }
@@ -1254,7 +1254,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         AddAnim(sb, CompactPushCard, UIElement.OpacityProperty, 1, (int)(220 * lm), smooth);
         AddAnim(sb, CompactPushScale, ScaleTransform.ScaleXProperty, 1, scaleDur, styleEase);
         AddAnim(sb, CompactPushScale, ScaleTransform.ScaleYProperty, 1, scaleDur, styleEase);
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
+        Timeline.SetDesiredFrameRate(sb, 120); // 120fps（跟随显示器刷新率）
         sb.Begin();
     }
     /// <summary>右键菜单主题色（圆角液态玻璃）。</summary>
@@ -1369,7 +1369,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             BigArt.Opacity = 0.35;
             var sbA = new Storyboard();
             AddAnim(sbA, BigArt, UIElement.OpacityProperty, 1, (int)(dur * lm), smooth);
-            Timeline.SetDesiredFrameRate(sbA, 60);
+            Timeline.SetDesiredFrameRate(sbA, 120);
             sbA.Begin();
         }
         if (BigArtScale is not null)
@@ -1380,7 +1380,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             var sbS = new Storyboard();
             AddAnim(sbS, BigArtScale, ScaleTransform.ScaleXProperty, 1, (int)(dur * lm), smooth);
             AddAnim(sbS, BigArtScale, ScaleTransform.ScaleYProperty, 1, (int)(dur * lm), smooth);
-            Timeline.SetDesiredFrameRate(sbS, 60);
+            Timeline.SetDesiredFrameRate(sbS, 120);
             sbS.Begin();
         }
         // 展开 Hero 大封面背景：淡入
@@ -1390,7 +1390,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             HeroCard.Opacity = 0.35;
             var sbH = new Storyboard();
             AddAnim(sbH, HeroCard, UIElement.OpacityProperty, 1, (int)(dur * lm), smooth);
-            Timeline.SetDesiredFrameRate(sbH, 60);
+            Timeline.SetDesiredFrameRate(sbH, 120);
             sbH.Begin();
         }
         // 紧凑行歌曲封面（数据模板内，用 Tag 定位后淡入）
@@ -1401,7 +1401,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             b.Opacity = 0.35;
             var sbC = new Storyboard();
             AddAnim(sbC, b, UIElement.OpacityProperty, 1, (int)(dur * lm), smooth);
-            Timeline.SetDesiredFrameRate(sbC, 60);
+            Timeline.SetDesiredFrameRate(sbC, 120);
             sbC.Begin();
         }
     }
@@ -1425,7 +1425,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         var on = HasWave;
         ApplyWaveStyleVisibility();
         var lowPower = _settings.Current.LowPowerMode;
-        // 三态：关闭 / 普通（CompositionTarget 60fps）/ 低功耗定时器（~30fps）
+        // 三态：关闭 / 普通（CompositionTarget.Rendering 跟随显示器）/ 低功耗定时器（~120fps）
         var wantTimer = on && lowPower;
         var wantComposition = on && !lowPower;
         var isTimer = _waveTimer is not null;
@@ -1436,7 +1436,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             if (wantTimer)
             {
                 _waveRendering = true;
-                _waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(33) };     // 60fps（1.2.5 性能优化）
+                _waveTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(8) };     // CompositionTarget.Rendering（跟随显示器刷新率）
                 _waveTimer.Tick += (_, _) => OnWaveFrame(null, EventArgs.Empty);
                 _waveTimer.Start();
             }
@@ -1855,7 +1855,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         Storyboard.SetTargetProperty(fade, new PropertyPath(OpacityProperty));
         sb.Children.Add(fade);
         sb.Completed += (_, _) => { if (!_vm.IsVisible) Hide(); };
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
+        Timeline.SetDesiredFrameRate(sb, 120); // 120fps（跟随显示器刷新率）
         sb.Begin();
     }
 
@@ -1869,7 +1869,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         Storyboard.SetTarget(fade, this);
         Storyboard.SetTargetProperty(fade, new PropertyPath(OpacityProperty));
         sb.Children.Add(fade);
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
+        Timeline.SetDesiredFrameRate(sb, 120); // 120fps（跟随显示器刷新率）
         sb.Begin();
     }
 
@@ -2048,7 +2048,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
             }
         };
         _currentStoryboard = sb;
-        Timeline.SetDesiredFrameRate(sb, 60); // 稳定 60fps（120Hz 显示器上也按 60fps 渲染，减少开销不掉帧）
+        Timeline.SetDesiredFrameRate(sb, 120); // 120fps（跟随显示器刷新率）
         sb.Begin();
     }
 
@@ -2285,7 +2285,7 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         AddAnim(sb, this, Window.LeftProperty, left, 320, easing);
         AddAnim(sb, this, Window.TopProperty, top, 320, easing);
         sb.Completed += (_, _) => { if (ReferenceEquals(_positionStoryboard, sb)) _positionStoryboard = null; };
-        Timeline.SetDesiredFrameRate(sb, 60);
+        Timeline.SetDesiredFrameRate(sb, 120);
         _positionStoryboard = sb;
         sb.Begin();
     }

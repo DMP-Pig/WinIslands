@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -11,7 +12,7 @@ using Brushes = System.Windows.Media.Brushes;
 namespace WinIslands.UI;
 
 /// <summary>
-/// 逐字卡拉OK歌词控件（带平滑过渡动画，60fps）。
+/// 逐字卡拉OK歌词控件（带平滑过渡动画，120fps）。
 /// 两种模式：
 ///  1. 逐字模式（有 <see cref="Words"/>，来自 AMLL TTML）：每个字/词按各自独立起止时间
 ///     从左到右点亮（字间带交叉过渡的缓动曲线，动画连贯不顿挫），控件内部按墙钟在两次位置更新之间连续推进；
@@ -34,7 +35,7 @@ public class KaraokeTextBlock : TextBlock
         DependencyProperty.Register(nameof(Words), typeof(IReadOnlyList<TtmlWord>), typeof(KaraokeTextBlock),
             new FrameworkPropertyMetadata(null, OnRenderPropsChanged));
 
-    /// <summary>当前播放位置（秒，绝对时间，含歌词偏移；由 ViewModel 以约 5Hz 更新，控件内部按墙钟 60fps 连续推进）。</summary>
+    /// <summary>当前播放位置（秒，绝对时间，含歌词偏移；由 ViewModel 以约 5Hz 更新，控件内部按墙钟按显示器刷新率连续推进）。</summary>
     public static readonly DependencyProperty PositionSecondsProperty =
         DependencyProperty.Register(nameof(PositionSeconds), typeof(double), typeof(KaraokeTextBlock),
             new FrameworkPropertyMetadata(0.0, (d, e) => ((KaraokeTextBlock)d).OnPositionChanged((double)e.NewValue)));
@@ -56,7 +57,9 @@ public class KaraokeTextBlock : TextBlock
         DependencyProperty.Register(nameof(KaraokeSpeed), typeof(double), typeof(KaraokeTextBlock),
             new FrameworkPropertyMetadata(1.0, OnRenderPropsChanged));
 
-    private readonly DispatcherTimer _animTimer;
+    private bool _renderingSubscribed;     // CompositionTarget.Rendering 已挂接
+    private double _lastTickTime;          // 上一帧时间（秒），用于帧率无关平滑
+    private readonly Stopwatch _tickClock = Stopwatch.StartNew();
     private double _currentFraction;   // 当前已点亮比例（0..1，整行均分模式平滑推进）
     private double _targetFraction;    // 目标比例（0..1，来自 HighlightFraction）
     private string _lastText = string.Empty;
@@ -75,15 +78,14 @@ public class KaraokeTextBlock : TextBlock
 
     public KaraokeTextBlock()
     {
-        _animTimer = new DispatcherTimer { Interval = TimeSpan.FromMilliseconds(16) }; // ≈60fps
-        _animTimer.Tick += (_, _) => TickAnimation();
+        // 120fps：使用 CompositionTarget.Rendering（跟随显示器刷新率），不再用 DispatcherTimer
         IsVisibleChanged += (_, _) =>
         {
-            if (!IsVisible) { _animTimer.Stop(); return; }
+            if (!IsVisible) { StopAnimation(); return; }
             if (_hasWords && IsPlaying)
             {
                 _posBaseTimeUtc = DateTime.UtcNow; // 重新可见：立即校准墙钟基准（避免位置跳变）
-                if (!_animTimer.IsEnabled) _animTimer.Start();
+                if (!_renderingSubscribed) StartAnimation();
             }
             else RefreshTarget();
         };
@@ -146,22 +148,22 @@ public class KaraokeTextBlock : TextBlock
         if (!_hasWords || !IsVisible) return;
         if (IsPlaying)
         {
-            // 仅当播放位置落在这句的逐字时间轴范围内才需要 60fps 动画；
+            // 仅当播放位置落在这句的逐字时间轴范围内才需要动画；
             // 完全未开始/已结束的行渲染一次后停止（展开列表每行都是本控件，避免动画风暴）
             if (NeedsAnimation(pos))
             {
-                if (!_animTimer.IsEnabled) _animTimer.Start();
+                if (!_renderingSubscribed) StartAnimation();
             }
             else
             {
-                _animTimer.Stop();
+                StopAnimation();
                 RenderWords(pos);
             }
         }
         else
         {
             RenderWords(_posBase);
-            _animTimer.Stop();
+            StopAnimation();
         }
     }
 
@@ -181,22 +183,22 @@ public class KaraokeTextBlock : TextBlock
 
         if (_hasWords)
         {
-            // 逐字模式：播放中由 60fps 定时器按墙钟连续推进；暂停/启动恢复直接按最近位置渲染
+            // 逐字模式：播放中由 CompositionTarget.Rendering 按墙钟连续推进；暂停/启动恢复直接按最近位置渲染
             if (IsPlaying)
             {
                 if (NeedsAnimation(_posBase))
                 {
-                    if (!_animTimer.IsEnabled) _animTimer.Start();
+                    if (!_renderingSubscribed) StartAnimation();
                 }
                 else
                 {
-                    _animTimer.Stop();
+                    StopAnimation();
                     RenderWords(_posBase);
                 }
                 return;
             }
 
-            _animTimer.Stop();
+            StopAnimation();
             RenderWords(_posBase);
             return;
         }
@@ -211,12 +213,12 @@ public class KaraokeTextBlock : TextBlock
             if (IsPlaying)
             {
                 _currentFraction = 0; // 播放中换句：从 0 开始，第一个字先不亮
-                _animTimer.Start();
+                StartAnimation();
             }
             else
             {
                 _currentFraction = _targetFraction; // 暂停/启动恢复换行：直接显示目标高亮
-                _animTimer.Stop();
+                StopAnimation();
             }
             Render();
             return;
@@ -225,13 +227,32 @@ public class KaraokeTextBlock : TextBlock
         if (Math.Abs(_currentFraction - _targetFraction) < 0.002)
         {
             _currentFraction = _targetFraction;
-            _animTimer.Stop();
+            StopAnimation();
             Render();
             return;
         }
 
-        if (!_animTimer.IsEnabled) _animTimer.Start();
+        if (!_renderingSubscribed) StartAnimation();
     }
+
+    /// <summary>挂接 CompositionTarget.Rendering（跟随显示器刷新率，120Hz 显示器上 120fps）。</summary>
+    private void StartAnimation()
+    {
+        if (_renderingSubscribed) return;
+        _renderingSubscribed = true;
+        _lastTickTime = _tickClock.Elapsed.TotalSeconds;
+        CompositionTarget.Rendering += OnRenderingFrame;
+    }
+
+    /// <summary>摘除 CompositionTarget.Rendering。</summary>
+    private void StopAnimation()
+    {
+        if (!_renderingSubscribed) return;
+        _renderingSubscribed = false;
+        CompositionTarget.Rendering -= OnRenderingFrame;
+    }
+
+    private void OnRenderingFrame(object? sender, EventArgs e) => TickAnimation();
 
     private void TickAnimation()
     {
@@ -239,29 +260,34 @@ public class KaraokeTextBlock : TextBlock
         {
             if (IsPlaying)
             {
-                // 两次 ViewModel 位置更新之间按墙钟连续推进 → 60fps 丝滑，不“一动一停”
+                // 两次 ViewModel 位置更新之间按墙钟连续推进 → 帧率自适应丝滑，不“一动一停”
                 // 按真实时间插值（不乘速度倍率）：ViewModel 每 200ms 用真实播放位置校正一次，
                 // 若在此处乘倍率会产生「先超前、再被拉回」的每 200ms 回跳，看起来卡顿。
                 // 「高亮更快」改为在 RenderWords 内缩放每个字的进度（见 speedScale），效果相同但不回跳。
                 var pos = _posBase + (DateTime.UtcNow - _posBaseTimeUtc).TotalSeconds;
                 RenderWords(pos);
                 // 该行已全部点亮/尚未开始：静态即可，停止动画（避免列表里多行同时空转）
-                if (!NeedsAnimation(pos)) _animTimer.Stop();
+                if (!NeedsAnimation(pos)) StopAnimation();
             }
             else
             {
-                _animTimer.Stop();
+                StopAnimation();
                 RenderWords(_posBase);
             }
             return;
         }
 
         // 整行均分模式：缓动逼近（差距大时走得快、接近时变慢）
-        _currentFraction += (_targetFraction - _currentFraction) * 0.5;
+        var nowTick = _tickClock.Elapsed.TotalSeconds;
+        var dtTick = Math.Min(0.05, Math.Max(0.001, nowTick - _lastTickTime));
+        _lastTickTime = nowTick;
+        // 帧率无关指数平滑：rate=42 在 60fps 下等效于旧的 0.5 系数，120fps 下自动适配
+        var lerpAlpha = 1.0 - Math.Exp(-dtTick * 42.0);
+        _currentFraction += (_targetFraction - _currentFraction) * lerpAlpha;
         if (Math.Abs(_currentFraction - _targetFraction) < 0.002)
         {
             _currentFraction = _targetFraction;
-            _animTimer.Stop();
+            StopAnimation();
         }
         Render();
     }
@@ -271,7 +297,7 @@ public class KaraokeTextBlock : TextBlock
         var text = KaraokeText ?? string.Empty;
         if (_words.Count == 0) return;
 
-        // 换句/首次时重建每个字的 Run（文本变化才触发布局）；随后仅更新颜色（60fps 只重绘）
+        // 换句/首次时重建每个字的 Run（文本变化才触发布局）；随后仅更新颜色（只重绘不布局）
         if (!ReferenceEquals(_renderedWords, _words) || _wordRuns.Count != _words.Count)
         {
             _wordRuns.Clear();
@@ -301,7 +327,7 @@ public class KaraokeTextBlock : TextBlock
             var raw = (pos - (w.BeginSec - lead)) / (dur + lead) * speedScale;
             var frac = SmoothStep(raw); // ease-in-out：起笔/收笔有加减速，匀速的机械感消失
             var c = Lerp(bs, hl, frac);
-            // 只在颜色字节值真正变化时才新建画刷（60fps 下多数帧的色差不足 1 字节），
+            // 只在颜色字节值真正变化时才新建画刷（高帧率下多数帧的色差不足 1 字节），
             // 避免每帧分配 SolidColorBrush 造成 GC 抖动而掉帧。
             if (_wordRuns[i].Foreground is not System.Windows.Media.SolidColorBrush prev || !ColorEqual(prev.Color, c))
                 _wordRuns[i].Foreground = Frozen(new System.Windows.Media.SolidColorBrush(c));
