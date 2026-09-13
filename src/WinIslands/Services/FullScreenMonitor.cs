@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Windows.Threading;
 
 namespace WinIslands.Services;
@@ -67,6 +68,12 @@ public sealed class FullScreenMonitor : IDisposable
         if (pid == Environment.ProcessId) return false;
         if (!Native.IsWindowVisible(hwnd)) return false;
 
+        // 排除 Windows 桌面窗口（Progman/WorkerW），点击桌面不应触发全屏隐藏
+        var sb = new StringBuilder(256);
+        Native.GetClassName(hwnd, sb, sb.Capacity);
+        var className = sb.ToString();
+        if (className is "Progman" or "WorkerW") return false;
+
         Native.GetWindowRect(hwnd, out var rect);
         if (rect.Right - rect.Left < 200 || rect.Bottom - rect.Top < 200) return false;
 
@@ -112,6 +119,9 @@ public sealed class FullScreenMonitor : IDisposable
         [DllImport("user32.dll", CharSet = CharSet.Unicode)]
         [return: MarshalAs(UnmanagedType.Bool)]
         public static extern bool GetMonitorInfo(IntPtr hMonitor, ref MonitorInfo lpmi);
+
+        [DllImport("user32.dll", CharSet = CharSet.Unicode)]
+        public static extern int GetClassName(IntPtr hWnd, StringBuilder lpClassName, int nMaxCount);
 
         [StructLayout(LayoutKind.Sequential)]
         public struct RECT { public int Left, Top, Right, Bottom; }

@@ -1823,8 +1823,13 @@ public partial class IslandWindow : Window, INotifyPropertyChanged
         if (!IsLoaded) return;
         if (!IsVisible)
         {
+            // 先恢复外观与尺寸，避免隐藏期间被压缩导致重新显示时两侧被裁切
+            ApplyAppearance();
+            ApplySize();
             Reposition();
             Show();
+            // 显示后以 Loaded 优先级再定位一次，确保窗口刚 Show 时尺寸已生效
+            Dispatcher.BeginInvoke(Reposition, System.Windows.Threading.DispatcherPriority.Loaded);
         }
 
         if (instant)
